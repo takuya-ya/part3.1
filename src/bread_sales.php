@@ -13,7 +13,7 @@ const SALES_PRICE = [
     10 => 300
 ];
 const SPLIT_LENGTH = 2;
-const TAX = 1.1;
+const TAX = 10;
 
 function getInputs():array {
     $inputs = $_SERVER['argv'];
@@ -38,7 +38,9 @@ function calTotalSales(array $bledSalesNums):int {
             $bledSales += $bledSalesNum * SALES_PRICE[$productNum];
     }
     // 商品ごとの売上を合算して税込み金額に変換
-    return round(($bledSales * (TAX*100))/100);
+    // 修正；そもそも小数点を使わない、定数TAXを整数で行う事でroundが不要になる
+    // return round(($bledSales * (TAX*100))/100);
+    return $bledSales * (TAX+100)/100;
 }
 
 function maxSales(array $bledSalesNums):array {
@@ -51,21 +53,34 @@ function minSales(array $bledSalesNums):array {
     return array_keys($bledSalesNums, min($bledSalesNums));
 }
 
-function display(int $totalSales, array $maxSalesNum, array $minSalesNum):void {
-        // 合計売上を出力
-        echo "$totalSales" . PHP_EOL;
+// 修正：関数の引き値がな長い(...可変長引数を使用する)
+// function display(int $totalSales, array $maxSalesNum, array $minSalesNum):void {
+function display(array ...$results):void {
 
-        // 最多販売の商品番号を出力
-        foreach ($maxSalesNum as $maxNum) {
-            echo "$maxNum" . " ";
-        }
-        echo PHP_EOL;
+    // 削減：それぞれを個別で呼び出さない。引き値を全て配列に入れて、ループで出力する。自分の回答では、出力の途中でechoしていて不細工と思っていたのでその手があったかと思った。
 
-        // 最少販売の商品番号を出力
-        foreach ($minSalesNum as $minNum) {
-            echo "$minNum" . " ";
+        // // 合計売上を出力
+        // echo "$totalSales" . PHP_EOL;
+
+        // // 最多販売の商品番号を出力
+        // // 修正：配列の要素をまとめて文字列として出力するならimplodeがある
+        // foreach ($maxSalesNum as $maxNum) {
+        //     echo "$maxNum" . " ";
+        // }
+        // echo PHP_EOL;
+
+        // // 最少販売の商品番号を出力
+        // // 修正：配列の要素をまとめて文字列として出力するならimplodeがある
+        // foreach ($minSalesNum as $minNum) {
+        //     echo "$minNum" . " ";
+        // }
+        // echo PHP_EOL;
+
+        foreach ($results as $result) {
+            // 配列の値でintがあるが、型は[0] => int　の配列なので、implodeでも処理できる
+            // ↑嘘。
+            echo implode(' ', $result) . PHP_EOL;
         }
-        echo PHP_EOL;
 }
 
 $bledSalesNums = getInputs();
@@ -76,4 +91,6 @@ $maxSalesNum = maxSales($bledSalesNums);
 // 最も販売しなかった商品番号
 $minSalesNum = minSales($bledSalesNums);
 // アウトプット
-display($totalSales, $maxSalesNum, $minSalesNum);
+// エラー：[0]の型がint、配列に変更する必要があった。imploadで処理出来る形にする必要がある。引数に[]する事で即座にarrayになるとのこと
+// display($totalSales, $maxSalesNum, $minSalesNum);
+display([$totalSales], $maxSalesNum, $minSalesNum);
