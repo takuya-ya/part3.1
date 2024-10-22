@@ -43,9 +43,22 @@ const SALEAS_PRICE = [
 const SPLIT_LENGTH = 2;
 
 function getInputs() {
-      $inputs = $_SERVER['argv'];
-      // [0]=>array([0]>1 [1]>10)
-      return array_chunk(array_slice($inputs, 1), SPLIT_LENGTH);
-  }
+    $inputs = $_SERVER['argv'];
+    // [0]=>array([0]>1 [1]>10)
+    $inputs = array_chunk(array_slice($inputs, 1), SPLIT_LENGTH);
+    $bledSalesNum = [];
+    // 商品番号=>販売個数の配列データ構造に変換
+    foreach ($inputs as $input) {
+            $bledSalesNum[$input[0]] = $input[1];
+    }
+    return $bledSalesNum;
+}
 
-$inputs = getInputs();
+function calTotalSales(array $bledSalesNum):int {
+    
+
+}
+
+$bledSalesNum = getInputs();
+// 合計売上を計算
+$totalSales = calTotalSales($bledSalesNum);
