@@ -28,7 +28,7 @@
     // 販売個数の最も多い商品番号
     // 販売個数の最も少ない商品番号
 
-const SALEAS_PRICE = [
+const SALES_PRICE = [
     1 => 100,
     2 => 120,
     3 => 150,
@@ -41,24 +41,40 @@ const SALEAS_PRICE = [
     10 => 300
 ];
 const SPLIT_LENGTH = 2;
+const TAX = 1.08;
 
 function getInputs() {
     $inputs = $_SERVER['argv'];
     // [0]=>array([0]>1 [1]>10)
     $inputs = array_chunk(array_slice($inputs, 1), SPLIT_LENGTH);
-    $bledSalesNum = [];
+    $bledSalesNums = [];
     // 商品番号=>販売個数の配列データ構造に変換
     foreach ($inputs as $input) {
-            $bledSalesNum[$input[0]] = $input[1];
+            $bledSalesNums[$input[0]] = $input[1];
     }
-    return $bledSalesNum;
+    return $bledSalesNums;
 }
 
-function calTotalSales(array $bledSalesNum):int {
-    
-
+function calTotalSales(array $bledSalesNums):int {
+    $bledSales = [];
+    // 商品番号=>販売個数の連想配列に変換
+    // 商品毎の売上
+    foreach ($bledSalesNums as $productNum => $bledSalesNum) {
+            $sales = [$bledSalesNum * SALES_PRICE[$productNum]];
+            $bledSales = array_merge($bledSales, $sales);
+    }
+    // 商品ごとの売上を合算して税込み金額に変換
+    return round((array_sum($bledSales) * (TAX*100))/100);
 }
 
-$bledSalesNum = getInputs();
+function maxSales(array $bledSalesNums):array {
+    // $maxSaleNum = array_keys($bledSalesNums, max($bledSalesNums));
+    // var_dump($maxSale);
+    return $b = [];
+}
+
+$bledSalesNums = getInputs();
 // 合計売上を計算
-$totalSales = calTotalSales($bledSalesNum);
+$totalSales = calTotalSales($bledSalesNums);
+// 最大販売個数商品
+$maxSalesNum = maxSales($bledSalesNums);
