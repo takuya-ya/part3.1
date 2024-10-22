@@ -68,13 +68,19 @@ function calTotalSales(array $bledSalesNums):int {
 }
 
 function maxSales(array $bledSalesNums):array {
-    // $maxSaleNum = array_keys($bledSalesNums, max($bledSalesNums));
-    // var_dump($maxSale);
-    return $b = [];
+    // 最大販売数量を求めて、その商品番号を抽出
+    return array_keys($bledSalesNums, max($bledSalesNums));
+}
+
+function minSales(array $bledSalesNums):array {
+    // 最大販売数量を求めて、その商品番号を抽出
+    return array_keys($bledSalesNums, min($bledSalesNums));
 }
 
 $bledSalesNums = getInputs();
 // 合計売上を計算
 $totalSales = calTotalSales($bledSalesNums);
-// 最大販売個数商品
+// 最も販売した商品番号
 $maxSalesNum = maxSales($bledSalesNums);
+$minSalesNum = minSales($bledSalesNums);
+// display($bledSalesNums, $totalSales, $maxSalesNum, $minSalesNum);
