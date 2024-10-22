@@ -31,9 +31,26 @@ function groupChannelViewingTime(array $inputs):array
     }
     return $viewingTimesByChannel;
   }
+    // 全チャネルの合計視聴時間を計算
+  function totalViewingTime(array $viewingTimesByChannel):float {
+      $totalMins = [];
+      //配列に値としてチャネルの視聴時間を追加
+      foreach ($viewingTimesByChannel as $mins) {
+          $totalMins = array_merge($totalMins, $mins);
+      }
+    //配列の視聴時間を合計
+      $totalHour = array_sum($totalMins);
+    //   分数を時間に換算
+      $t = ($totalHour/60);
+    //小数点第一位までに四捨五入
+      return round($t, 1) . PHP_EOL;
+  }
 
   // アウトプット例に基づいて出力
   function displayViewingTime(array $viewingTimesByChannel):void {
+
+      //テレビの合計視聴時間を求める
+      echo totalViewingTime($viewingTimesByChannel);
       foreach ($viewingTimesByChannel as $channel => $mins) {
           // 不要。変数に代入せず、そのまま出力したいい。
           // $viewCount = count($mins);
@@ -50,10 +67,9 @@ function groupChannelViewingTime(array $inputs):array
   }
 
 
-
 // コマンドライン引数からチャンネル番号と視聴時間を取得する関数
 $inputs = getInput($argv);
 //チャンネル毎の視聴時間をグルーピング
 $viewingTimesByChannel = groupChannelViewingTime($inputs);
-// アウトプットを出力
+// アウトプットを出力　関数内でチャネル毎の合計視聴時間も計算
 displayViewingTime($viewingTimesByChannel);
