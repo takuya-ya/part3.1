@@ -1,15 +1,20 @@
 <?php
 
 declare(strict_types=1);
+// 修正：マジック定数を削除
+const SPLIT_LENGTH = 2;
 
 // コマンドライン引数からチャンネル番号と視聴時間を取得する関数
-function getInput(array $argv): array {
+// 修正：$argvはグローバル変数なので関数の引き値に指定する必要なし
+// function getInput(array $argv): array {
+function getInput() {
     // コマンドライン引数から最初の要素（スクリプト名）を除外し、チャンネル番号と視聴時間のペアに分割
-    return array_chunk(array_slice($argv,1), 2);
+    // 修正：マジック定数を削除
+    return array_chunk(array_slice($argv,1), SPLIT_LENGTH);
   }
 
 //チャンネル毎の視聴時間をグルーピング
-function groupChannelViewingTime(array $inputs):array
+function groupChannelViewingTime(array $inputs): array
 {
     $viewingTimesByChannel = [];
     // チャンネルごとの視聴時間を配列に格納　複数回視聴している場合は視聴時間を追記
@@ -31,26 +36,31 @@ function groupChannelViewingTime(array $inputs):array
     }
     return $viewingTimesByChannel;
   }
-    // 全チャネルの合計視聴時間を計算
-  function totalViewingTime(array $viewingTimesByChannel):float {
-      $totalMins = [];
-      //配列に値としてチャネルの視聴時間を追加
-      foreach ($viewingTimesByChannel as $mins) {
-          $totalMins = array_merge($totalMins, $mins);
-      }
-    //配列の視聴時間を合計
-      $totalHour = array_sum($totalMins);
-    //   分数を時間に換算
-      $t = ($totalHour/60);
+// 全チャネルの合計視聴時間を計算
+// 修正：関数名変更、viewingTimeなどのワードが多い為。変更した方が区別がつきやすい。
+//function totalViewingTime(array $viewingTimesByChannel):float {
+function calculateTotalHour(array $viewingTimesByChannel):float {
+    $totalMins = [];
+    //配列に値としてチャネルの視聴時間を追加
+    foreach ($viewingTimesByChannel as $mins) {
+        $totalMins = array_merge($totalMins, $mins);
+    }
+//配列の視聴時間を合計
+    $totalHour = array_sum($totalMins);
+//   分数を時間に換算
+// 修正　変数代入でなくそのまま出力
+    // $t = ($totalHour/60);
+    // return round($t, 1) . PHP_EOL;
+
     //小数点第一位までに四捨五入
-      return round($t, 1) . PHP_EOL;
-  }
+    return round(totalHour/60, 1) . PHP_EOL;
+}
 
   // アウトプット例に基づいて出力
   function displayViewingTime(array $viewingTimesByChannel):void {
 
       //テレビの合計視聴時間を求める
-      echo totalViewingTime($viewingTimesByChannel);
+      echo calculateTotalHour($viewingTimesByChannel);
       foreach ($viewingTimesByChannel as $channel => $mins) {
           // 不要。変数に代入せず、そのまま出力したいい。
           // $viewCount = count($mins);
@@ -62,13 +72,12 @@ function groupChannelViewingTime(array $inputs):array
           // "$channel" . '' . "$viewingTimeByChannel" . '' . "$viewCount";
 
           echo "$channel" . ' ' . array_sum($mins) . ' ' . count($mins) . PHP_EOL;
-
       }
   }
 
 
 // コマンドライン引数からチャンネル番号と視聴時間を取得する関数
-$inputs = getInput($argv);
+$inputs = getInput();
 //チャンネル毎の視聴時間をグルーピング
 $viewingTimesByChannel = groupChannelViewingTime($inputs);
 // アウトプットを出力　関数内でチャネル毎の合計視聴時間も計算
