@@ -1,22 +1,32 @@
 <?php
 
 declare(strict_types=1);
+
 // 修正：マジック定数を削除
 const SPLIT_LENGTH = 2;
 
 // コマンドライン引数からチャンネル番号と視聴時間を取得する関数
 // 修正：$argvはグローバル変数なので関数の引き値に指定する必要なし
 // function getInput(array $argv): array {
-function getInput() {
+/**
+ * @return int[][]
+ */
+function getinput()
+{
     // コマンドライン引数から最初の要素（スクリプト名）を除外し、チャンネル番号と視聴時間のペアに分割
     // 修正：マジック定数を削除
-    return array_chunk(array_slice($argv,1), SPLIT_LENGTH);
-  }
+    /** @phpstan-ignore variable.undefined */
+    return array_chunk(array_slice($argv, 1), SPLIT_LENGTH);
+}
 
 //チャンネル毎の視聴時間をグルーピング
+/**
+ * @param int[][] $inputs
+ * @return int [][]
+ */
 function groupChannelViewingTime(array $inputs): array
 {
-    $viewingTimesByChannel = [];
+    $viewingTimesByChan = [];
     // チャンネルごとの視聴時間を配列に格納　複数回視聴している場合は視聴時間を追記
     foreach ($inputs as $input) {
         $channel = $input[0];
@@ -26,23 +36,29 @@ function groupChannelViewingTime(array $inputs): array
         // 配列同士をmergeする為に、$minを配列化。複数形なのは、今回のループで初めての場合、ifを介さずそのまま連想配列の値になる為。
         $mins = [$min];
         // $chanを視聴済みの場合、既存配列に時間を追記
-        if (array_key_exists($channel,$viewingTimesByChannel)) {
+        if (array_key_exists($channel, $viewingTimesByChan)) {
             // エラー：
-            // $mins[] = array_merge($viewingTimesByChannel[$channel], $mins);
-            $mins = array_merge($viewingTimesByChannel[$channel], $mins);
-          }
+            // $mins[] = array_merge($viewingTimesByChan[$channel], $mins);
+            $mins = array_merge($viewingTimesByChan[$channel], $mins);
+        }
 
-        $viewingTimesByChannel[$channel] = $mins;
+        $viewingTimesByChan[$channel] = $mins;
     }
-    return $viewingTimesByChannel;
-  }
+    return $viewingTimesByChan;
+}
 // 全チャネルの合計視聴時間を計算
 // 修正：関数名変更、viewingTimeなどのワードが多い為。変更した方が区別がつきやすい。
-//function totalViewingTime(array $viewingTimesByChannel):float {
-function calculateTotalHour(array $viewingTimesByChannel):float {
+//function totalViewingTime(array $viewingTimesByChan):float {
+
+/**
+ * @param int[][] $viewingTimesByChan
+ * @return string
+ */
+function calculateTotalHour(array $viewingTimesByChan): string
+{
     $totalMins = [];
     //配列に値としてチャネルの視聴時間を追加
-    foreach ($viewingTimesByChannel as $mins) {
+    foreach ($viewingTimesByChan as $mins) {
         $totalMins = array_merge($totalMins, $mins);
     }
 //配列の視聴時間を合計
@@ -53,32 +69,36 @@ function calculateTotalHour(array $viewingTimesByChannel):float {
     // return round($t, 1) . PHP_EOL;
 
     //小数点第一位までに四捨五入
-    return round(totalHour/60, 1) . PHP_EOL;
+    return round($totalHour / 60, 1) . PHP_EOL;
 }
 
   // アウトプット例に基づいて出力
-  function displayViewingTime(array $viewingTimesByChannel):void {
+/**
+ * @param int[][] $viewingTimesByChan
+ */
+function displayViewingTime(array $viewingTimesByChan): void
+{
 
       //テレビの合計視聴時間を求める
-      echo calculateTotalHour($viewingTimesByChannel);
-      foreach ($viewingTimesByChannel as $channel => $mins) {
+      echo calculateTotalHour($viewingTimesByChan);
+    foreach ($viewingTimesByChan as $channel => $mins) {
           // 不要。変数に代入せず、そのまま出力したいい。
           // $viewCount = count($mins);
 
           // 不要。値が一つでもarray_sumで出力できる。それにこの場合、値が一つの場合の出力方法が指定されていないので、最後のechoで値でなく配列が文字列として出力されてしまいエラーになる。
           // if ($viewCount >= 2) {
-          //   $viewingTimeByChannel = array_sum($mins);}
+          //   $viewingTimeByChan = array_sum($mins);}
           // ミス：出力方法
-          // "$channel" . '' . "$viewingTimeByChannel" . '' . "$viewCount";
+          // "$channel" . '' . "$viewingTimeByChan" . '' . "$viewCount";
 
-          echo "$channel" . ' ' . array_sum($mins) . ' ' . count($mins) . PHP_EOL;
-      }
-  }
+        echo "$channel" . ' ' . array_sum($mins) . ' ' . count($mins) . PHP_EOL;
+    }
+}
 
 
 // コマンドライン引数からチャンネル番号と視聴時間を取得する関数
 $inputs = getInput();
 //チャンネル毎の視聴時間をグルーピング
-$viewingTimesByChannel = groupChannelViewingTime($inputs);
+$viewingTimesByChan = groupChannelViewingTime($inputs);
 // アウトプットを出力　関数内でチャネル毎の合計視聴時間も計算
-displayViewingTime($viewingTimesByChannel);
+displayViewingTime($viewingTimesByChan);

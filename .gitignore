@@ -1,0 +1,9 @@
+src/vendor/composer/autoload_classmap.php
+src/vendor/autoload.php
+src/composer.json
+src/vendor/composer/autoload_namespaces.php
+src/vendor/composer/autoload_real.php
+src/vendor/composer/autoload_psr4.php
+src/vendor/composer/autoload_static.php
+src/vendor/composer/ClassLoader.php
+src/vendor/composer/LICENSE
