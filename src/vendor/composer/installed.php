@@ -46,6 +46,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'phpstan/phpstan' => array(
+            'pretty_version' => '1.12.7',
+            'version' => '1.12.7.0',
+            'reference' => 'dc2b9976bd8b0f84ec9b0e50cc35378551de7af0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpstan/phpstan',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'psr/container' => array(
             'pretty_version' => '2.0.2',
             'version' => '2.0.2.0',
