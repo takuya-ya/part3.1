@@ -8,9 +8,11 @@
     },
     "require": {},
     "require-dev": {
-            "squizlabs/php_codesniffer": "^3.0"
+            "squizlabs/php_codesniffer": "^3.0",
+            "phpmd/phpmd" : "@stable"
         },
     "scripts": {
-            "phpcs": "vendor/bin/phpcs --standard=phpcs.xml"
+            "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
+            "phpmd": "vendor/bin/phpmd bread_sales.php text phpmd.xml --suffixes php --exclude vendor"
     }
 }
