@@ -2,21 +2,17 @@
 
 declare(strict_types=1);
 
-// 修正：マジック定数を削除
 const SPLIT_LENGTH = 2;
 
-// コマンドライン引数からチャンネル番号と視聴時間を取得する関数
-// 修正：$argvはグローバル変数なので関数の引き値に指定する必要なし
-// function getInput(array $argv): array {
 /**
  * @return int[][]
  */
-function getinput()
+// テスト用：スクリプト引き数をとっていたが、テスト用に関数に引数を渡す
+function getinput(array $argv): array
 {
     // コマンドライン引数から最初の要素（スクリプト名）を除外し、チャンネル番号と視聴時間のペアに分割
     // 修正：マジック定数を削除
     /** @phpstan-ignore variable.undefined */
-    global $argv;
     return array_chunk(array_slice($argv, 1), SPLIT_LENGTH);
 }
 
@@ -96,10 +92,9 @@ function displayViewingTime(array $viewingTimesByChan): void
     }
 }
 
+// スクリプト引き数をとっていたが、テスト用に関数に引数を渡す
+$argv = [];
+$inputs = getInput($argv);
 
-// コマンドライン引数からチャンネル番号と視聴時間を取得する関数
-$inputs = getInput();
-//チャンネル毎の視聴時間をグルーピング
 $viewingTimesByChan = groupChannelViewingTime($inputs);
-// アウトプットを出力　関数内でチャネル毎の合計視聴時間も計算
 displayViewingTime($viewingTimesByChan);
