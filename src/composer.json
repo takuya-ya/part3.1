@@ -7,14 +7,15 @@
         }
     },
     "require-dev": {
-            "squizlabs/php_codesniffer": "^3.0",
-            "phpmd/phpmd" : "@stable",
+        "squizlabs/php_codesniffer": "^3.0",
+        "phpmd/phpmd" : "@stable",
         "phpstan/phpstan": "^1.12",
         "phpunit/phpunit": "^11.4"
         },
     "scripts": {
             "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
             "phpmd": "vendor/bin/phpmd bread_sales.php text phpmd.xml --suffixes php --exclude vendor",
-            "phpstan": "vendor/bin/phpstan analyse bread_sales.php"
+            "phpstan": "vendor/bin/phpstan analyse bread_sales.php",
+            "phpunit": "vendor/bin/phpunit"
     }
 }
