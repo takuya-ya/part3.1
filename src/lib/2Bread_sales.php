@@ -18,12 +18,12 @@ const TAX = 10;
 /**
  * @return int[]
  */
-function getInputs(): array
+function getInputs(array $inputs): array
 {
     /** @phpstan-ignore variable.undefined */
     // エラー：$argvが未定義になる為、globalキーワードを使用。
-    global $argv;
-    $inputs = $argv;
+    // global $argv;
+    // $inputs = $argv;
     // [0]=>array([0]>1 [1]>10)
     $inputs = array_chunk(array_slice($inputs, 1), SPLIT_LENGTH);
     $bledSalesNums = [];
@@ -63,6 +63,10 @@ function calTotalSales(array $bledSalesNums): int
 */
 function maxSales(array $bledSalesNums): array
 {
+    if (empty($bledSalesNums)) { // テスト実行時にエラーが起きないよう、入力が空の時でも動作するよう処理を追加
+        return [];
+    }
+
     // 最大販売数量を求めて、その商品番号を抽出
     return array_keys($bledSalesNums, max($bledSalesNums));
 }
@@ -73,6 +77,10 @@ function maxSales(array $bledSalesNums): array
 */
 function minSales(array $bledSalesNums): array
 {
+    if (empty($bledSalesNums)) { // テスト実行時にエラーが起きないよう、入力が空の時でも動作するよう処理を追加
+        return [];
+    }
+
     // 最大販売数量を求めて、その商品番号を抽出
     return array_keys($bledSalesNums, min($bledSalesNums));
 }
@@ -111,8 +119,8 @@ function display(array ...$results): void
         echo implode(' ', $result) . PHP_EOL;
     }
 }
-
-$bledSalesNums = getInputs();
+$inputs = [];
+$bledSalesNums = getInputs($inputs);
 // 合計売上を計算
 $totalSales = calTotalSales($bledSalesNums);
 // 最も販売した商品番号
