@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-const SPLIT_LENGTH = 2;
+// const SPLIT_LENGTH = 2;
 
 /**
  * @return int[][]
