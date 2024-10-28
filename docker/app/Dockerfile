@@ -7,7 +7,11 @@ RUN apt-get update \
     && apt-get install -y libonig-dev libzip-dev unzip \
     && docker-php-ext-install mbstring zip bcmath \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+    && docker-php-ext-enable xdebug \
+    && groupadd -g 1000 takuya-ya \
+    && useradd -m -u 1000 -g 1000 takuya-ya
+
+USER takuya-ya
 
 # composer のインストール
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

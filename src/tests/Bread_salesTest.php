@@ -21,7 +21,6 @@ class Bread_SalesTest extends TestCase
 
         //数字の引数には'が無くても動作した
         $bledSalesNums = getInputs(['file','1', '10', '2', '3', '5', '1', '7', '5', '10', '1']);
-        print_r($bledSalesNums);
         // 合計売上を計算
         $totalSales = calTotalSales($bledSalesNums);
         // 最も販売した商品番号
