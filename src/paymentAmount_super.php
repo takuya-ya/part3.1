@@ -54,16 +54,20 @@ const PRICE =  [
   10 => 100
 ];
 
-
-function calc ($time, $nums)
+function transformationInputs (array $num): array
 {
-    // 引数の商品番号を金額の配列に変換
     $price = [];
     foreach ($nums as $num)
     {
         $price[] = PRICE[$num];
     }
-    var_dump($price);
+    // var_dump($price);
+}
+
+function calc ($time, array $nums): int
+{
+    // 引数の商品番号を金額の配列に変換
+    transformationInputs ($nums);
 }
 
 calc ('21:00', [1, 1, 1, 3, 5, 7, 8, 9, 10]);
