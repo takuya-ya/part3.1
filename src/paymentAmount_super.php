@@ -54,6 +54,7 @@ const PRICE =  [
   10 => 100
 ];
 
+
 function calcTotalPrice (array $nums): int
 {
     $prices = [];
@@ -65,10 +66,26 @@ function calcTotalPrice (array $nums): int
     return 1;
 }
 
+function onion ($nums)
+{
+
+}
+
+function calcDiscount (array $nums): int
+{
+    $discountPrice = 0;
+    // 玉ねぎ複数購入の割引
+    // 弁当とドリンクのセット割引
+    // タイムセールによる割引
+    return $discountPrice= onion() + lunchDrinkSet() + timeSale();
+}
+
 function calc ($time, array $nums): int
 {
     // 引数の商品番号を金額の配列に変換
     calcTotalPrice ($nums);
+    // 値引き額の合計
+    calcDiscount ($nums);
     return 1;
 }
 
