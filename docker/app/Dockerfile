@@ -8,8 +8,9 @@ RUN apt-get update \
     && docker-php-ext-install mbstring zip bcmath \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
+
     && groupadd -g 1000 takuya-ya \
-    && useradd -m -u 1000 -g 1000 takuya-ya
+    && useradd -m -u 1000 -s /bin/bash -g 1000 takuya-ya
 
 USER takuya-ya
 
