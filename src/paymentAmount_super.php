@@ -69,29 +69,34 @@ function calcTotalPrice (array $nums): int
     return 1;
 }
 
-function onion (array $nums): int
+function onion (array $countProductNums): int
 {
-    // 購入した商品数を番号ごとにカウント
-    $countProductNums = array_count_values($nums);
 
-    //玉ねぎの個数に応じて、値引き額を算出
-    $TotalOnionDiscount = 0;
-    if ($countProductNums[1] >= ONION_NUM_FIVE) {
-        $TotalOnionDiscount = ONION_DISCOUNT_FIVE;
-      } elseif ($countProductNums[1] >= ONION_NUM_THREE) {
+  //玉ねぎの個数に応じて、値引き額を算出
+  $TotalOnionDiscount = 0;
+  if ($countProductNums[1] >= ONION_NUM_FIVE) {
+    $TotalOnionDiscount = ONION_DISCOUNT_FIVE;
+  } elseif ($countProductNums[1] >= ONION_NUM_THREE) {
         $TotalOnionDiscount = ONION_DISCOUNT_THREE;
-    }
-    var_dump($TotalOnionDiscount);
-    return $TotalOnionDiscount;
+      }
+      var_dump($TotalOnionDiscount);
+      return $TotalOnionDiscount;
+}
+
+function lunchDiscount(array $countProductNums): int
+{
+    return 0;
 }
 
 function calcDiscount (array $nums): int
 {
     $discountPrice = 0;
-    // 玉ねぎ複数購入の割引
+    // 購入した商品数を番号ごとにカウント
+    $countProductNums = array_count_values($nums);
+      // 玉ねぎ複数購入の割引
     // 弁当とドリンクのセット割引
     // タイムセールによる割引
-    onion($nums);
+    lunchDiscount($countProductNums);
     // return $discountPrice= onion() + lunchDrinkSet() + timeSale();
     return 1;
 }
