@@ -2,11 +2,11 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../lib/2Bread_sales.php';
+require_once __DIR__ . '/../lib/BreadSales.php';
 
-class Bread_SalesTest extends TestCase
+class BreadSalesTest extends TestCase
 {
-    public function test ()
+    public function test()
     {
         $output = <<<EOT
         2464
@@ -14,7 +14,6 @@ class Bread_SalesTest extends TestCase
         5 10
 
         EOT;
-
 
         // $this->assertSame(4, getInput(4));
         $this->expectOutputString($output);

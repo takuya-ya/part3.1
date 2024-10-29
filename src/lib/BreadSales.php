@@ -20,11 +20,11 @@ const TAX = 10;
  */
 function getInputs(array $inputs): array
 {
-    /** @phpstan-ignore variable.undefined */
     // エラー：$argvが未定義になる為、globalキーワードを使用。
     // global $argv;
     // $inputs = $argv;
     // [0]=>array([0]>1 [1]>10)
+    /** @phpstan-ignore variable.undefined */
     $inputs = array_chunk(array_slice($inputs, 1), SPLIT_LENGTH);
     $bledSalesNums = [];
     // 商品番号=>販売個数の配列データ構造に変換
