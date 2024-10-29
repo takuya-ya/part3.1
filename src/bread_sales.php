@@ -20,8 +20,8 @@ const TAX = 10;
  */
 function getInputs(): array
 {
-    /** @phpstan-ignore variable.undefined */
     // エラー：$argvが未定義になる為、globalキーワードを使用。
+
     global $argv;
     $inputs = $argv;
     // [0]=>array([0]>1 [1]>10)
