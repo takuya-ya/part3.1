@@ -36,13 +36,13 @@ function calcTotalPrice(array $items): int
 function onion(array $countProductNums): int
 {
     //玉ねぎの個数に応じて、値引き額を算出
-    $TotalOnionDiscount = 0;
+    $totalOnionDiscount = 0;
     if ($countProductNums[1] >= ONION_NUM_FIVE) {
-        $TotalOnionDiscount = ONION_DISCOUNT_FIVE;
+        $totalOnionDiscount = ONION_DISCOUNT_FIVE;
     } elseif ($countProductNums[1] >= ONION_NUM_THREE) {
-        $TotalOnionDiscount = ONION_DISCOUNT_THREE;
+        $totalOnionDiscount = ONION_DISCOUNT_THREE;
     }
-    return $TotalOnionDiscount;
+    return $totalOnionDiscount;
 }
 
 // セットの割引額を算出
@@ -69,7 +69,7 @@ function timeSaleDiscount(string $time): int
 {
     $timeDiscount = 0;
     // 商品情報を商品毎に出力
-    foreach (PRODUCT_INFO as $key => $info) {
+    foreach (PRODUCT_INFO as $info) {
         // 商品が弁当か確認
         if ($info['type'] === 'bento') {
             // タイムセール時間帯であれば、商品価格の半額を割引に追加
@@ -90,7 +90,6 @@ function timeSaleDiscount(string $time): int
 
 function calcDiscount(string $time, array $items): int
 {
-    $discountPrice = 0;
     // 購入した商品数を番号毎にカウント
       // onion関数でしか使用しないので、変数代入せず、onion関数の引き数にする
     // $countProductNums = array_count_values($items);
@@ -108,4 +107,4 @@ function calc(string $time, array $items): int
     return ((int)(($totalPrice - $totalDiscount) * (100 + TAX)) / 100);
 }
 
-calc('21:00', [1, 1, 1, 3, 5, 7, 8, 9, 10]);
+// calc('21:00', [1, 1, 1, 3, 5, 7, 8, 9, 10]);

@@ -6,7 +6,7 @@ WORKDIR /var/www/html
 RUN apt-get update \
     && apt-get install -y libonig-dev libzip-dev unzip \
     && docker-php-ext-install mbstring zip bcmath \
-    && pecl install xdebug && docker-php-ext-enable xdebug\
+    && pecl install xdebug \
     && docker-php-ext-enable xdebug \
 
     && groupadd -g 1000 takuya-ya \
