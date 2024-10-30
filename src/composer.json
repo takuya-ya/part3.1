@@ -14,7 +14,7 @@
         },
     "scripts": {
             "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
-            "phpmd": "vendor/bin/phpmd bread_sales.php text phpmd.xml --suffixes php --exclude vendor",
+            "phpmd": "vendor/bin/phpmd . text phpmd.xml --suffixes php --exclude vendor",
             "phpstan": "vendor/bin/phpstan analyse bread_sales.php",
             "phpunit": "vendor/bin/phpunit"
     }
