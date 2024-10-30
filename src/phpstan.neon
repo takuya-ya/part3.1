@@ -2,5 +2,6 @@ parameters:
   level: 6
   paths:
     - .
+    - lib
   excludePaths:
     - vendor

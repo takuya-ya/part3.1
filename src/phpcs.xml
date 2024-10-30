@@ -2,6 +2,8 @@
   <ruleset name="Custom PSR12">
   <description>A custom coding PSR12</description>
    <file>./</file>
+   <directory>lib</directory>
+
   <exclude-pattern>./vendor/*</exclude-pattern>
   <arg name="colors"/>
   <arg value="s"/>
