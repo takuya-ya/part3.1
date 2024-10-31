@@ -27,20 +27,28 @@ function showDown (string $card1A, string $card1B, string $card2A, string $card2
     // カードをランクに変換
     $handRanks = getRank($hands);
     // カードの役を判定
-    judgeRole($handRanks);
+    $handRoles = getRole($handRanks);
+    // 役をランクに変換
+    $roleRanks = getRoleRank($handRoles);
+
     /**
-     * 役を判定
      * プレイやー情報[カードランク、カードランク、役ランク]
      * 勝敗を判定
      *      役の強さを判定
+     *          役をランク化
+     *          比較
      *      引き分けの場合、数字の強さを判定
+     *          数字を引数から受ける
+     *          max関数で呼ぶ
+     *
      * 出力
      *   [役A、役B、勝者番号]
      */
 return ['', '', 2];
 }
 
-function getRank(array $hands)
+
+function getRank(array $hands): array
 {
     // 各カードをマークと数字に分割して配列化
     $handNums = array_map(function($card) {
@@ -55,14 +63,22 @@ function getRank(array $hands)
     return array_chunk($handRanks, 2);
 }
 
-// function judgeRole(array $hands)
-// {
-//     if ($cards[0] === $cards[1])
-//     {
-//         $role = PAIR;
-//     } elseif ($cards[0] === $cards[1])
-
-
-// }
+function getRole(array $handRanks): array
+{
+    foreach($handRanks as $ranks)
+    {
+        if ($ranks[0] === $ranks[1])
+        {
+            $handRoles[] = 'pair';
+        } elseif (($ranks[0] - $ranks[1]) === 1)
+        {
+            $handRoles[] = 'straight';
+        } else
+        {
+            $handRoles[] = 'highCard';
+        }
+    }
+    return $handRoles;
+}
 
 showDown('CK', 'DJ', 'C10', 'H10');
