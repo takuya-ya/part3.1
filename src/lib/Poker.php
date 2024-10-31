@@ -81,4 +81,22 @@ function getRole(array $handRanks): array
     return $handRoles;
 }
 
+function getRoleRank(array $handRoles)
+{
+    foreach($handRoles as $handRole) {
+        switch($handRole) {
+            case 'highCard':
+                $roleRanks[] = HIGH_CARD;
+                break;
+            case 'pair':
+                $roleRanks[] = PAIR;
+                break;
+            case 'straight':
+                $roleRanks[] = STRAIGHT;
+                break;
+        }
+    }
+    return $roleRanks;
+}
+
 showDown('CK', 'DJ', 'C10', 'H10');
