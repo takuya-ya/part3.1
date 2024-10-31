@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
-require_once(__DIR__ . '/../lib/TvViewingTimeTest.php');
+require_once(__DIR__ . '/../lib/TvViewingTime.php');
 
 class TvViewingTimeTest extends TestCase
 {
