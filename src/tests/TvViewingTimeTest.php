@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../lib/TvViewingTime.php');
 
 class TvViewingTimeTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         // ヒアドキュメントの最後の空行は改行として必要
         $output = <<<EOD

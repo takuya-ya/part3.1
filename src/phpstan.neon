@@ -1,5 +1,5 @@
 parameters:
-  level: 6
+  level: 5 # 6で設定されていたが、型指定が細かすぎるのでレベルを下げる
   paths:
     - .
     - lib

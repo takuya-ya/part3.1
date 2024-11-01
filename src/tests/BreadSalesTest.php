@@ -6,7 +6,7 @@ require_once __DIR__ . '/../lib/BreadSales.php';
 
 class BreadSalesTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $output = <<<EOT
         2464

@@ -24,7 +24,6 @@ function getInputs(array $inputs): array
     // global $argv;
     // $inputs = $argv;
     // [0]=>array([0]>1 [1]>10)
-    /** @phpstan-ignore variable.undefined */
     $inputs = array_chunk(array_slice($inputs, 1), SPLIT_LENGTH);
     $bledSalesNums = [];
     // 商品番号=>販売個数の配列データ構造に変換
