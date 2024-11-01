@@ -1,27 +1,27 @@
 <?php
 
-function hitCondition(array $arrayAnswer, int $place, int $num)
+function hitCondition(array $arrayGuess, int $place, int $num)
 {
-    return (int)$arrayAnswer[$place] === $num;
+    return (int)$arrayGuess[$place] === $num;
 }
 
-function blowCondition(array $arrayAnswer, int $num)
+function blowCondition(array $arrayGuess, int $num)
 {
-    return in_array($num, $arrayAnswer);
+    return in_array($num, $arrayGuess);
 }
 
-function judge(int $question, int $answer): array
+function judge(int $question, int $guess): array
 {
     $hit = 0;
     $blow = 0;
     // 修正：重複していたので、前処理として統合
-    $arrayAnswer = str_split($answer);
+    $arrayGuess = str_split((string)$guess);
     //questionを配列にして、桁番号と数字を順次出力
-    foreach (str_split($question) as $place => $num) {
+    foreach (str_split((string)$question) as $place => $num) {
         // HitかBlowの条件と合致した場合、インクリメント
-        if (hitCondition($arrayAnswer, $place, $num)) {
+        if (hitCondition($arrayGuess, $place, (int)$num)) {
             $hit++;
-        } elseif (blowCondition($arrayAnswer, $num)) {
+        } elseif (blowCondition($arrayGuess, (int)$num)) {
             $blow++;
         }
     }

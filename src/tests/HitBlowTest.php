@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../lib/HitBlow.php');
 
 class HitBlowTest extends TestCase
 {
-    public function testJudge()
+    public function testJudge(): void
     {
         $this -> assertSame([4, 0], judge(5674, 5674));
         $this -> assertSame([1, 1], judge(5678, 7612));

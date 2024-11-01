@@ -2,27 +2,28 @@
 
 declare(strict_types=1);
 
-// const SPLIT_LENGTH = 2;
+const SPLIT_LENGTH = 2;
 
 /**
- * @return int[][]
+ * @param string[] $argv
+ * @return string[][]
  */
 // テスト用：スクリプト引き数をとっていたが、テスト用に関数に引数を渡す
-function getinput(array $argv): array
+function getInput(array $argv): array
 {
     // コマンドライン引数から最初の要素（スクリプト名）を除外し、チャンネル番号と視聴時間のペアに分割
     // 修正：マジック定数を削除
-    /** @phpstan-ignore variable.undefined */
     return array_chunk(array_slice($argv, 1), SPLIT_LENGTH);
 }
 
 //チャンネル毎の視聴時間をグルーピング
 /**
- * @param int[][] $inputs
- * @return int [][]
+ * @param string[][] $inputs
+ * @return array<int,array<string>> $viewingTimesByChan
  */
 function groupChannelViewingTime(array $inputs): array
 {
+    /** @var array<int, array<string>> $viewingTimesByChan */
     $viewingTimesByChan = [];
     // チャンネルごとの視聴時間を配列に格納　複数回視聴している場合は視聴時間を追記
     foreach ($inputs as $input) {
@@ -70,14 +71,11 @@ function calculateTotalHour(array $viewingTimesByChan): string
 }
 
   // アウトプット例に基づいて出力
-/**
- * @param int[][] $viewingTimesByChan
- */
 function displayViewingTime(array $viewingTimesByChan): void
 {
 
       //テレビの合計視聴時間を求める
-      echo calculateTotalHour($viewingTimesByChan);
+    echo calculateTotalHour($viewingTimesByChan);
     foreach ($viewingTimesByChan as $channel => $mins) {
           // 不要。変数に代入せず、そのまま出力したいい。
           // $viewCount = count($mins);
@@ -93,8 +91,8 @@ function displayViewingTime(array $viewingTimesByChan): void
 }
 
 // スクリプト引き数をとっていたが、テスト用に関数に引数を渡す
-$argv = [];
-$inputs = getInput($argv);
+// $array = [];
+$inputs = getInput(['file', '1', '30', '5', '25', '2', '30', '1', '15']);
 
 $viewingTimesByChan = groupChannelViewingTime($inputs);
 displayViewingTime($viewingTimesByChan);
