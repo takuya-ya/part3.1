@@ -1,5 +1,7 @@
 <?php
 
+namespace BreadSales;
+
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../lib/BreadSales.php';

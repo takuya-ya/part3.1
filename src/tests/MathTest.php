@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Math;
+
 use PHPUnit\Framework\TestCase;
 
 class MathTest extends TestCase
