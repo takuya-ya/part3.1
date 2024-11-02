@@ -39,11 +39,12 @@ function convertToCardRanks(array $cards): array
 
 function checkHand(int $cardRank1, int $cardRank2, int $cardRank3): array
 {
+    $sortRank = [$cardRank1, $cardRank2, $cardRank3];
     $primary = max($cardRank1, $cardRank2, $cardRank3);
-    $secondary = min($cardRank1, $cardRank2, $cardRank3);
+    $secondary = $sortRank[1];
+    $tertiary = min($cardRank1, $cardRank2, $cardRank3);
     $name = HIGH_CARD;
 
-    $sortRank = [$cardRank1, $cardRank2, $cardRank3];
     rsort($sortRank);
 
     if (isStraight($sortRank)) {

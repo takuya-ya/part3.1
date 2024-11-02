@@ -93,8 +93,8 @@ function displayViewingTime(array $viewingTimesByChan): void
 }
 
 // スクリプト引き数をとっていたが、テスト用に関数に引数を渡す
-// $array = [];
-$inputs = getInput(['file', '1', '30', '5', '25', '2', '30', '1', '15']);
+// // $array = [];
+// $inputs = getInput(['file', '1', '30', '5', '25', '2', '30', '1', '15']);
 
-$viewingTimesByChan = groupChannelViewingTime($inputs);
-displayViewingTime($viewingTimesByChan);
+// $viewingTimesByChan = groupChannelViewingTime($inputs);
+// displayViewingTime($viewingTimesByChan);
