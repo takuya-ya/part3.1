@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace TvViewingTime;
+
 use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . '/../lib/TvViewingTime.php');

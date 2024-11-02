@@ -1,6 +1,6 @@
 <?php
 
-use function PHPUnit\Framework\equalTo;
+namespace PokerGame;
 
 // ：解答：defineでまとめて定数化
 const CARD_RANK = [

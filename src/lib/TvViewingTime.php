@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace TvViewingTime;
+
 const SPLIT_LENGTH = 2;
 
 /**
