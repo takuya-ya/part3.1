@@ -1,5 +1,7 @@
 <?php
 
+namespace HitBlow;
+
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertSame;

@@ -27,7 +27,8 @@ function showDown(string $card11, string $card12, string $card13, string $card21
 {
     $cardRanks = convertToCardRanks([$card11, $card12, $card13, $card21, $card22, $card23]);
     $playerCardRanks = array_chunk($cardRanks, 3);
-    $hands = array_map(fn ($playerCardRank) => checkHand($playerCardRank[0], $playerCardRank[1], $playerCardRank[2]), $playerCardRanks);
+    $hands = array_map(fn ($playerCardRank)
+    => checkHand($playerCardRank[0], $playerCardRank[1], $playerCardRank[2]), $playerCardRanks);
     $winner = decideWinner($hands[0], $hands[1]);
     return [$hands[0]['name'], $hands[1]['name'], $winner];
 }
@@ -76,7 +77,8 @@ function isStraight(array $sortRank): bool
 
 function isMinMax(array $sortRank): bool
 {
-    return ($sortRank[0] - $sortRank[2]) === (max(CARD_RANK) - min(CARD_RANK)) && ($sortRank[1] === 11 || $sortRank[1] === 1);
+    return ($sortRank[0] - $sortRank[2]) === (max(CARD_RANK) - min(CARD_RANK))
+    && ($sortRank[1] === 11 || $sortRank[1] === 1);
 }
 
 function onePair(array $sortRank): bool
