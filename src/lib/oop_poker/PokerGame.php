@@ -14,9 +14,9 @@ class PokerGame
         $playerCards = [$this->card1, $this->card2];
         foreach ($playerCards as $playerCard) {
             $ranks = new ConvertToNumber($playerCard);
-            $handRanks = $ranks->convertToNum();
+            $handRanks[] = $ranks->convertToNum();
         }
-        return [$handRanks[0], $handRanks[1]];
+        return $handRanks;
     }
 }
 // $game = new PokerGame(['CA', 'DA'], ['C10', 'H10']);
