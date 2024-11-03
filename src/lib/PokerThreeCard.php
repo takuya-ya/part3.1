@@ -3,8 +3,8 @@
 namespace PokerGame\ThreeCard;
 
 const HIGH_CARD = 'high card';
-const ONE_PAIR = 'one pair';
-const THREE_OF_A_KIND = 'three of a kind';
+const ONE_PAIR = 'pair';
+const THREE_OF_A_KIND = 'three card';
 const STRAIGHT = 'straight';
 
 const CARDS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
@@ -19,11 +19,11 @@ define('CARD_RANK', (function () {
 const HAND_RANK = [
     HIGH_CARD => 1,
     ONE_PAIR => 2,
-    THREE_OF_A_KIND => 3,
-    STRAIGHT => 4,
+    THREE_OF_A_KIND => 4,
+    STRAIGHT => 3,
 ];
 
-function showDown(string $card11, string $card12, string $card13, string $card21, string $card22, string $card23): array
+function show(string $card11, string $card12, string $card13, string $card21, string $card22, string $card23): array
 {
     $cardRanks = convertToCardRanks([$card11, $card12, $card13, $card21, $card22, $card23]);
     $playerCardRanks = array_chunk($cardRanks, 3);
@@ -41,6 +41,7 @@ function convertToCardRanks(array $cards): array
 function checkHand(int $cardRank1, int $cardRank2, int $cardRank3): array
 {
     $sortRank = [$cardRank1, $cardRank2, $cardRank3];
+    rsort($sortRank);
     $primary = max($cardRank1, $cardRank2, $cardRank3);
     $secondary = $sortRank[1];
     $tertiary = min($cardRank1, $cardRank2, $cardRank3);
@@ -78,7 +79,7 @@ function isStraight(array $sortRank): bool
 function isMinMax(array $sortRank): bool
 {
     return ($sortRank[0] - $sortRank[2]) === (max(CARD_RANK) - min(CARD_RANK))
-    && ($sortRank[1] === 11 || $sortRank[1] === 1);
+    && ($sortRank[1] === 1);
 }
 
 function onePair(array $sortRank): bool
@@ -104,3 +105,5 @@ function decideWinner(array $hand1, array $hand2): int
 
     return 0;
 }
+
+show('H9', 'SK', 'H7', 'DK', 'D10', 'H5');
