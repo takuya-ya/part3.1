@@ -1,6 +1,6 @@
 <?php
 
-require_once 'ConvertToNumber.php';
+require_once 'PokerPlayer.php';
 
 class PokerGame
 {
@@ -11,9 +11,11 @@ class PokerGame
 
     public function start(): array
     {
-        $playerCards = [$this->card1, $this->card2];
-        foreach ($playerCards as $playerCard) {
-            $ranks = new ConvertToNumber($playerCard);
+        // 修正：変数に代入せず、そのままforeachに渡すこと
+        // $playerCards = [$this->card1, $this->card2];
+        // foreach ($playerCards as $playerCard) {
+        foreach ([$this->card1, $this->card2] as $playerCard) {
+            $ranks = new PokerPlayer($playerCard);
             $handRanks[] = $ranks->convertToNum();
         }
         return $handRanks;
