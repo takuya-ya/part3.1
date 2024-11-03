@@ -16,13 +16,21 @@ class VendingMachineTest extends TestCase
 
     public function testPressButton()
     {
+        $cola = new Item('cola');
+        $cider = new Item('cider');
         $vendingMachine = new VendingMachine;
 
         # お金が投入されてない場合は購入できない
-        $this->assertSame('', $vendingMachine->pressButton());
+        $this->assertSame('', $vendingMachine->pressButton($cider));
 
         // 100円を入れた場合はジュースを購入できる
         $vendingMachine->depositCoin(100);
-        $this->assertSame('cider', $vendingMachine->pressButton());
+        $this->assertSame('cider', $vendingMachine->pressButton($cider));
+        // デポジット不足でコーラは買えない
+        $vendingMachine->depositCoin(100);
+        $this->assertSame('', $vendingMachine->pressButton($cola));
+        // 繰り越しのデポジットと合わせてコーラを購入できる
+        $vendingMachine->depositCoin(100);
+        $this->assertSame('cola', $vendingMachine->pressButton($cola));
     }
 }
