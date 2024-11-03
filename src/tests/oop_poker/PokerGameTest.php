@@ -4,13 +4,13 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertSame;
 
-require_once(__DIR__ . '/../../lib/poker/PokerGame.php');
+require_once(__DIR__ . '/../../lib/oop_poker/PokerGame.php');
 
 class PokerGameTest extends TestCase
 {
     public function testStart()
     {
         $game = new PokerGame(['CA', 'DA'], ['C10', 'H10']);
-        $this -> assertSame([['CA', 'DA'], ['C10', 'H10']], $game->start());
+        $this->assertSame([[13, 13], [9, 9]], $game->start());
     }
 }
