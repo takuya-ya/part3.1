@@ -2,8 +2,6 @@
 
 use PHPUnit\Framework\TestCase;
 
-use function PHPUnit\Framework\assertSame;
-
 require_once(__DIR__ . '/../../lib/oop_poker/PokerGame.php');
 
 class PokerGameTest extends TestCase
