@@ -12,5 +12,4 @@ class PokerGame
     }
 }
 
-$game = new PokerGame(['CA', 'DA'], ['C10', 'H10']);
-$game->start();
+// $this->start();
