@@ -8,7 +8,7 @@ class VendingMachineTest extends TestCase
 {
     public function testDepositCoin()
     {
-        $vendingMachine = new vendingMachine;
+        $vendingMachine = new VendingMachine();
         $this->assertSame(0, $vendingMachine->depositCoin(0));
         $this->assertSame(0, $vendingMachine->depositCoin(150));
         $this->assertSame(100, $vendingMachine->depositCoin(100));
@@ -16,21 +16,39 @@ class VendingMachineTest extends TestCase
 
     public function testPressButton()
     {
-        $cola = new Item('cola');
-        $cider = new Item('cider');
-        $vendingMachine = new VendingMachine;
+        $cider = new Drink('cider');
+        $cola = new Drink('cola');
+        $hotCupCoffee = new CupDrink('hot cup coffee');
+        $vendingMachine = new VendingMachine();
 
         # お金が投入されてない場合は購入できない
         $this->assertSame('', $vendingMachine->pressButton($cider));
 
-        // 100円を入れた場合はジュースを購入できる
+        // 100円を入れた場合はサイダーを購入できる
         $vendingMachine->depositCoin(100);
         $this->assertSame('cider', $vendingMachine->pressButton($cider));
-        // デポジット不足でコーラは買えない
+
+        // 投入金額が100円の場合はコーラを購入できない
         $vendingMachine->depositCoin(100);
         $this->assertSame('', $vendingMachine->pressButton($cola));
-        // 繰り越しのデポジットと合わせてコーラを購入できる
+        // 投入金額が200円の場合はコーラを購入できる
         $vendingMachine->depositCoin(100);
         $this->assertSame('cola', $vendingMachine->pressButton($cola));
+
+        // カップが投入されてない場合は購入できない
+        $vendingMachine->depositCoin(100);
+        $this->assertSame('', $vendingMachine->pressButton($hotCupCoffee));
+
+        // カップを入れた場合は購入できる
+        $vendingMachine->addCup(1);
+        $this->assertSame('hot cup coffee', $vendingMachine->pressButton($hotCupCoffee));
+    }
+
+    public function testAddCup()
+    {
+        $vendingMachine = new VendingMachine();
+        $this->assertSame(99, $vendingMachine->addCup(99));
+        $this->assertSame(100, $vendingMachine->addCup(1));
+        $this->assertSame(100, $vendingMachine->addCup(1));
     }
 }
