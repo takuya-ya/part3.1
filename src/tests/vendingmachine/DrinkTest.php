@@ -2,19 +2,19 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../lib/vending_machine/Item.php';
+require_once __DIR__ . '/../../lib/vending_machine/Drink.php';
 
-class ItemTest extends TestCase
+class DrinkTest extends TestCase
 {
     public function testGetName()
     {
-        $item = new Item('cider');
+        $item = new Drink('cider');
         $this->assertSame('cider', $item->getName());
     }
 
     public function testGetPrice()
     {
-        $item = new Item('cola');
+        $item = new Drink('cola');
         $this->assertSame(150, $item->getPrice());
     }
 }
