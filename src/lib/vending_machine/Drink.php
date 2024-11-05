@@ -2,25 +2,25 @@
 
 require_once 'Item.php';
 
-class drink extends Item
+class Drink extends Item
 {
-    private const PRICES_CUPS = [
-        'cider' => ['price' => 100, 'cup' => 0],
-        'cola' => ['price' => 150, 'cup' => 0]
+    private const PRICES = [
+        'cider' => 100,
+        'cola' => 150
     ];
 
-    function __construct(private string $name)
+    public function __construct(string $name)
     {
-        parent::__construct($name); 
+        parent::__construct($name);
     }
 
     public function getPrice()
     {
-        return $this::PRICES_CUPS[$this->name]['price'];
+        return self::PRICES[$this->name];
     }
 
     public function getCupNumber()
     {
-        return $this::PRICES_CUPS[$this->name]['cup'];
+        return 0;
     }
 }
