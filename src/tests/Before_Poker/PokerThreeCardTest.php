@@ -4,7 +4,7 @@ namespace PokerGame\ThreeCard;
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../lib/PokerThreeCard.php';
+require_once __DIR__ . '/../../lib/Before_Poker/PokerThreeCard.php';
 
 class PokerThreeCardTest extends TestCase
 {

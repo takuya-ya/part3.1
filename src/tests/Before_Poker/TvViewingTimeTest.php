@@ -6,7 +6,7 @@ namespace TvViewingTime;
 
 use PHPUnit\Framework\TestCase;
 
-require_once(__DIR__ . '/../lib/TvViewingTime.php');
+require_once(__DIR__ . '/../../lib/Before_Poker/TvViewingTime.php');
 
 class TvViewingTimeTest extends TestCase
 {
