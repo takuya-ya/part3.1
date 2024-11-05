@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertSame;
 
-require_once(__DIR__ . '/../lib/HitBlow.php');
+require_once(__DIR__ . '/../../lib/Before_Poker/HitBlow.php');
 
 class HitBlowTest extends TestCase
 {

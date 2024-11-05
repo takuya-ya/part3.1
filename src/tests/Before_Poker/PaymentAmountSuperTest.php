@@ -4,7 +4,7 @@ namespace PaymentAmountSuper;
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../lib/PaymentAmountSuper.php';
+require_once __DIR__ . '/../../lib/Before_Poker/PaymentAmountSuper.php';
 
 class PaymentAmountSuperTest extends TestCase
 {

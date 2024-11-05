@@ -4,7 +4,7 @@ namespace lib;
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../lib/Card.php';
+require_once __DIR__ . '/../../lib/Before_Poker/Card.php';
 
 class CardTest extends TestCase
 {
