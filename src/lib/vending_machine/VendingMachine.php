@@ -1,11 +1,11 @@
 <?php
 
 require_once __DIR__ . '/../../lib/vending_machine/Item.php';
-// require_once __DIR__ . '/../../lib/vending_machine/Cup.php';
 
 
 class VendingMachine
 {
+    private const MAX_CUP_NUMBER = 100;
     private int $depositedCoin = 0;
     private int $addedCup = 0;
 
@@ -19,15 +19,11 @@ class VendingMachine
 
     public function addCup(int $refillCup): int
     {
-        if ($this->addedCup < 100) {
+        if ($this->addedCup < self::MAX_CUP_NUMBER) {
             $this->addedCup += $refillCup;
         }
         return $this->addedCup;
     }
-
-    // カップのでぽじっど
-    // item (cup drink)継承
-    // pressButtonの修正
 
     // Itemインスタンス管理、インスタンスに名前と金額を出させている
     public function pressButton(Item $item): string
@@ -40,7 +36,6 @@ class VendingMachine
             $this->addedCup -= $cup;
             return $item->getName();
         }
-
         return '';
     }
 }
