@@ -4,23 +4,23 @@ require_once 'Item.php';
 
 class CupDrink extends Item
 {
-    private const PRICES_CUPS = [
-        'hot cup coffee' => ['price' => 100, 'cup' => 1 ],
-        'ice cup coffee' => ['price' => 100, 'cup' => 1 ],
+    private const PRICES = [
+        'hot cup coffee' => 100,
+        'ice cup coffee' => 100
     ];
 
-    function __construct(private string $name)
+    public function __construct(string $name)
     {
         parent::__construct($name);
     }
 
     public function getPrice()
     {
-        return $this::PRICES_CUPS[$this->name]['price'];
+        return self::PRICES[$this->name];
     }
 
     public function getCupNumber()
     {
-        return $this::PRICES_CUPS[$this->name]['cup'];
+        return 1;
     }
 }
