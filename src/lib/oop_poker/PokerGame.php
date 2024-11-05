@@ -4,24 +4,35 @@ require_once('PokerPlayer.php');
 
 class PokerGame
 {
+    // [[H10,D10],[H11,D2]]
     public function __construct(private array $card1, private array $card2)
     {
     }
 
     public function start(): array
     {
-        // カードの数字を抽出して、配列化
-        // array [[10, 3], [7, 9]]
-        $cardNumbers = [];
-        foreach ([$this->card1, $this->card2] as $playerCards) {
-          $cardNumbers[] = array_map(fn($playerCard) => substr($playerCard, 1), $playerCards);
-        }
+        $cardRanks = [];
+        //[[H10,D10],[H11,D2]] => [H10,D10]
+        foreach ([$this->card1, $this->card2] as $cards) {
+            //各カードのインスタンス作成し、配列化
+            // H10 => インスタンス(H10) ,[H10,D10]
+            // $pokerCards [new PokerCard(H10),new PokerCard(H10)]
+            $pokerCards = array_map(fn($card) => new PokerCard($card), $cards);
 
-                // カードの数字をランクに変換
-        $player = new PokerPlayer($cardNumbers);
-        $cardRanks = $player->getCardRank();
-        return $cardRanks = [[13, 13], [9, 9]];
+                // 修正：単一責任になっていないので削除
+                // カードの数字を抽出して、配列化
+                // $cardNumbers[] = array_map(fn($playerCard) => substr($playerCard, 1), $playerCards);
+
+            $player = new PokerPlayer($pokerCards);
+            $cardRanks[] = $player->getCardRank();
+        }
+        return $cardRanks;
+
+        // カードの数字をランクに変換
+        // 引数はカードペアのインスタンス（１人分のカード）を渡してプレイヤー一人作成
     }
 }
 
+$game = new PokerGame(['CA', 'DA'], ['C10', 'H10']);
+$game->start();
 // $this->start();

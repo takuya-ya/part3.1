@@ -8,7 +8,7 @@ class PokerCardTest extends TestCase
 {
     public function testPokerCard()
     {
-        $game = new PokerCard([['A', 'A'], ['10', '10']]);
-        $this->assertSame([[13, 13], [9, 9]] , $game->getRank());
+        $game = new PokerCard('H10');
+        $this->assertSame(9, $game->getRank());
     }
 }

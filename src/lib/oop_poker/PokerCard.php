@@ -19,20 +19,19 @@ class PokerCard
         'A' => 13,
     ];
 
-    // [[10,10],[11,11]]
-    public function __construct(private array $cardNumbers)
+    // [H10,H11]
+    // 上記は間違い。cardクラスは一枚のカードを扱うクラス。また、今回はカード一枚
+    // PokerGameの冒頭で受けたカードを入れている
+    public function __construct(private $card)
     {}
 
-    public function getRank(): array
+    public function getRank(): int
     {
-        $cardRanks = [];
-        foreach ($this->cardNumbers as $playerCardNums)
-        {
-          $cardRanks[] = array_map(fn($playerCardNum) => self::CARD_RANK[$playerCardNum], $playerCardNums);
+        // カードから数字を抽出し、定数のキーに当てて、ランクに変換
+        //return （ランク）[9, 10]
+        return self::CARD_RANK[substr($this->card, 1)];
 
-        }
-
-        return $cardRanks;
+        //$cardRanks[] = array_map(fn($playerCardNum) => self::CARD_RANK[$playerCardNum], $card);
     }
 }
 
