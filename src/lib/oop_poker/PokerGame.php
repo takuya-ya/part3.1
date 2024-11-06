@@ -1,6 +1,7 @@
 <?php
 
 require_once('PokerPlayer.php');
+require_once('PokerHandEvaluator.php');
 
 class PokerGame
 {
@@ -12,7 +13,9 @@ class PokerGame
     public function start(): array
     {
         $cardRanks = [];
+        $hands = [];
         //[[H10,D10],[H11,D2]] => [H10,D10]
+        // foreach内で扱うのは、player１人のカードを扱う
         foreach ([$this->card1, $this->card2] as $cards) {
             //各カードのインスタンス作成し、配列化
             // H10 => インスタンス(H10) ,[H10,D10]
@@ -25,8 +28,13 @@ class PokerGame
 
             $player = new PokerPlayer($pokerCards);
             $cardRanks[] = $player->getCardRank();
+            // 役を判定
+            // コンストはインスタンス受けれるっけ？
+            $handEvaluator = new PokerHandEvaluator();
+            $hands[] = $handEvaluator->getHand($pokerCards);
+
         }
-        return $cardRanks;
+        return $hands;
 
         // カードの数字をランクに変換
         // 引数はカードペアのインスタンス（１人分のカード）を渡してプレイヤー一人作成
