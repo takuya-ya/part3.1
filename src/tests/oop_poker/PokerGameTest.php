@@ -11,5 +11,4 @@ class PokerGameTest extends TestCase
             $game = new PokerGame(['CA', 'DA'], ['C9', 'H10']);
             $this->assertSame(['pair', 'straight'], $game->start());
         }
-
 }

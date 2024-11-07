@@ -1,6 +1,7 @@
 <?php
 
 require_once('PokerPlayer.php');
+require_once('PokerRule.php');
 require_once('PokerHandEvaluator.php');
 
 class PokerGame
@@ -22,25 +23,36 @@ class PokerGame
             // $pokerCards [new PokerCard(H10),new PokerCard(H10)]
             $pokerCards = array_map(fn($card) => new PokerCard($card), $cards);
 
-                // 修正：単一責任になっていないので削除
-                // カードの数字を抽出して、配列化
-                // $cardNumbers[] = array_map(fn($playerCard) => substr($playerCard, 1), $playerCards);
+            // 修正：単一責任になっていないので削除
+            // カードの数字を抽出して、配列化
+            // $cardNumbers[] = array_map(fn($playerCard) => substr($playerCard, 1), $playerCards);
 
             $player = new PokerPlayer($pokerCards);
             $cardRanks[] = $player->getCardRank();
-            // 役を判定
-            // コンストはインスタンス受けれるっけ？
-            $handEvaluator = new PokerHandEvaluator();
-            $hands[] = $handEvaluator->getHand($pokerCards);
 
+            //必用なルールを選定
+            $rule = $this->getRule($cards);
+            // 役を判定
+            // コンストはインスタンス受けれるっけ？　A：受けれる
+            $handEvaluator = new PokerHandEvaluator($rule);
+            $hands[] = $handEvaluator->getHand($pokerCards);
         }
         return $hands;
 
         // カードの数字をランクに変換
         // 引数はカードペアのインスタンス（１人分のカード）を渡してプレイヤー一人作成
     }
+
+    private function getRule($cards): PokerRule
+    {
+        $rule = new twoPokerCardRule();
+        if (count($cards) ===3) {
+            $rule = new threePokerCardRule();
+        }
+        return $rule;
+    }
 }
 
-$game = new PokerGame(['CA', 'DA'], ['C10', 'H10']);
-$game->start();
-// $this->start();
+// $game = new PokerGame(['CA', 'DA'], ['C10', 'H10']);
+// $game->start();
+// // $this->start();
