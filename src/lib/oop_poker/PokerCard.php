@@ -21,7 +21,7 @@ class PokerCard
 
     // [H10,H11]
     // 上記は間違い。cardクラスは一枚のカードを扱うクラス。また、今回はカード一枚
-    // PokerGameの冒頭で受けたカードを入れている
+    // PokerGameの冒頭で受けたカードを入れている H10
     public function __construct(private $card)
     {}
 
@@ -31,6 +31,7 @@ class PokerCard
         //return （ランク）[9, 10]
         return self::CARD_RANK[substr($this->card, 1)];
 
+        // 削除　Gameクラスでsuitの削除をしてしまっており、単一責任から外れているため
         //$cardRanks[] = array_map(fn($playerCardNum) => self::CARD_RANK[$playerCardNum], $card);
     }
 }
