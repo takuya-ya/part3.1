@@ -13,7 +13,6 @@ class PokerGame
 
     public function start(): array
     {
-        $cardRanks = [];
         $hands = [];
         //[[H10,D10],[H11,D2]] => [H10,D10]
         // foreach内で扱うのは、player１人のカードを扱う
@@ -27,11 +26,9 @@ class PokerGame
             // カードの数字を抽出して、配列化
             // $cardNumbers[] = array_map(fn($playerCard) => substr($playerCard, 1), $playerCards);
 
-            $player = new PokerPlayer($pokerCards);
-            $cardRanks[] = $player->getCardRank();
-
             //必用なルールを選定
             $rule = $this->getRule($cards);
+
             // 役を判定
             // コンストはインスタンス受けれるっけ？　A：受けれる
             $handEvaluator = new PokerHandEvaluator($rule);
@@ -45,14 +42,10 @@ class PokerGame
 
     private function getRule($cards): PokerRule
     {
-        $rule = new twoPokerCardRule();
+        $rule = new TwoPokerCardRule();
         if (count($cards) ===3) {
-            $rule = new threePokerCardRule();
+            $rule = new ThreePokerCardRule();
         }
         return $rule;
     }
 }
-
-// $game = new PokerGame(['CA', 'DA'], ['C10', 'H10']);
-// $game->start();
-// // $this->start();

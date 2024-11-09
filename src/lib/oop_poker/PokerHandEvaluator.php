@@ -1,7 +1,5 @@
 <?php
 
-use function PokerGame\ThreeCard\isStraight;
-
 require_once('PokerCard.php');
 
 class PokerHandEvaluator
