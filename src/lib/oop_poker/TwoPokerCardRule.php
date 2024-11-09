@@ -1,12 +1,13 @@
 <?php
 
 require_once('PokerRule.php');
+require_once('PokerCard.php');
 
 class TwoPokerCardRule implements PokerRule
 {
-    public const HIGH_CARD = 'high card';
-    public const PAIR = 'pair';
-    public const STRAIGHT = 'straight';
+    private const HIGH_CARD = 'high card';
+    private const PAIR = 'pair';
+    private const STRAIGHT = 'straight';
 
     public function getHand(array $pokerCards)
     {
