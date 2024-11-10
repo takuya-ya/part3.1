@@ -1,5 +1,7 @@
 <?php
 
+namespace OopPoker;
+
 class PokerCard
 {
 

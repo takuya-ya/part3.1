@@ -1,6 +1,10 @@
 <?php
 
+namespace OopPoker\Tests;
+
 use PHPUnit\Framework\TestCase;
+use OopPoker\FivePokerCardRule;
+use OopPoker\PokerCard;
 
 require_once(__DIR__ . '/../../lib/oop_poker/FivePokerCardRule.php');
 
