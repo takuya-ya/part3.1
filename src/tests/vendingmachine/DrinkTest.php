@@ -1,6 +1,9 @@
 <?php
 
+namespace VendingMachineTests;
+
 use PHPUnit\Framework\TestCase;
+use VendingMachine\Drink;
 
 require_once __DIR__ . '/../../lib/vending_machine/Drink.php';
 
