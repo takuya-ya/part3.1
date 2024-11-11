@@ -36,7 +36,13 @@ class PokerGame
             $handEvaluator = new PokerHandEvaluator($rule);
             $hands[] = $handEvaluator->getHand($pokerCards);
         }
-        return $hands;
+
+        // カードの枚数に応じて勝者判定ルールをのインスタンス取得
+        $judgeRule = $this->getJudgeRule($cards);
+        // そのインスタンスにgetWinnerさせるクラスを設定（勝者判定はGameでは行わないという事）
+        $winner = new PokerWinnerEvaluator($judgeRule);
+        $winner = $winner->getWinner($hands, $pokerCards);
+        return [$hands[0], $hands[1], $winner];
 
         // カードの数字をランクに変換
         // 引数はカードペアのインスタンス（１人分のカード）を渡してプレイヤー一人作成
@@ -49,5 +55,14 @@ class PokerGame
             $rule = new ThreePokerCardRule();
         }
         return $rule;
+    }
+
+    private function getJudgeRule($cards): PokerJudgeRule
+    {
+        $judgeRule = new TwoPokerJudgeRule();
+        if (count($cards) ===3) {
+            $judgeRule = new ThreePokerJudgeRule();
+        }
+        return $judgeRule;
     }
 }

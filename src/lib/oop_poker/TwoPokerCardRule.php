@@ -13,6 +13,7 @@ class TwoPokerCardRule implements PokerRule
 
     public function getHand(array $pokerCards)
     {
+        // 後でカードのランクも使用するので、ここはカードのランク化のみする関数にすべきだった
         $ranks = array_map(fn($cardRank) => $cardRank->getRank(), $pokerCards);
 
         $maxRanks = max($ranks);
@@ -23,7 +24,6 @@ class TwoPokerCardRule implements PokerRule
         {
             $hand = self::STRAIGHT;
         } elseif ($this->pair($maxRanks, $minRanks))
-        // 13-2
         {
             $hand = self::PAIR;
         }
@@ -32,8 +32,6 @@ class TwoPokerCardRule implements PokerRule
 
     private function straight($maxRanks, $minRanks): bool
     {
-        // 13-2
-        // 13 12
         return ($maxRanks - $minRanks) === 1 || $this->maxMin($maxRanks, $minRanks);
     }
 
