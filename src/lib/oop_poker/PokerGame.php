@@ -60,7 +60,7 @@ class PokerGame
     {
         $judgeRule = new TwoPokerJudgeRule();
         if (count($cards) ===3) {
-            $judgeRule = new ThreePokerJudgeRule();9
+            $judgeRule = new ThreePokerJudgeRule();
         }
         return $judgeRule;
     }
