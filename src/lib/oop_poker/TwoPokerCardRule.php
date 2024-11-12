@@ -11,35 +11,31 @@ class TwoPokerCardRule implements PokerRule
     private const PAIR = 'pair';
     private const STRAIGHT = 'straight';
 
-    public function getHand(array $pokerCards)
+    public function getHand(array $ranks)
     {
-        $ranks = array_map(fn($cardRank) => $cardRank->getRank(), $pokerCards);
-
         $maxRanks = max($ranks);
         $minRanks = min($ranks);
 
         $hand = self::HIGH_CARD;
-        if ($this->straight($maxRanks, $minRanks))
+        if ($this->straight($maxRanks, $minRanks, $ranks))
         {
             $hand = self::STRAIGHT;
         } elseif ($this->pair($maxRanks, $minRanks))
-        // 13-2
         {
             $hand = self::PAIR;
         }
         return $hand;
     }
 
-    private function straight($maxRanks, $minRanks): bool
+    private function straight(int $maxRanks, int $minRanks, array $ranks ): bool
     {
-        // 13-2
-        // 13 12
-        return ($maxRanks - $minRanks) === 1 || $this->maxMin($maxRanks, $minRanks);
+        return ($maxRanks - $minRanks) === 1 || $this->maxMin($ranks);
     }
 
-    private function maxMin($maxRanks, $minRanks): bool
+    // 引数が他の役判定のメソッドと異なるのは、他のクラスでも使用するため、後から変更している
+    public function maxMin(array $ranks): bool
     {
-        return ($maxRanks - $minRanks) === (max(PokerCard::CARD_RANK) - min(PokerCard::CARD_RANK));
+        return (max($ranks) - min($ranks)) === (max(PokerCard::CARD_RANK) - min(PokerCard::CARD_RANK));
     }
 
     private function pair($maxRanks, $minRanks): bool
