@@ -5,6 +5,7 @@ namespace OopPoker;
 require_once('PokerPlayer.php');
 require_once('PokerRule.php');
 require_once('PokerHandEvaluator.php');
+require_once('lib/oop_poker/TwoPokerJudgeRule.php');
 
 class PokerGame
 {
@@ -17,7 +18,6 @@ class PokerGame
     {
         $hands = [];
         //[[H10,D10],[H11,D2]] => [H10,D10]
-        // foreach内で扱うのは、player１人のカードを扱う
         foreach ([$this->card1, $this->card2] as $cards) {
 
             //各カードのインスタンス作成し、配列化
@@ -31,17 +31,16 @@ class PokerGame
             //必用なルールを選定
             $rule = $this->getRule($cards);
 
-            // 役を判定
+            // 役を判定。Gameクラスに役判定をさせない為のクラス
             // コンストはインスタンス受けれるっけ？　A：受けれる
             $handEvaluator = new PokerHandEvaluator($rule);
             $hands[] = $handEvaluator->getHand($pokerCards);
         }
+        $judgeRule = $this->getJudgeRule($cards);
+        $winner = $judgeRule->getWinner($hands);
 
         // カードの枚数に応じて勝者判定ルールをのインスタンス取得
-        $judgeRule = $this->getJudgeRule($cards);
         // そのインスタンスにgetWinnerさせるクラスを設定（勝者判定はGameでは行わないという事）
-        $winner = new PokerWinnerEvaluator($judgeRule);
-        $winner = $winner->getWinner($hands, $pokerCards);
         return [$hands[0], $hands[1], $winner];
 
         // カードの数字をランクに変換
@@ -66,3 +65,6 @@ class PokerGame
         return $judgeRule;
     }
 }
+
+$game = new PokerGame(['CA', 'DA'], ['C9', 'H10']);
+            $game->start();

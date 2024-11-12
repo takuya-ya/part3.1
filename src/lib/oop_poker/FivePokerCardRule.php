@@ -68,7 +68,7 @@ class FivePokerCardRule implements PokerRule
     {
         return range($ranks[0], $ranks[0] + count($ranks) - 1) === $ranks || $this->maxMin($ranks);
     }
-    private function maxMin(array $ranks): bool
+    public function maxMin(array $ranks): bool
     {
         return $ranks === [min(PokerCard::CARD_RANK), min(PokerCard::CARD_RANK) + 1, min(PokerCard::CARD_RANK) + 2, min(PokerCard::CARD_RANK) + 3, max(PokerCard::CARD_RANK)];}
 }

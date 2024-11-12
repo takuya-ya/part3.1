@@ -4,5 +4,5 @@ namespace OopPoker;
 
 interface PokerJudgeRule
 {
-    public function getWinner(array $hands, array $pokerCards): int;
+    public function getWinner(array $hands): int;
 }

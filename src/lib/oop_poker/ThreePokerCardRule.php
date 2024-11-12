@@ -46,7 +46,7 @@ class ThreePokerCardRule implements PokerRule
     }
 
     // A-2-3 12-1-2の場合の処理
-    private function maxMin(array $ranks): bool
+    public function maxMin(array $ranks): bool
     {
         // 修正
         // return (($maxRanks - $minRanks) === (max(PokerCard::CARD_RANK) - min(PokerCard::CARD_RANK)) && ($ranks[1] - $minRanks) === 1);

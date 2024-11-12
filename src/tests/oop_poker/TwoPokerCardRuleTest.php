@@ -13,6 +13,6 @@ class TwoPokerCardRuleTest extends TestCase
     public function testGetHand()
     {
         $rule = new TwoPokerCardRule();
-        $this->assertSame('high card', $rule->getHand([new PokerCard('H10'), new PokerCard('H8')]));
+        $this->assertSame('high card', $rule->getHand([10, 8]));
     }
 }
