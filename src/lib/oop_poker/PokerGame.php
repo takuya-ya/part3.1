@@ -41,7 +41,7 @@ class PokerGame
 
         // カードの枚数に応じて勝者判定ルールをのインスタンス取得
         // そのインスタンスにgetWinnerさせるクラスを設定（勝者判定はGameでは行わないという事）
-        return [$hands[0], $hands[1], $winner];
+        return [$hands[0]['name'], $hands[1]['name'], $winner];
 
         // カードの数字をランクに変換
         // 引数はカードペアのインスタンス（１人分のカード）を渡してプレイヤー一人作成
@@ -60,7 +60,7 @@ class PokerGame
     {
         $judgeRule = new TwoPokerJudgeRule();
         if (count($cards) ===3) {
-            $judgeRule = new ThreePokerJudgeRule();
+            $judgeRule = new ThreePokerJudgeRule();9
         }
         return $judgeRule;
     }
