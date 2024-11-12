@@ -10,7 +10,7 @@ class ThreePokerJudgeRule implements PokerJudgeRule
     {
         $winner = 0;
         // プレイヤーの配列で勝負
-        foreach(['hand rank', 'primary', 'secondly'] as $k) {
+        foreach(['hand rank', 'primary', 'secondly', 'thirdly'] as $k) {
         if ($hands[0][$k] < $hands[1][$k]) {
             $winner = 2;
             break;

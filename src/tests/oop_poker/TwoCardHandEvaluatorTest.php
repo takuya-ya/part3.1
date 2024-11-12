@@ -11,7 +11,7 @@ class TwoCardHandEvaluatorTest extends TestCase
 {
     public function testGetHand()
     {
-        $handEvaluator = new TwoCardHandEvaluator(new TwoPokerCardRule);
+        $handEvaluator = new TwoCardHandEvaluator(new TwoPokerCardRule());
         $this->assertSame(['name' => 'pair', 'hand rank' => 2, 'primary' => 9, 'secondly' => 9], $handEvaluator->getHand([new PokerCard('H10'), new PokerCard('H10')]));
         $handEvaluator = new TwoCardHandEvaluator(new TwoPokerCardRule());
         $this->assertSame(['name' => 'high card', 'hand rank' => 1, 'primary' => 9, 'secondly' => 1], $handEvaluator->getHand([new PokerCard('H10'), new PokerCard('H2')]));

@@ -41,8 +41,9 @@ class ThreePokerCardRule implements PokerRule
     {
         // Q-K-A 11-12-13も含む
         // 昇順にソート。降順の方がいいのか？
-        sort($ranks);
-        return range($ranks[0], $ranks[0] + count($ranks) - 1) === $ranks || $this->maxMin($ranks);
+        rsort($ranks);
+        // $ranks 13 12 11
+        return range($ranks[0], $ranks[0] - (count($ranks) - 1)) === $ranks || $this->maxMin($ranks);
     }
 
     // A-2-3 12-1-2の場合の処理
@@ -50,7 +51,8 @@ class ThreePokerCardRule implements PokerRule
     {
         // 修正
         // return (($maxRanks - $minRanks) === (max(PokerCard::CARD_RANK) - min(PokerCard::CARD_RANK)) && ($ranks[1] - $minRanks) === 1);
-        return $ranks === [min(PokerCard::CARD_RANK), min(PokerCard::CARD_RANK) + 1, max(PokerCard::CARD_RANK)];
+        // return $ranks === [min(PokerCard::CARD_RANK), min(PokerCard::CARD_RANK) + 1, max(PokerCard::CARD_RANK)];
+        return $ranks === [max(PokerCard::CARD_RANK), min(PokerCard::CARD_RANK) + 1, min(PokerCard::CARD_RANK)];
     }
 
     public function threeOfAKind(array $ranks): bool
