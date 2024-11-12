@@ -14,7 +14,7 @@ class TwoPokerJudgeRule implements PokerJudgeRule
         if ($hands[0][$k] < $hands[1][$k]) {
             $winner = 2;
             break;
-        }elseif ($hands[0][$k] > $hands[1][$k]) {
+        } elseif ($hands[0][$k] > $hands[1][$k]) {
             $winner = 1;
             break;
         }
