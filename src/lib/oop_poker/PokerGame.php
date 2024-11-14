@@ -36,9 +36,7 @@ class PokerGame
             // 引数：選定されたルール。
             $handEvaluator = $this->getHandEvaluatorRule($cards, $gotRule);
 
-            // プレイヤーの手札情報を作成
-            // 配列化して両プレイヤー分を格納
-            // 引数：プレイヤーのカードインスタンス
+            // プレイヤーの手札情報の配列を格納
             $hands[] = $handEvaluator->getHand($pokerCards);
         }
 
@@ -55,33 +53,19 @@ class PokerGame
         return [$hands[0]['name'], $hands[1]['name'], $winner];
     }
 
-
     private function getHandEvaluatorRule(array $cards, PokerRule $gotRule): PokerHandEvaluator
     {
-        $handEvaluator = new TwoCardHandEvaluator($gotRule);
-        if (count($cards) === 3) {
-            $handEvaluator = new ThreeCardHandEvaluator($gotRule);
-        }
-        return $handEvaluator;
+        return count($cards) === 3 ? new ThreeCardHandEvaluator($gotRule) : new TwoCardHandEvaluator($gotRule);
     }
-    private function getRule($cards): PokerRule
+    private function getRule(array $cards): PokerRule
     {
-        $rule = new TwoPokerCardRule();
-        if (count($cards) === 3) {
-            $rule = new ThreePokerCardRule();
-        }
-        return $rule;
+        return count($cards) === 3 ? new ThreePokerCardRule() : new TwoPokerCardRule();
     }
 
-    private function getJudgeRule($cards): PokerJudgeRule
+    private function getJudgeRule(array $cards): PokerJudgeRule
     {
-        $judgeRule = new TwoPokerJudgeRule();
-        if (count($cards) === 3) {
-            $judgeRule = new ThreePokerJudgeRule();
-        }
-        return $judgeRule;
+        return count($cards) === 3 ? new ThreePokerJudgeRule() : new TwoPokerJudgeRule();
     }
 }
-
 // $game = new PokerGame(['CA', 'DA'], ['C9', 'H10']);
 //             $game->start();
