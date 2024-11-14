@@ -11,7 +11,7 @@ class GameTest extends TestCase
 {
     public function testStart()
     {
-        $game = new Game('卓也', 2, 'A');
+        $game = new Game(2, 'A');
         $result = $game->start();
         $this->assertSame('pair', $result);
     }

@@ -11,14 +11,14 @@ class CardTest extends TestCase
 {
     public function testGetSuit()
     {
-        $card = new Card('H', '10');
+        $card = new Card('H', 10);
         $cards = $card->getSuit();
         $this->assertSame('H', $cards);
     }
 
     public function testGetNum()
     {
-        $card = new Card('H', '10');
+        $card = new Card('H', 10);
         $cards = $card->getNumber();
         $this->assertSame(10, $cards);
     }

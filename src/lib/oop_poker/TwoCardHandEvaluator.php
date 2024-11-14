@@ -22,7 +22,6 @@ class TwoCardHandEvaluator implements PokerHandEvaluator
         // ルールインスタンスにgetHandメソッドを実行させる
         // 役名を取得
         $hand = $this->rule->getHand($ranks);
-        max($ranks);
 
         // 手札がA,2 = rank:12, 1の場合 ルールに基づき、primaryに1,secondlyに12を代入
         if ($this->rule->maxMin($ranks)) {
