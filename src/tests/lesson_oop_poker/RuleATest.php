@@ -1,5 +1,9 @@
 <?php
 
+namespace LessonOopPoker\Tests;
+
+use LessonOopPoker\RuleA;
+use LessonOopPoker\Card;
 use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . '/../../lib/lesson_oop_poker/RuleA.php');

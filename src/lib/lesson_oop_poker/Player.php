@@ -1,5 +1,7 @@
 <?php
 
+namespace LessonOopPoker;
+
 require_once('Deck.php');
 
 class Player

@@ -17,17 +17,15 @@ class TwoPokerCardRule implements PokerRule
         $minRanks = min($ranks);
 
         $hand = self::HIGH_CARD;
-        if ($this->straight($maxRanks, $minRanks, $ranks))
-        {
+        if ($this->straight($maxRanks, $minRanks, $ranks)) {
             $hand = self::STRAIGHT;
-        } elseif ($this->pair($maxRanks, $minRanks))
-        {
+        } elseif ($this->pair($maxRanks, $minRanks)) {
             $hand = self::PAIR;
         }
         return $hand;
     }
 
-    private function straight(int $maxRanks, int $minRanks, array $ranks ): bool
+    private function straight(int $maxRanks, int $minRanks, array $ranks): bool
     {
         return ($maxRanks - $minRanks) === 1 || $this->maxMin($ranks);
     }
@@ -42,5 +40,4 @@ class TwoPokerCardRule implements PokerRule
     {
         return ($maxRanks === $minRanks);
     }
-
 }

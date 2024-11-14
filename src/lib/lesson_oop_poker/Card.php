@@ -1,5 +1,7 @@
 <?php
 
+namespace LessonOopPoker;
+
 class Card
 {
     public function __construct(private string $suit, private int $number)
@@ -15,4 +17,4 @@ class Card
     {
         return $this->number;
     }
-  }
+}

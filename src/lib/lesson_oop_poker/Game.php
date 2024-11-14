@@ -1,5 +1,7 @@
 <?php
 
+namespace LessonOopPoker;
+
 require_once('Player.php');
 require_once('Deck.php');
 require_once('HandEvaluator.php');
@@ -27,13 +29,11 @@ class Game
 
     private function getRule()
     {
-        if ($this->ruleType === 'A')
-        {
+        if ($this->ruleType === 'A') {
             return new RuleA();
         }
 
-        if ($this->ruleType === 'B')
-        {
+        if ($this->ruleType === 'B') {
             return new RuleB();
         }
     }

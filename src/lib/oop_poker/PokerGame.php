@@ -59,7 +59,7 @@ class PokerGame
     private function getHandEvaluatorRule(array $cards, PokerRule $gotRule): PokerHandEvaluator
     {
         $handEvaluator = new TwoCardHandEvaluator($gotRule);
-        if (count($cards) ===3) {
+        if (count($cards) === 3) {
             $handEvaluator = new ThreeCardHandEvaluator($gotRule);
         }
         return $handEvaluator;
@@ -67,7 +67,7 @@ class PokerGame
     private function getRule($cards): PokerRule
     {
         $rule = new TwoPokerCardRule();
-        if (count($cards) ===3) {
+        if (count($cards) === 3) {
             $rule = new ThreePokerCardRule();
         }
         return $rule;
@@ -76,7 +76,7 @@ class PokerGame
     private function getJudgeRule($cards): PokerJudgeRule
     {
         $judgeRule = new TwoPokerJudgeRule();
-        if (count($cards) ===3) {
+        if (count($cards) === 3) {
             $judgeRule = new ThreePokerJudgeRule();
         }
         return $judgeRule;

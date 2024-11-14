@@ -25,11 +25,12 @@ class TwoCardHandEvaluator implements PokerHandEvaluator
         max($ranks);
 
         // 手札がA,2 = rank:12, 1の場合 ルールに基づき、primaryに1,secondlyに12を代入
-        if($this->rule->maxMin($ranks)) {
+        if ($this->rule->maxMin($ranks)) {
             $ranks[0] = min(PokerCard::CARD_RANK);
             $ranks[1] = max(PokerCard::CARD_RANK);
         }
-        return ['name' => $hand, 'hand rank' => self::HAND_RANK[$hand], 'primary' => $ranks[0], 'secondly' => $ranks[1]];
+        return ['name' => $hand, 'hand rank' => self::HAND_RANK[$hand],
+        'primary' => $ranks[0], 'secondly' => $ranks[1]];
     }
 }
 // $handEvaluator = new (new TwoPokerCardRule);

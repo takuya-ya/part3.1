@@ -56,8 +56,6 @@ class VendingMachineTest extends TestCase
         // 金額Ok
         $vendingMachine->depositCoin(100);
         $this->assertSame('potato chips', $vendingMachine->pressButton($potatoChips));
-
-
     }
 
     public function testAddCup()

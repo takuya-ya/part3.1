@@ -1,6 +1,9 @@
 <?php
 
+namespace LessonOopPoker\Tests;
+
 use PHPUnit\Framework\TestCase;
+use LessonOopPoker\Card;
 
 require_once(__DIR__ . '/../../lib/lesson_oop_poker/Card.php');
 
@@ -19,4 +22,4 @@ class CardTest extends TestCase
         $cards = $card->getNumber();
         $this->assertSame(10, $cards);
     }
-  }
+}

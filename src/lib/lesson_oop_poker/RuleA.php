@@ -1,5 +1,7 @@
 <?php
 
+namespace LessonOopPoker;
+
 require_once 'Rule.php';
 
 class RuleA implements Rule

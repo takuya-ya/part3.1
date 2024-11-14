@@ -1,7 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+namespace LessonOopPoker\Tests;
 
+use PHPUnit\Framework\TestCase;
+use LessonOopPoker\Game;
 
 require_once(__DIR__ . '/../../lib/lesson_oop_poker/Game.php');
 

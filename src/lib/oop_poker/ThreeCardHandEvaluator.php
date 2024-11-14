@@ -2,7 +2,6 @@
 
 namespace OopPoker;
 
-
 require_once(__DIR__ . '/../../lib/oop_poker/ThreePokerCardRule.php');
 use OopPoker\ThreePokerCardRule;
 require_once(__DIR__ . '/../../lib/oop_poker/PokerHandEvaluator.php');
@@ -32,13 +31,13 @@ class ThreeCardHandEvaluator implements PokerHandEvaluator
 
         rsort($ranks);
         // 手札がA,2,3 = mas(rank):12, 2, 1の場合 ルールに基づき、primaryに1,secondlyに12を代入
-        if($this->rule->maxMin($ranks)) {
+        if ($this->rule->maxMin($ranks)) {
             $ranks[0] = $ranks[1];
             $ranks[1] = max(PokerCard::CARD_RANK);
             $ranks[2] = min(PokerCard::CARD_RANK);
-
         }
-        return ['name' => $hand, 'hand rank' => self::HAND_RANK[$hand], 'primary' => $ranks[0], 'secondly' => $ranks[1], 'thirdly' => $ranks[2]];
+        return ['name' => $hand, 'hand rank' => self::HAND_RANK[$hand],
+        'primary' => $ranks[0], 'secondly' => $ranks[1], 'thirdly' => $ranks[2]];
     }
 }
         $handEvaluator = new ThreeCardHandEvaluator(new ThreePokerCardRule());
