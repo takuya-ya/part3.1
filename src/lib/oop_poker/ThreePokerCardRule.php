@@ -50,7 +50,8 @@ class ThreePokerCardRule implements PokerRule
     public function maxMin(array $ranks): bool
     {
         // 修正
-        // return (($maxRanks - $minRanks) === (max(PokerCard::CARD_RANK) - min(PokerCard::CARD_RANK)) && ($ranks[1] - $minRanks) === 1);
+        // return (($maxRanks - $minRanks) === (max(PokerCard::CARD_RANK) - min(PokerCard::CARD_RANK))
+        // && ($ranks[1] - $minRanks) === 1);
         // return $ranks === [min(PokerCard::CARD_RANK), min(PokerCard::CARD_RANK) + 1, max(PokerCard::CARD_RANK)];
         return $ranks === [max(PokerCard::CARD_RANK), min(PokerCard::CARD_RANK) + 1, min(PokerCard::CARD_RANK)];
     }

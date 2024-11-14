@@ -31,6 +31,5 @@ class PokerThreeCardTest extends TestCase
         $this->assertSame(['three card', 'three card', 2], show('S2', 'C2', 'D2', 'CA', 'HA', 'SA'));
         $this->assertSame(['three card', 'three card', 2], show('SK', 'CK', 'DK', 'CA', 'HA', 'SA'));
         $this->assertSame(['three card', 'three card', 2], show('S2', 'C2', 'D2', 'C3', 'H3', 'S3'));
-
     }
 }

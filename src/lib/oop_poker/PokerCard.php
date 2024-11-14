@@ -4,8 +4,7 @@ namespace OopPoker;
 
 class PokerCard
 {
-
-    const CARD_RANK = [
+    public const CARD_RANK = [
         '2' => 1,
         '3' => 2,
         '4' => 3,
@@ -25,7 +24,8 @@ class PokerCard
     // 上記は間違い。cardクラスは一枚のカードを扱うクラス。また、今回はカード一枚
     // PokerGameの冒頭で受けたカードを入れている H10
     public function __construct(private string $card)
-    {}
+    {
+    }
 
     public function getRank(): int
     {

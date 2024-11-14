@@ -1,6 +1,11 @@
 <?php
 
+namespace LessonOopPoker\Tests;
+
 use PHPUnit\Framework\TestCase;
+use LessonOopPoker\HandEvaluator;
+use LessonOopPoker\RuleA;
+use LessonOopPoker\Card;
 
 require_once(__DIR__ . '/../../lib/lesson_oop_poker/HandEvaluator.php');
 require_once(__DIR__ . '/../../lib/lesson_oop_poker/RuleA.php');

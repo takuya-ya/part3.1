@@ -21,6 +21,7 @@ class FivePokerCardRule implements PokerRule
         sort($ranks);
 
         $hand = self::HIGH_CARD;
+
         if ($this->fullHouse($ranks)) {
             $hand = self::FULL_HOUSE;
         } elseif ($this->threeOfAKind($ranks)) {
@@ -39,28 +40,44 @@ class FivePokerCardRule implements PokerRule
 
     private function twoPair(array $ranks): bool
     {
-        return (count(array_unique(array_slice($ranks, 0, 2))) === 1 && count(array_unique(array_slice($ranks, 2, 2))) === 1)
-            || (count(array_unique(array_slice($ranks, 0, 2))) === 1 && count(array_unique(array_slice($ranks, 3, 2))) === 1)
-            || (count(array_unique(array_slice($ranks, 1, 2))) === 1 && count(array_unique(array_slice($ranks, 3, 2))) === 1);
-        }
+        return (
+            count(array_unique(array_slice($ranks, 0, 2))) === 1
+            && count(array_unique(array_slice($ranks, 2, 2))) === 1
+        ) || (
+            count(array_unique(array_slice($ranks, 0, 2))) === 1
+            && count(array_unique(array_slice($ranks, 3, 2))) === 1
+        ) || (
+            count(array_unique(array_slice($ranks, 1, 2))) === 1
+            && count(array_unique(array_slice($ranks, 3, 2))) === 1
+        );
+    }
 
     public function threeOfAKind(array $ranks): bool
     {
         $countRanks = array_count_values($ranks);
         return in_array(3, $countRanks);
-        ;
     }
 
-    private function fullHouse($ranks) {
-        return (count(array_unique(array_slice($ranks, 0, 3))) === 1 && count(array_unique(array_slice($ranks, 3, 2))) === 1)
-            || (count(array_unique(array_slice($ranks, 0, 2))) === 1 && count(array_unique(array_slice($ranks, 2, 3))) === 1);
+    private function fullHouse($ranks)
+    {
+        return (
+            count(array_unique(array_slice($ranks, 0, 3))) === 1
+            && count(array_unique(array_slice($ranks, 3, 2))) === 1
+        ) || (
+            count(array_unique(array_slice($ranks, 0, 2))) === 1
+            && count(array_unique(array_slice($ranks, 2, 3))) === 1
+        );
     }
 
-    private function fourOfAKind($ranks) {
-        return count(array_unique(array_slice($ranks, 0, 4))) === 1 || count(array_unique(array_slice($ranks, 1, 4))) === 1;
+    private function fourOfAKind($ranks)
+    {
+        return
+            count(array_unique(array_slice($ranks, 0, 4))) === 1
+            || count(array_unique(array_slice($ranks, 1, 4))) === 1;
     }
 
-    private function onePair(array $ranks): bool {
+    private function onePair(array $ranks): bool
+    {
         return count(array_unique($ranks)) === 4;
     }
 
@@ -70,5 +87,12 @@ class FivePokerCardRule implements PokerRule
     }
     public function maxMin(array $ranks): bool
     {
-        return $ranks === [min(PokerCard::CARD_RANK), min(PokerCard::CARD_RANK) + 1, min(PokerCard::CARD_RANK) + 2, min(PokerCard::CARD_RANK) + 3, max(PokerCard::CARD_RANK)];}
+        return $ranks === [
+            min(PokerCard::CARD_RANK),
+            min(PokerCard::CARD_RANK) + 1,
+            min(PokerCard::CARD_RANK) + 2,
+            min(PokerCard::CARD_RANK) + 3,
+            max(PokerCard::CARD_RANK)
+        ];
+    }
 }

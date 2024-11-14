@@ -1,6 +1,10 @@
 <?php
 
+namespace LessonOopPoker;
+
 use PHPUnit\Framework\TestCase;
+use LessonOopPoker\RuleB;
+use LessonOopPoker\Card;
 
 require_once(__DIR__ . '/../../lib/lesson_oop_poker/RuleB.php');
 require_once(__DIR__ . '/../../lib/lesson_oop_poker/Card.php');

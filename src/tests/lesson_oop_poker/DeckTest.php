@@ -1,6 +1,9 @@
 <?php
 
+namespace LessonOopPoker\Tests;
+
 use PHPUnit\Framework\TestCase;
+use LessonOopPoker\Deck;
 
 require_once(__DIR__ . '/../../lib/lesson_oop_poker/Deck.php');
 
