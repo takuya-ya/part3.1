@@ -2,9 +2,7 @@
 
 namespace OopPoker;
 
-require_once(__DIR__ . '/../../lib/oop_poker/ThreePokerCardRule.php');
 use OopPoker\ThreePokerCardRule;
-require_once(__DIR__ . '/../../lib/oop_poker/PokerHandEvaluator.php');
 
 class ThreeCardHandEvaluator implements PokerHandEvaluator
 {

@@ -2,8 +2,6 @@
 
 namespace VendingMachine;
 
-require_once 'Item.php';
-
 class Drink extends Item
 {
     private const PRICES = [

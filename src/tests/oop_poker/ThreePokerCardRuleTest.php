@@ -6,8 +6,6 @@ use PHPUnit\Framework\TestCase;
 use OopPoker\ThreePokerCardRule;
 use OopPoker\PokerCard;
 
-require_once(__DIR__ . '/../../lib/oop_poker/ThreePokerCardRule.php');
-
 class ThreePokerCardRuleTest extends TestCase
 {
     public function testGetHand()

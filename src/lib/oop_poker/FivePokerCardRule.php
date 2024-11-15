@@ -2,8 +2,7 @@
 
 namespace OopPoker;
 
-require_once('PokerRule.php');
-require_once('PokerCard.php');
+use OopPoker\PokerRule;
 
 class FivePokerCardRule implements PokerRule
 {

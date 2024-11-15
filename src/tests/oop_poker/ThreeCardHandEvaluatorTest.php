@@ -7,8 +7,6 @@ use OopPoker\ThreeCardHandEvaluator;
 use OopPoker\PokerCard;
 use PHPUnit\Framework\TestCase;
 
-require_once(__DIR__ . '/../../lib/oop_poker/ThreeCardHandEvaluator.php');
-
 class ThreeCardHandEvaluatorTest extends TestCase
 {
     public function testGetHand()

@@ -2,8 +2,6 @@
 
 namespace OopPoker;
 
-require_once 'PokerJudgeRule.php';
-
 class TwoPokerJudgeRule implements PokerJudgeRule
 {
     public function getWinner(array $hands): int

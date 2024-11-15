@@ -5,8 +5,6 @@ namespace VendingMachineTests;
 use PHPUnit\Framework\TestCase;
 use VendingMachine\CupDrink;
 
-require_once __DIR__ . '/../../lib/vending_machine/CupDrink.php';
-
 class CupDrinkTest extends TestCase
 {
     public function testGetName()

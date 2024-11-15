@@ -2,9 +2,6 @@
 
 namespace OopPoker;
 
-require_once('PokerRule.php');
-require_once('PokerCard.php');
-
 class TwoPokerCardRule implements PokerRule
 {
     private const HIGH_CARD = 'high card';

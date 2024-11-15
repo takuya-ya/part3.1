@@ -8,8 +8,6 @@ use VendingMachine\Drink;
 use VendingMachine\CupDrink;
 use VendingMachine\Food;
 
-require_once __DIR__ . '/../../lib/vending_machine/VendingMachine.php';
-
 class VendingMachineTest extends TestCase
 {
     public function testDepositCoin()
