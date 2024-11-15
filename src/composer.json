@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "autoload": {
         "psr-4": {
-            "Root\\Html\\": "src/"
+            "Root\\Html\\": "src/",
+            "OopPoker\\": "lib/oop_poker/",
+            "VendingMachine\\": "lib/vending_machine/"
         }
     },
     "require-dev": {

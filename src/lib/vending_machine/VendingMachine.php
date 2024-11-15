@@ -2,8 +2,7 @@
 
 namespace VendingMachine;
 
-require_once __DIR__ . '/../../lib/vending_machine/Item.php';
-
+use VendingMachine\Item;
 
 class VendingMachine
 {
@@ -21,8 +20,9 @@ class VendingMachine
 
     public function addCup(int $refillCup): int
     {
-        if ($this->addedCup < self::MAX_CUP_NUMBER) {
-            $this->addedCup += $refillCup;
+        $this->addedCup += $refillCup;
+        if ($this->addedCup > self::MAX_CUP_NUMBER) {
+            $this->addedCup = self::MAX_CUP_NUMBER;
         }
         return $this->addedCup;
     }
@@ -40,4 +40,9 @@ class VendingMachine
         }
         return '';
     }
+
+    public function returnDeposit() {
+
+    }
+
 }

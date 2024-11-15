@@ -2,7 +2,7 @@
 
 namespace VendingMachine;
 
-require_once 'Item.php';
+use VendingMachine\Item;
 
 class CupDrink extends Item
 {

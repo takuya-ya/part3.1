@@ -2,8 +2,6 @@
 
 namespace OopPoker;
 
-require_once('PokerCard.php');
-
 class PokerPlayer
 {
     // 引数；各カードのインスタンス
