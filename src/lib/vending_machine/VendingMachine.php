@@ -41,8 +41,10 @@ class VendingMachine
         return '';
     }
 
-    public function returnDeposit() {
-
+    public function receiveChange() {
+        $returnDeposit = $this->depositedCoin;
+        $this->depositedCoin = 0;
+        return $returnDeposit;
     }
 
 }

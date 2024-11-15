@@ -63,4 +63,11 @@ class VendingMachineTest extends TestCase
         $this->assertSame(100, $vendingMachine->addCup(1));
         $this->assertSame(100, $vendingMachine->addCup(1));
     }
+
+    public function testReceiveChange() {
+        $vendingMachine = new VendingMachine;
+        $this->assertSame(0, $vendingMachine->receiveChange());
+        $vendingMachine->depositCoin(100);
+        $this->assertSame(100, $vendingMachine->receiveChange());
+    }
 }
