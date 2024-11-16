@@ -24,4 +24,13 @@ class CupDrinkTest extends TestCase
         $item = new CupDrink('ice cup coffee');
         $this->assertSame(1, $item->getCupNumber());
     }
+
+    public function testReplenishNumber()
+    {
+        $item = new CupDrink('ice cup coffee');
+        $replenishNum = 0;
+        $this->assertSame(0, $item->replenishNumber($replenishNum));
+        $replenishNum = 50;
+        $this->assertSame(50, $item->replenishNumber($replenishNum));
+    }
 }

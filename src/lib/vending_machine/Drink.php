@@ -8,6 +8,8 @@ class Drink extends Item
         'cider' => 100,
         'cola' => 150
     ];
+    private $replenishedNum;
+    private const MAX_ITEM_NUM = 50;
 
     public function __construct(string $name)
     {
@@ -22,5 +24,20 @@ class Drink extends Item
     public function getCupNumber()
     {
         return 0;
+    }
+
+    public function getReplenishedNumber()
+    {
+        return 1;
+    }
+
+    // 補充する数量をアイテム毎に加算
+    public function replenishNumber(int $replenishNum)
+    {
+        $this->replenishedNum += $replenishNum;
+        if ($this->replenishedNum > self::MAX_ITEM_NUM) {
+            $this->replenishedNum = self::MAX_ITEM_NUM ;
+        }
+        return $this->replenishedNum;
     }
 }
