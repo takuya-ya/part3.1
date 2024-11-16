@@ -26,8 +26,13 @@ class Drink extends Item
         return 0;
     }
 
+    public function getReplenishedNumber()
+    {
+        return 1;
+    }
+
     // 補充する数量をアイテム毎に加算
-    public function replenishNumber($replenishNum)
+    public function replenishNumber(int $replenishNum)
     {
         $this->replenishedNum += $replenishNum;
         if ($this->replenishedNum > self::MAX_ITEM_NUM) {

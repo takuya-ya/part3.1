@@ -28,7 +28,12 @@ class CupDrink extends Item
         return 1;
     }
 
-    public function replenishNumber($replenishNum)
+    public function getReplenishedNumber()
+    {
+        return 1;
+    }
+
+    public function replenishNumber(int $replenishNum)
     {
         $this->replenishedNum += $replenishNum;
         if ($this->replenishedNum > self::MAX_ITEM_NUM) {

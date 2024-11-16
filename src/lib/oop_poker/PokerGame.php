@@ -36,7 +36,9 @@ class PokerGame
 
     private function getHandEvaluatorRule(array $cards, PokerRule $gotRule): PokerHandEvaluator
     {
-        return count($cards) === self::THREE_CARD_HAND ? new ThreeCardHandEvaluator($gotRule) : new TwoCardHandEvaluator($gotRule);
+        return count($cards) === self::THREE_CARD_HAND
+            ? new ThreeCardHandEvaluator($gotRule)
+            : new TwoCardHandEvaluator($gotRule);
     }
     private function getRule(array $cards): PokerRule
     {
