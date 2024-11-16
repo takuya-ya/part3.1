@@ -30,6 +30,7 @@ class VendingMachine
     public function replenishNumber(Item $item, int $replenishNum) {
         return $item->replenishNumber($replenishNum);
     }
+
     // Itemインスタンス管理、インスタンスに名前と金額を出させている
     public function pressButton(Item $item): string
     {

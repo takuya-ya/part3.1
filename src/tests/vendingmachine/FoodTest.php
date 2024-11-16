@@ -18,4 +18,13 @@ class FoodTest extends TestCase
         $item = new Food('potato chips');
         $this->assertSame(150, $item->getPrice());
     }
+
+    public function testReplenishNumber()
+    {
+        $item = new Food('potato chips');
+        $replenishNum = 0;
+        $this->assertSame(0, $item->replenishNumber($replenishNum));
+        $replenishNum = 50;
+        $this->assertSame(50, $item->replenishNumber($replenishNum));
+    }
 }

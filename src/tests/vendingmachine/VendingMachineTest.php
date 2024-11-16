@@ -77,6 +77,6 @@ class VendingMachineTest extends TestCase
         $cider = new Drink('cider');
         $this->assertSame(0, $vendingMachine->replenishNumber($cider, $replenishNum));
         $replenishNum = $cider->replenishNumber(50);
-        $this->assertSame(50, $vendingMachine->receiveChange($cider, $replenishNum));
+        $this->assertSame(50, $vendingMachine->replenishNumber($cider, $replenishNum));
     }
 }

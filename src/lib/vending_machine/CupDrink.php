@@ -10,6 +10,8 @@ class CupDrink extends Item
         'hot cup coffee' => 100,
         'ice cup coffee' => 100
     ];
+    private $replenishedNum;
+    private const MAX_ITEM_NUM = 50;
 
     public function __construct(string $name)
     {
@@ -28,6 +30,10 @@ class CupDrink extends Item
 
     public function replenishNumber($replenishNum)
     {
-        return 0;
+        $this->replenishedNum += $replenishNum;
+        if ($this->replenishedNum > self::MAX_ITEM_NUM) {
+            $this->replenishedNum = self::MAX_ITEM_NUM ;
+        }
+        return $this->replenishedNum;
     }
 }
