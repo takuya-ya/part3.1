@@ -25,4 +25,9 @@ class CupDrink extends Item
     {
         return 1;
     }
+
+    public function replenishNumber($replenishNum)
+    {
+        return 0;
+    }
 }
