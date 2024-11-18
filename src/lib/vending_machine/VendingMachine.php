@@ -39,6 +39,7 @@ class VendingMachine
     {
         $price = $item->getPrice();
         $cup = $item->getCupNumber();
+        // 「必要な在庫の数」の意図で命名したが、補充された数になっている
         $itemNum = $item->getReplenishedNumber();
 
         if (($this->depositedCoin) >= $price && ($this->addedCup) >= $cup && ($this->replenishedNum) >= $itemNum) {
