@@ -8,7 +8,7 @@ class TwoPokerCardRule implements PokerRule
     private const PAIR = 'pair';
     private const STRAIGHT = 'straight';
 
-    public function getHand(array $ranks) : string
+    public function getHand(array $ranks): string
     {
         $maxRanks = max($ranks);
         $minRanks = min($ranks);
