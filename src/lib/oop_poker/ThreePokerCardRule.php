@@ -12,8 +12,6 @@ class ThreePokerCardRule implements PokerRule
     public function getHand(array $pokerCards): string
     {
         $ranks = array_map(fn($cardRank) => $cardRank->getRank(), $pokerCards);
-
-
         $hand = self::HIGH_CARD;
         // pairの方が出やすいのでそれを先に条件すべき、不要な処理を避けるため
         if ($this->threeOfAKind($ranks)) {
