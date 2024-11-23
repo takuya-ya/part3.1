@@ -5,7 +5,8 @@
         "psr-4": {
             "Root\\Html\\": "src/",
             "OopPoker\\": "lib/oop_poker/",
-            "VendingMachine\\": "lib/vending_machine/"
+            "VendingMachine\\": "lib/vending_machine/",
+            "VendingMachineV2\\": "lib/vending_machine_v2/"
         }
     },
     "require-dev": {
