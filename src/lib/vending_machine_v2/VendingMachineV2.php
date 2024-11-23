@@ -3,6 +3,7 @@
 namespace VendingMachineV2;
 
 use VendingMachineV2\CoinManager;
+use VendingMachineV2\Item;
 
 class VendingMachineV2 {
     private CoinManager $coinManager;
@@ -16,10 +17,11 @@ class VendingMachineV2 {
         return $this->coinManager->depositCoin($coin);
     }
 
-    public function pressButton(string $item): string
+    public function pressButton(Item $item): string
     {
-        if ($this->coinManager->useCoin()) {
+        if ($this->coinManager->useCoin($item)) {
             return "cola";
         }
+        return 'お金が足りません';
     }
 }
