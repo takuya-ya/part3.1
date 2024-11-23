@@ -14,8 +14,11 @@ class CoinManager
         return $this->depositedCoin;
     }
 
-    public function useCoin(): bool
+    public function useCoin(Item $item): bool
     {
-        return true;
+        if ($this->depositedCoin >= $item->getPrice()) {
+            return true;
+        }
+        return false;
     }
 }
