@@ -14,11 +14,11 @@ class Cola implements Item
 
     public function getName()
     {
-        return self::$item['name'];
+        return $this->item['name'];
     }
 
     public function getPrice()
     {
-        return self::$item['price'];
+        return $this->item['price'];
     }
 }
