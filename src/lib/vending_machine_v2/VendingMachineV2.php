@@ -2,6 +2,8 @@
 
 namespace VendingMachineV2;
 
+use VendingMachineV2\CoinManager;
+
 class VendingMachineV2 {
     private CoinManager $coinManager;
 

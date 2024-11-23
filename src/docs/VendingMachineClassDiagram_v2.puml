@@ -1,6 +1,5 @@
 @startuml
 
-
 class VendingMachine {
   - coinManager : CoinManager
   - cupManager : CupManager
@@ -10,6 +9,24 @@ class VendingMachine {
   + replenishItem(item: Item, count: int): int
   + pressButton(item: Item): string
   + reciveChange(): int
+}
+
+class CoinManager {
+  + depositCoin(): int
+  + useCoin(): bool
+  + receiveChange(): int
+}
+
+class CupManager {
+   - addedCup
+   + addCup(cup : int): int
+   + useCup()
+}
+
+class InventryManager {
+  - inventry: array
+  + replenishItem(item: Item, count: int): int
+  + useInventry(item: Item, count: int): int
 }
 
 interface Item {
@@ -23,25 +40,6 @@ class Juice {}
 class CupDrink {}
 class Snack {}
 
-// classでなくfunctionだった
-// class depositCoin {
-//   - depositedCoin
-//   + depositCoin(coin : int) :int
-//   + useCoin()
-//   + reciveChange())
-// }
-
-// class addCup {
-//   - addedCup
-//   + addCup(cup : int): int
-//   + useCup()
-// }
-
-class InventryManager {
-  - inventry: array
-  + replenishItem(item: Item, count: int): int
-  + useInventry(item: Item, count: int): int
-}
 
 VendingMachine --> CoinManager
 VendingMachine --> CupManager

@@ -8,7 +8,9 @@ class CoinManager
 
     public function depositCoin(int $coin): int
     {
+        if ($coin = 100) {
         return $this->depositedCoin += $coin;
+        }
     }
 
     public function useCoin(): bool
