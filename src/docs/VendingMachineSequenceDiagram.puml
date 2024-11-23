@@ -1,0 +1,17 @@
+@startuml
+
+actor 購入者
+participant VendingMachineV2
+participant CoinManager
+participant InventManager
+participant CupManager
+participant Item
+participant pressButton
+
+購入者 -> VendingMachineV2: coin
+VendingMachineV2 -> CoinManager: depositCoin
+CoinManager -> VendingMachineV2: depositedCoin
+VendingMachineV2 -> VendingMachineV2: pressButton
+VendingMachineV2 -> 購入者: item
+
+@enduml
