@@ -12,4 +12,10 @@ class ColaTest extends TestCase
         $cola = new Cola();
         $this->assertSame('cola', $cola->getName());
     }
+
+    public function testGetPrice()
+    {
+        $cola = new Cola();
+        $this->assertSame(100, $cola->getPrice());
+    }
 }
