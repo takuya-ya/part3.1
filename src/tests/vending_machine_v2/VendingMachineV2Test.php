@@ -13,6 +13,8 @@ class VendingMachineV2Test extends TestCase{
         $vendingMachine = new VendingMachineV2;
         $item = new Cola;
 
+        $this->assertEquals(new Cola, $vendingMachine->instanceFactory('cola'));
+
         // 投入金額が100円未満の場合、コーラは購入できない
         $vendingMachine->depositCoin(0);
         $this->assertSame('お金が足りません', $vendingMachine->pressButton($item));
@@ -20,7 +22,5 @@ class VendingMachineV2Test extends TestCase{
         // 投入金額が100円の場合、コーラが購入できる
         $vendingMachine->depositCoin(100);
         $this->assertSame('cola', $vendingMachine->pressButton($item));
-
-
     }
 }
