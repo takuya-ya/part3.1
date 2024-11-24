@@ -5,26 +5,24 @@ namespace VendingMachineV2;
 use VendingMachineV2\CoinManager;
 use VendingMachineV2\Item;
 use VendingMachineV2\InstanceFactory;
+use VendingMachineV2\InventoryManager;
 
-// 複数アイテムの追加
-// アイテムを複数商品にする
-// 現在　呼び出し時にインスタンス作成してpressButtonに渡す
-// 名前入れるとインスタンス作成してほしい：普通買う時に購入したい商品のボタン押すだけだから（欲しい商品のインスタンスを作成したりしない）
+// 在庫管理のクラス
 
 class VendingMachineV2 {
-    private CoinManager $coinManager;
     private InstanceFactory $instanceFactory;
+    private CoinManager $coinManager;
+    private InventoryManager $inventoryManager;
 
     public function __construct() {
         $this->coinManager = new CoinManager;
         $this->instanceFactory = new InstanceFactory;
+        $this->inventoryManager = new InventoryManager;
     }
-    // インスタンス作成するクラス
-    // 条件に応じて
-    // mache関数
 
+    // インスタンス作成を担うクラス
     public function instanceFactory(string $name): Item {
-        return $this->instanceFactory->selectItem($name);
+        return $item = $this->instanceFactory->selectItem($name);
     }
 
     public function depositCoin(int $coin): int
@@ -32,9 +30,13 @@ class VendingMachineV2 {
         return $this->coinManager->depositCoin($coin);
     }
 
+    public function replenishItem(int $count): bool {
+            return $this->inventoryManager->addStock($count);
+    }
+
     public function pressButton(Item $item): string
     {
-        if ($this->coinManager->useCoin($item)) {
+        if ($this->coinManager->useCoin($item) && $this->inventoryManager->useItem()) {
             return "cola";
         }
         return 'お金が足りません';
