@@ -15,9 +15,9 @@ class VendingMachineV2 {
     private InventoryManager $inventoryManager;
 
     public function __construct() {
-        $this->coinManager = new CoinManager;
-        $this->instanceFactory = new InstanceFactory;
-        $this->inventoryManager = new InventoryManager;
+        $this->instanceFactory = new InstanceFactory();
+        $this->coinManager = new CoinManager();
+        $this->inventoryManager = new InventoryManager();
     }
 
     // インスタンス作成を担うクラス
@@ -39,6 +39,6 @@ class VendingMachineV2 {
         if ($this->coinManager->useCoin($item) && $this->inventoryManager->useItem(1)) {
             return "cola";
         }
-        return 'お金が足りません';
+        return '';
     }
 }
