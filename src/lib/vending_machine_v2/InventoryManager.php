@@ -2,6 +2,8 @@
 
 namespace VendingMachineV2;
 
+use VendingMachineV2\Item;
+
 class InventoryManager
 {
     // これは０で良いのか？クラス生成の度に０になってしまう
@@ -11,5 +13,10 @@ class InventoryManager
     public function addStock(int $count): int
     {
         return $this->replenishedItem += $count;
+    }
+
+    public function useItem($count): bool
+    {
+        return $this->replenishedItem >= $count;
     }
 }

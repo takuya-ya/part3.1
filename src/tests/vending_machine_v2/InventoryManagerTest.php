@@ -13,5 +13,10 @@ class InventoryManagerTest extends TestCase
         $this->assertSame(1, $inventoryManager->addStock(1));
     }
 
+    public function testUseItem()
+    {
+        $inventoryManager = new InventoryManager;
+        $this->assertSame(1, $inventoryManager->addStock(1));
+    }
 
 }

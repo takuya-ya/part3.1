@@ -36,7 +36,7 @@ class VendingMachineV2 {
 
     public function pressButton(Item $item): string
     {
-        if ($this->coinManager->useCoin($item) && $this->inventoryManager->useItem()) {
+        if ($this->coinManager->useCoin($item) && $this->inventoryManager->useItem(1)) {
             return "cola";
         }
         return 'お金が足りません';
