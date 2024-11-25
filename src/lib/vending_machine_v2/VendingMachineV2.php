@@ -38,7 +38,7 @@ class VendingMachineV2
     public function pressButton(Item $item): string
     {
         if ($this->coinManager->useCoin($item) && $this->inventoryManager->useItem(self::ITEM_CONSUMPTION_ITEM)) {
-            return "cola";
+            return $item->getName();
         }
         return '';
     }
