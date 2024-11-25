@@ -7,9 +7,10 @@ use VendingMachineV2\Item;
 use VendingMachineV2\InstanceFactory;
 use VendingMachineV2\InventoryManager;
 
-// 在庫管理のクラス
+class VendingMachineV2
+{
+    private const ITEM_CONSUMPTION_ITEM = 1;
 
-class VendingMachineV2 {
     private InstanceFactory $instanceFactory;
     private CoinManager $coinManager;
     private InventoryManager $inventoryManager;
@@ -22,7 +23,7 @@ class VendingMachineV2 {
 
     // インスタンス作成を担うクラス
     public function instanceFactory(string $name): Item {
-        return $item = $this->instanceFactory->selectItem($name);
+        return $this->instanceFactory->selectItem($name);
     }
 
     public function depositCoin(int $coin): int
@@ -33,10 +34,10 @@ class VendingMachineV2 {
     public function replenishItem(int $count): bool {
             return $this->inventoryManager->addStock($count);
     }
-
+    // １がマジックナンバー。ドリンク購入時に消費する在庫数。定数を設定する
     public function pressButton(Item $item): string
     {
-        if ($this->coinManager->useCoin($item) && $this->inventoryManager->useItem(1)) {
+        if ($this->coinManager->useCoin($item) && $this->inventoryManager->useItem(self::ITEM_CONSUMPTION_ITEM)) {
             return "cola";
         }
         return '';
