@@ -8,7 +8,7 @@ class HotCoffee extends CupCoffee
 {
     protected array $item =
     [
-        'name' => 'hotCoffee',
+        'name' => 'hot Coffee',
         'price' => 150,
         'cupCount' => 1
     ];
