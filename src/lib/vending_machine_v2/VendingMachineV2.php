@@ -8,6 +8,14 @@ use VendingMachineV2\InstanceFactory;
 use VendingMachineV2\InventoryManager;
 use VendingMachineV2\CupManager;
 
+// デバッグ機能利用の為にファイル読み込み
+// require_once __DIR__ . ('/InstanceFactory.php');
+// require_once __DIR__ . ('/CoinManager.php');
+// require_once __DIR__ . ('/InventoryManager.php');
+// require_once __DIR__ . ('/CupManager.php');
+// require_once __DIR__ . ('/Item.php');
+// require_once __DIR__ . ('/HotCoffee.php');
+
 class VendingMachineV2
 {
     private const ITEM_CONSUMPTION_ITEM = 1;
@@ -16,6 +24,7 @@ class VendingMachineV2
     private CoinManager $coinManager;
     private InventoryManager $inventoryManager;
     private CupManager $cupManager;
+
 
     public function __construct() {
         $this->instanceFactory = new InstanceFactory();
@@ -49,9 +58,23 @@ class VendingMachineV2
             $this->coinManager->useCoin($item)
             && $this->inventoryManager->useItem(self::ITEM_CONSUMPTION_ITEM)
             && $this->cupManager->useCup($item)
-                    ) {
+        )
+        {
+            $this->coinManager->depositedCoin -= $item->getPrice();
+            $this->inventoryManager->replenishedItem -= self::ITEM_CONSUMPTION_ITEM;
+            $this->cupManager->addedCup -= $item->getCup();
             return $item->getName();
         }
         return '';
     }
+
+    // お釣りを返却　コインを投入　商品を購入　余ったお金を返却する
 }
+
+//　デバッグ機能利用の為、メソッド実行
+// $vendingMachine = new VendingMachineV2;
+// $item = new HotCoffee;
+// $vendingMachine->depositCoin(150);
+//         $vendingMachine->replenishItem(10);
+//         $vendingMachine->addCups(10);
+//         $vendingMachine->pressButton($item);

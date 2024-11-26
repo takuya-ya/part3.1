@@ -6,7 +6,7 @@ use VendingMachineV2\Item;
 
 class CupManager
 {
-    private int $addedCup = 0;
+    public int $addedCup = 0;
 
     public function addCup(int $cupsToAdd): int
     {
