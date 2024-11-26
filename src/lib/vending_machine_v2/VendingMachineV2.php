@@ -34,7 +34,7 @@ class VendingMachineV2
     public function replenishItem(int $count): bool {
             return $this->inventoryManager->addStock($count);
     }
-    // １がマジックナンバー。ドリンク購入時に消費する在庫数。定数を設定する
+    
     public function pressButton(Item $item): string
     {
         if ($this->coinManager->useCoin($item) && $this->inventoryManager->useItem(self::ITEM_CONSUMPTION_ITEM)) {

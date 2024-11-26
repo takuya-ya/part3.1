@@ -2,8 +2,6 @@
 
 namespace VendingMachineV2;
 
-use VendingMachineV2\Item;
-
 class InventoryManager
 {
     // これは０で良いのか？クラス生成の度に０になってしまう

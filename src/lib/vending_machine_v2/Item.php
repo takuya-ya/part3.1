@@ -2,8 +2,17 @@
 
 namespace VendingMachineV2;
 
-interface Item
+abstract class Item
 {
-    public function getName();
-    public function getPrice();
+    protected array $item;
+
+    public function getName()
+    {
+        return $this->item['name'];
+    }
+
+    public function getPrice()
+    {
+        return $this->item['price'];
+    }
 }

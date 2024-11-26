@@ -4,21 +4,11 @@ namespace VendingMachineV2;
 
 use VendingMachineV2\Item;
 
-class Cider implements Item
+class Cider extends Item
 {
-    private array $item =
+    protected array $item =
     [
         'name' => 'cider',
         'price' => 100
     ];
-
-    public function getName()
-    {
-        return $this->item['name'];
-    }
-
-    public function getPrice()
-    {
-        return $this->item['price'];
-    }
 }

@@ -8,7 +8,7 @@ class InstanceFactory
     {
         $item = match ($name) {
             'cola' => new Cola,
-            'cider' => new Cider
+            'cider' => new Cider,
         };
         return $item;
     }
