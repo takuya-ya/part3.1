@@ -10,7 +10,7 @@ class HotCoffeeTest extends TestCase
     public function testGetName()
     {
         $hotCoffee = new HotCoffee();
-        $this->assertSame('hot Coffee', $hotCoffee->getName());
+        $this->assertSame('hot coffee', $hotCoffee->getName());
     }
 
     public function testGetPrice()
