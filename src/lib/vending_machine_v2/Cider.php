@@ -9,6 +9,7 @@ class Cider extends Item
     protected array $item =
     [
         'name' => 'cider',
-        'price' => 100
+        'price' => 100,
+        'cupCount' => 1
     ];
 }

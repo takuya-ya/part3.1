@@ -4,7 +4,7 @@ namespace VendingMachineV2;
 
 class CoinManager
 {
-    private int $depositedCoin = 0;
+    public int $depositedCoin = 0;
 
     public function depositCoin(int $coin): int
     {
@@ -16,9 +16,6 @@ class CoinManager
 
     public function useCoin(Item $item): bool
     {
-        if ($this->depositedCoin >= $item->getPrice()) {
-            return true;
-        }
-        return false;
+        return $this->depositedCoin >= $item->getPrice();
     }
 }

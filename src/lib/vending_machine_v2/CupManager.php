@@ -2,17 +2,19 @@
 
 namespace VendingMachineV2;
 
+use VendingMachineV2\Item;
+
 class CupManager
 {
-    private int $addedCup = 0;
+    public int $addedCup = 0;
 
     public function addCup(int $cupsToAdd): int
     {
         return $this->addedCup += $cupsToAdd;
     }
 
-    public function useCup($cupsToUse): bool
+    public function useCup(Item $item): bool
     {
-        return $this->addedCup >= $cupsToUse;
+        return $this->addedCup >= $item->getCup();
     }
 }

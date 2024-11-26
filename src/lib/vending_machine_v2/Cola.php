@@ -9,6 +9,7 @@ class Cola extends Item
     protected array $item =
     [
         'name' => 'cola',
-        'price' => 100
+        'price' => 100,
+        'cupCount' => 1
     ];
 }

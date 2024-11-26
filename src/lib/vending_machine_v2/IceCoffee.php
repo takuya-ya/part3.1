@@ -2,9 +2,9 @@
 
 namespace VendingMachineV2;
 
-use VendingMachineV2\CupCoffee;
+use VendingMachineV2\Item;
 
-class IceCoffee extends CupCoffee
+class IceCoffee extends Item
 {
     protected array $item =
     [

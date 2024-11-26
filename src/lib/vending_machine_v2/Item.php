@@ -15,4 +15,9 @@ abstract class Item
     {
         return $this->item['price'];
     }
+
+    public function getCup(): int
+    {
+        return $this->item['cupCount'];
+    }
 }
