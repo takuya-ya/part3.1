@@ -11,7 +11,6 @@ use VendingMachineV2\CupManager;
 class VendingMachineV2
 {
     private const ITEM_CONSUMPTION_ITEM = 1;
-    private const ITEM_CONSUMPTION_CUP = 1;
 
     private InstanceFactory $instanceFactory;
     private CoinManager $coinManager;
@@ -49,7 +48,7 @@ class VendingMachineV2
         if (
             $this->coinManager->useCoin($item)
             && $this->inventoryManager->useItem(self::ITEM_CONSUMPTION_ITEM)
-            && $this->cupManager->useCup(self::ITEM_CONSUMPTION_CUP)
+            && $this->cupManager->useCup($item)
                     ) {
             return $item->getName();
         }

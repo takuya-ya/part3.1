@@ -5,7 +5,6 @@ namespace VendingMachineV2Tests;
 use PHPUnit\Framework\TestCase;
 use VendingMachineV2\VendingMachineV2;
 use VendingMachineV2\Cola;
-use VendingMachineV2\InventoryManager;
 
 class VendingMachineV2Test extends TestCase{
 
@@ -13,7 +12,6 @@ class VendingMachineV2Test extends TestCase{
     {
         $vendingMachine = new VendingMachineV2;
         $item = new Cola;
-        $inventoryManager = new InventoryManager;
 
         $this->assertEquals(new Cola, $vendingMachine->instanceFactory('cola'));
 
@@ -24,6 +22,9 @@ class VendingMachineV2Test extends TestCase{
         // 投入金額が100円の場合、コーラが購入できる
         $vendingMachine->depositCoin(100);
         $vendingMachine->replenishItem(10);
+        $vendingMachine->addCups(10);
         $this->assertSame('cola', $vendingMachine->pressButton($item));
+
+
     }
 }
