@@ -4,11 +4,11 @@ namespace VendingMachineV2;
 
 use VendingMachineV2\Item;
 
-class Cola extends Item
+class Cider extends Item
 {
     protected array $item =
     [
-        'name' => 'cola',
+        'name' => 'cider',
         'price' => 100
     ];
 }
