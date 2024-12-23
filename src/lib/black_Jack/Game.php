@@ -1,1 +1,8 @@
-<? php
+<?php
+
+namespace BlackJack;
+
+class Game
+{
+  
+}
