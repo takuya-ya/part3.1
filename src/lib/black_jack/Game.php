@@ -10,6 +10,6 @@ class Game
 
     public function start()
     {
-        echo $this->playerName;
+        return $this->playerName;
     }
 }
