@@ -6,7 +6,6 @@ class Deck
 {
     public function drawCard()
     {
-
+        
     }
 }
-
