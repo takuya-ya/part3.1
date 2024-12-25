@@ -4,7 +4,6 @@ namespace BlackJack\Tests;
 
 use PHPUnit\Framework\TestCase;
 use BlackJack\Deck;
-use BlackJack\Card;
 
 require_once(__DIR__ . '/../../lib/black_jack/Deck.php');
 
