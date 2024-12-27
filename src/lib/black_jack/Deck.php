@@ -18,6 +18,7 @@ class Deck
         shuffle($card->cards);
         // カードを手札用に2枚単位で分割
         $playerCards = array_chunk(array_slice($card->cards, 0, 4), 2);
+        return $playerCards;
     }
 }
 
