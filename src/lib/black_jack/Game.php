@@ -2,6 +2,10 @@
 
 namespace BlackJack;
 
+use BlackJack\Dealer;
+
+require_once(__DIR__.'/Dealer.php');
+
 class Game
 {
     public function __construct(public string $playerName)
@@ -10,6 +14,8 @@ class Game
 
     public function start()
     {
-        return $this->playerName;
+        $dealer = new Dealer;
+        $playersCards = $dealer->dealingCard($this->playerName);
+        return $playersCards;
     }
 }
