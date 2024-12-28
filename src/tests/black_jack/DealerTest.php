@@ -14,7 +14,7 @@ class DealerTest extends TestCase
         $dealer = new Dealer;
         // プレイヤー達のカードの手札が格納された配列を返す
         // $playersCard[名前]=各プレイヤーのカード
-        $playersCard = $dealer->dealingCard();
+        $playersCard = $dealer->dealingCard('takuya');
         // 型の確認
         $this->assertSame('array', gettype($playersCard));
         // 人数分の手札の確認
