@@ -23,6 +23,3 @@ class Deck
         return $playerCards;
     }
 }
-
-// $deck = new Deck;
-// $deck->drawCard();
