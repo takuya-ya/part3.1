@@ -33,5 +33,3 @@ class Dealer
         return $playersCard;
     }
 }
-$i = new Dealer;
-$i->dealingCard(['takuya']);
