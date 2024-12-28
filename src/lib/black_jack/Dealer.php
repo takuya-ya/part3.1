@@ -20,7 +20,6 @@ class Dealer
         $collectionTwoCards = $deck->drawCard();
         // $playersCard配列のキーにプレイヤー名を追加し、プレイヤーと手札を紐づける
         foreach ($collectionTwoCards as $TwoCards) {
-           
             $playerCards[$playerNames[$indent]] = $TwoCards;
             ++$indent;
         }
