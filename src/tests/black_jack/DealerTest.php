@@ -14,13 +14,14 @@ class DealerTest extends TestCase
         $dealer = new Dealer;
         // プレイヤー達のカードの手札が格納された配列を返す
         // $playersCard[名前]=各プレイヤーのカード
-        $playersCard = $dealer->dealingCard(['takuya']);
+        $playersCard = $dealer->dealingCard();
         // 型の確認
         $this->assertSame('array', gettype($playersCard));
         // 人数分の手札の確認
-        $this->assertSame(2 , count($playersCard));
+        $this->assertSame(2, count($playersCard));
         // 各プレイヤーの手札枚数の確認
-        $this->assertSame(1 , count($playersCard[0]));
-        $this->assertSame(2 , count($playersCard[1]));
+        foreach($playersCard as $playerCard) {
+        $this->assertSame(2, count($playerCard));
+        }
     }
 }
