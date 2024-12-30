@@ -1,14 +1,18 @@
 <?php
 
-namespace BlackJac\Player;
+namespace BlackJack;
 
 class Player
 {
+    public array $hand = [];
+
     public function __construct(public string $playerName)
     {
     }
-    public function receiveCard(array $playerCards)
+    
+    public function receiveCard(array $playerCards): array
     {
-        return  $playerCards[$this->playerName];
+        $this->hand = $playerCards[$this->playerName];
+        return $this->hand;
     }
 }
