@@ -18,9 +18,10 @@ class Game
         $playerCards = $dealer->dealingCard($this->playerName);
 
         // playerNameをplayerCardsのキーに代入して、そのプレイヤーのカードを呼出し。手札を確認し必用であれば追加でカードを引く。最終的に勝負するカードを返り値とする
-        $playerHand = new Player($this->playerName, $playerCards);
+        $player = new Player($this->playerName);
+        $hand = $player->receiveCard($playerCards);
 
         // TODO:テスト用の返り値
-        return $playerHand;
+        return $hand;
     }
 }
