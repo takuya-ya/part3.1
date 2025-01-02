@@ -12,7 +12,6 @@ class Deck
     {
     }
 
-    // TODO 山札作成（シャフルまで）
     public function makeDeck()
     {
         // 52枚のカードを持つ配列のプロパティを初期設定
@@ -26,9 +25,9 @@ class Deck
     public function drawCard()
     {
         $playerCards = [];
+
         // ディーラー含む２名分のカード４枚をスライス
         // カードを手札用に2枚単位で分割してプレイヤー２名分のカードを準備
-
         $playerCards = array_chunk(array_slice($this->makeDeck(), 0, 4), 2);
         return $playerCards;
     }
