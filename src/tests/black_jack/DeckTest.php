@@ -4,14 +4,25 @@ namespace BlackJack\Tests;
 
 use PHPUnit\Framework\TestCase;
 use BlackJack\Deck;
+use BlackJack\Card;
 
 require_once(__DIR__ . '/../../lib/black_jack/Deck.php');
+require_once(__DIR__ . '/../../lib/black_jack/Card.php');
 
 class DeckTest extends TestCase
 {
+    public function testMakeDeck()
+    {
+        $deck = new Deck(new Card);
+        $shuffledDeck = $deck->makeDeck();
+        $this->assertSame(52, count($shuffledDeck));
+        $this->assertSame(count($shuffledDeck), count(array_unique($shuffledDeck)));
+        $this->assertEqualsCanonicalizing($deck->card->cards, $shuffledDeck);
+    }
+
     public function testDrawCard()
     {
-        $deck = new Deck;
+        $deck = new Deck(new Card);
         $playerCards = $deck->drawCard();
 
         // 型の確認
