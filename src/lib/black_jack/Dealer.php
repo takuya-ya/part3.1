@@ -8,6 +8,16 @@ require_once(__DIR__.'/Deck.php');
 class Dealer
 {
     public array $dealerCard = [];
+    // passCardインターフェースを引数にして依存性注入
+    // passCardインターフェースはデッキ交換の拡張に対応できるよう作成
+    // $cardNumで引きたいカード枚数を渡す
+    public function drawCard(passCard $deck): array {
+        $drawCard = $deck->drawCard($cardNum);
+        // 引いたカードは山札から削除
+        // 山札はGameクラスのプロパテぃにする
+
+
+    }
 
     // $playerNamesにはdealerも格納済み
     public function drawCardsForPlayer(array $playerNames, Deck $deck): array
@@ -25,7 +35,7 @@ class Dealer
         }
         return $playerCards;
     }
-    
+
     public function dealingCard(array $playerNames, Deck $deck): array
     {
         $playerCards = $this->drawCardsForPlayer($playerNames, $deck);
