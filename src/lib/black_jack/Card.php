@@ -5,6 +5,7 @@ namespace BlackJack;
 class Card
 {
   public $cards = [];
+  
   public function __construct()
   {
       $suits = ['S', 'H', 'D', 'K'];
