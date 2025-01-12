@@ -25,6 +25,7 @@ class Deck
 
     public function drawCard(int $drawCardNum) : array
     {
+        // 山札からカードを取得し、取得したカードは山札から削除
         $drawnCard = array_splice($this->cardDeck, 0, $drawCardNum);
         return $drawnCard;
     }
