@@ -32,7 +32,7 @@ class Deck
         return $drawnCard;
     }
 
-    public function getStartHands(array $playerNames) : array
+    public function startHands(array $playerNames) : array
     {
         $playerHands = [];
         foreach($playerNames as $playerName) {
