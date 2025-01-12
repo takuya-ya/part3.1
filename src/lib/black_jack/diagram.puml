@@ -32,7 +32,7 @@ class PointCalculator {
 }
 
 class JudgeWinner {
- +judge($plae) ポイントに基づいて勝者を判定
+  +judge($plae) ポイントに基づいて勝者を判定
 }
 
 
