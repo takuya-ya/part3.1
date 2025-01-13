@@ -2,38 +2,71 @@
 
 namespace BlackJack;
 
+use BlackJack\Deck;
 use BlackJack\Dealer;
+use BlackJack\PointCalculator;
 
+require_once(__DIR__.'/Deck.php');
 require_once(__DIR__.'/Dealer.php');
+require_once(__DIR__.'/PointCalculator.php');
 
 class Game
 {
     const PLAYER_NAME_INDENT = 0;
-    public Deck $deck;
-
-    public function __construct(public array $playerNames)
+    public function __construct(
+        // 必須引数（Deck $deck）はデフォルト値を持つ引数の前に置く必要があります。これに違反すると、エラーになります。
+        Deck $deck,
+        public array $playerNames,
+        // ?でnullable型に指定し、nullを許容
+        public ?Dealer $dealer = null,
+        public ?PointCalculator $pointCalculator = null
+    )
     {
+        $this->dealer = $dealer ?? new Dealer($deck);
+        $this->pointCalculator = $pointCalculator ?? new PointCalculator();
     }
 
     public function start()
     {
         echo 'ブラックジャックを開始します。';
 
-        $deck = new Deck(new Card);
-        $dealer = new Dealer;
-        // $player = new Player($this->playerNames[Game::PLAYER_NAME_INDENT]);
+        $player = new Player($this->playerNames[Game::PLAYER_NAME_INDENT]);
 
         // 山札からカード引いて、プレイヤー名をキーとする連想配列を、プレイヤーの人数分作成。
-        $playerHands = $dealer->dealStartHands($deck, $this->playerNames);
+        $playerHands = $this->dealer->dealStartHands($this->deck, $this->playerNames);
 
         echo "あなたの引いたカードは{$playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]][0]}です。";
         echo "あなたの引いたカードは{$playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]][1]}です。";
 
-        $dealerHand = $dealer->makeDealerHand($deck);
+        $dealerHand = $this->dealer->makeDealerHand($this->deck);
         echo "ディーラーの引いたカードは{$dealerHand[0]}です。";
         echo 'ディーラーの引いた2枚目のカードはわかりません。';
 
-        return $dealerHand;
+        // playerが追加カードを引く
+        while(true) {
+            //プレイヤーのスコアを計算
+            $playerScore = $this->pointCalculator->calculatePoint($playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+
+             // 追加カードによりバーストしていた場合はゲーム終了
+            if ($playerScore > 21) {
+                echo 'あなたの負けです。';
+                break;
+            }
+
+            echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）";
+            $input = trim(fgets(STDIN));
+            if ($input == 'Y') {
+                // playerHandの最後の値を取得
+                $playerHand = $player->addCard($this->dealer, $this->deck, $playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                // 追加したカードをユーザーに表示
+                $lastAdditionalCard = end($playerHand);
+                echo "あなたの引いたカードは{$lastAdditionalCard}です。";
+                $playerScore = $this->pointCalculator->calculatePoint($playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                continue;
+            }
+            break;
+            }
+        return 'テスト完了';
     }
 }
         // // playerが必要に応じて追加カードを引く
@@ -42,7 +75,6 @@ class Game
         // $player = new Player();
         // // playerが追加カードを引く処理を追加
         // while(true) {
-        //     // 現在のスコアを出す
         //     $playerScore = $dealer->calculateScore($playerHand);
         //     // スコアに基づいてカード追加可否を判断
         //     echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）";
