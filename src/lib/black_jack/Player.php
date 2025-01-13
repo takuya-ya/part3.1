@@ -16,7 +16,7 @@ class Player
     {
     }
 
-    public function addCard(Dealer $dealer, Deck $deck,array $playerHand): array
+    public function addCard(Dealer $dealer, Deck $deck, array $playerHand): array
     {
         $playerHand[] = $dealer->dealAddCard($deck);
         return $playerHand;
