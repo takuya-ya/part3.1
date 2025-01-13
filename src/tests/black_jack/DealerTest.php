@@ -31,14 +31,21 @@ class DealerTest extends TestCase
         $this->assertSame(count($playerNames), count($playerHands));
     }
 
-    public function tesMakeDealerHand() {
+    public function testMakeDealerHand() {
         $deck = new Deck(new Card);
         $dealer = new Dealer;
 
-        // カードの枚数
-        $this->assertSame(2, $dealer->makeDealerHand($deck));
+        // カードの枚数を確認
+        $this->assertSame(2, count($dealer->makeDealerHand($deck)));
     }
 
+    public function testDealAddCard() {
+        $deck = new Deck(new Card);
+        $dealer = new Dealer;
+
+        // カードの枚数を確認
+        $this->assertSame(1, count($dealer->dealAddCard($deck)));
+    }
     // public function testDrawCardForPlayer()
     // {
     //     $mockDeck = $this->createMock(Deck::class);

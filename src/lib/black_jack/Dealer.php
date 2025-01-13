@@ -8,6 +8,8 @@ require_once(__DIR__.'/Deck.php');
 class Dealer
 {
     const FIRST_CARD_NUMBER = 2;
+    const ADD_CARD_NUMBER = 1;
+
     public array $dealerCard = [];
 
     public function dealStartHands(Deck $deck, array $playerNames) : array
@@ -19,8 +21,12 @@ class Dealer
     public function makeDealerHand(Deck $deck) :array
     {
         $dealerHand = $deck->drawCard(self::FIRST_CARD_NUMBER);
-
         return $dealerHand;
+    }
+
+    public function dealAddCard(Deck $deck) : array {
+        $addedCard = $deck->drawCard(self::ADD_CARD_NUMBER);
+        return $addedCard;
     }
 
     // // $playerNamesにはdealerも格納済み
