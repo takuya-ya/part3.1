@@ -9,7 +9,7 @@ require_once(__DIR__.'/Dealer.php');
 class Game
 {
     const PLAYER_NAME_INDENT = 0;
-    public $deck = [];
+    public Deck $deck;
 
     public function __construct(public array $playerNames)
     {
@@ -29,14 +29,13 @@ class Game
         echo "あなたの引いたカードは{$playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]][0]}です。";
         echo "あなたの引いたカードは{$playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]][1]}です。";
 
-        return $playerHands;
+        $dealerHand = $dealer->makeDealerHand($deck);
+        echo "ディーラーの引いたカードは{$dealerHand[0]}です。";
+        echo 'ディーラーの引いた2枚目のカードはわかりません。';
+
+        return $dealerHand;
     }
-
-        // $dealerHand = $dealer->makeDealerHand();
-        // // TODO:$playerCardsにdealerのカード含めるか確認したほうがいい
-        // echo "ディーラーの引いたカードは$playerCards[$dealer][0]です。";
-        // echo 'ディーラーの引いた2枚目のカードはわかりません。';
-
+}
         // // playerが必要に応じて追加カードを引く
         // // playerNameをplayerHandsのキーに代入して、そのプレイヤーのカードを呼出し。手札を確認し必用であれば追加でカードを引く。最終的に勝負するカードを返り値とする
         // // 初期値で名前と手札を設定
@@ -76,4 +75,3 @@ class Game
 // ディーラーの得点は22です。
 // あなたの勝ちです！
 // ブラックジャックを終了します。
-}

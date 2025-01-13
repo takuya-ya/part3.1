@@ -7,12 +7,20 @@ require_once(__DIR__.'/Deck.php');
 
 class Dealer
 {
+    const FIRST_CARD_NUMBER = 2;
     public array $dealerCard = [];
 
     public function dealStartHands(Deck $deck, array $playerNames) : array
     {
         $playerHands = $deck->startHands($playerNames);
         return $playerHands;
+    }
+
+    public function makeDealerHand(Deck $deck) :array
+    {
+        $dealerHand = $deck->drawCard(self::FIRST_CARD_NUMBER);
+
+        return $dealerHand;
     }
 
     // // $playerNamesにはdealerも格納済み

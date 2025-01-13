@@ -17,6 +17,6 @@ class GameTest extends TestCase
         $this->assertSame('array', gettype($playerHand));
 
         // 各プレイヤーの手札枚数の確認
-        $this->assertSame(2, count($playerHand['takuya']));
+        $this->assertSame(2, count($playerHand));
     }
 }

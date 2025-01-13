@@ -8,6 +8,7 @@ require_once(__DIR__.'/Card.php');
 
 class Deck
 {
+    // ゲームで使用する山札
     public array $cardDeck = [];
     public array $drawnCard = [];
 
