@@ -2,6 +2,12 @@
 
 namespace BlackJack;
 
+use BlackJack\Dealer;
+use BlackJack\Deck;
+
+require_once(__DIR__.'/Dealer.php');
+require_once(__DIR__.'/Deck.php');
+
 class Player
 {
     public array $hand = [];
@@ -9,10 +15,10 @@ class Player
     public function __construct(public string $playerName)
     {
     }
-    
-    public function receiveCard(array $playerCards): array
+
+    public function addCard(Dealer $dealer, Deck $deck,array $playerHand): array
     {
-        $this->hand = $playerCards[$this->playerName];
-        return $this->hand;
+        $playerHand[] = $dealer->dealAddCard($deck);
+        return $playerHand;
     }
 }
