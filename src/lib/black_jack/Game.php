@@ -15,7 +15,7 @@ class Game
     const PLAYER_NAME_INDENT = 0;
     public function __construct(
         // 必須引数（Deck $deck）はデフォルト値を持つ引数の前に置く必要があります。これに違反すると、エラーになります。
-        Deck $deck,
+        public Deck $deck,
         public array $playerNames,
         // ?でnullable型に指定し、nullを許容
         public ?Dealer $dealer = null,
@@ -49,24 +49,26 @@ class Game
 
              // 追加カードによりバーストしていた場合はゲーム終了
             if ($playerScore > 21) {
-                echo 'あなたの負けです。';
-                break;
+                return 'あなたの負けです。';
             }
 
             echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）";
             $input = trim(fgets(STDIN));
+
+            // 追加のカードを引く場合
             if ($input == 'Y') {
-                // playerHandの最後の値を取得
-                $playerHand = $player->addCard($this->dealer, $this->deck, $playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
-                // 追加したカードをユーザーに表示
-                $lastAdditionalCard = end($playerHand);
+                // 追加のカードを取得し、プレイヤー手札に代入
+                $playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]] = $player->addCard($this->dealer, $this->deck, $playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
+                $lastAdditionalCard = end($playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
                 echo "あなたの引いたカードは{$lastAdditionalCard}です。";
-                $playerScore = $this->pointCalculator->calculatePoint($playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                //再ループ
                 continue;
             }
-            break;
-            }
-        return 'テスト完了';
+
+            // 追加のカードを引かない場合の仮実装
+            return 'テスト完了';
+        }
     }
 }
         // // playerが必要に応じて追加カードを引く
