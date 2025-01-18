@@ -19,15 +19,11 @@ class Game
         // 必須引数（Deck $deck）はデフォルト値を持つ引数の前に置く必要があります。これに違反すると、エラーになります。
         public Deck $deck,
         public GameProcess $gameProcess,
+        public Dealer $dealer,
+        public PointCalculator $pointCalculator,
         public array $playerNames,
-        // 希望するクラスがあれば引数で指定。未記入の場合はデフォルトクラスをプロパティへ代入。インターフェースを実装したクラスで抽象化した場合と同じ効果。
-        // ?でnullable型に指定し、nullを許容
-        public ?Dealer $dealer = null,
-        public ?PointCalculator $pointCalculator = null
     )
     {
-        $this->dealer = $dealer ?? new Dealer($deck);
-        $this->pointCalculator = $pointCalculator ?? new PointCalculator();
     }
 
     public function start()
