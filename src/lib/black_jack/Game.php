@@ -5,10 +5,12 @@ namespace BlackJack;
 use BlackJack\Deck;
 use BlackJack\Dealer;
 use BlackJack\PointCalculator;
+use BlackJack\GameProcess;
 
 require_once(__DIR__.'/Deck.php');
 require_once(__DIR__.'/Dealer.php');
 require_once(__DIR__.'/PointCalculator.php');
+require_once(__DIR__.'/GameProcess.php');
 
 class Game
 {
@@ -16,7 +18,9 @@ class Game
     public function __construct(
         // 必須引数（Deck $deck）はデフォルト値を持つ引数の前に置く必要があります。これに違反すると、エラーになります。
         public Deck $deck,
+        public GameProcess $gameProcess,
         public array $playerNames,
+        // 希望するクラスがあれば引数で指定。未記入の場合はデフォルトクラスをプロパティへ代入。インターフェースを実装したクラスで抽象化した場合と同じ効果。
         // ?でnullable型に指定し、nullを許容
         public ?Dealer $dealer = null,
         public ?PointCalculator $pointCalculator = null
@@ -34,7 +38,6 @@ class Game
 
         // 山札からカード引いて、プレイヤー名をキーとする連想配列を、プレイヤーの人数分作成。
         $playerHands = $this->dealer->dealStartHands($this->deck, $this->playerNames);
-
         echo "あなたの引いたカードは{$playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]][0]}です。";
         echo "あなたの引いたカードは{$playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]][1]}です。";
 
@@ -60,52 +63,34 @@ class Game
                 // 追加のカードを取得し、プレイヤー手札に代入
                 $playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]] = $player->addCard($this->dealer, $this->deck, $playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
                 // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                $lastAdditionalCard = end($playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
-                echo "あなたの引いたカードは{$lastAdditionalCard}です。";
+                $lastAdditionalPlayerCard = end($playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                echo "あなたの引いたカードは{$lastAdditionalPlayerCard}です。";
                 //再ループ
                 continue;
             }
-
-            // 追加のカードを引かない場合の仮実装
-            return 'テスト完了';
+            break;
         }
-    }
-}
-        // // playerが必要に応じて追加カードを引く
-        // // playerNameをplayerHandsのキーに代入して、そのプレイヤーのカードを呼出し。手札を確認し必用であれば追加でカードを引く。最終的に勝負するカードを返り値とする
-        // // 初期値で名前と手札を設定
-        // $player = new Player();
-        // // playerが追加カードを引く処理を追加
-        // while(true) {
-        //     $playerScore = $dealer->calculateScore($playerHand);
-        //     // スコアに基づいてカード追加可否を判断
-        //     echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）";
-        //     $input = trim(fgets(STDIN));
 
-        //     if ($inputs = 'Y') {
-        //         // 既存のcalculateScoreを再利用する為、additionalDrawCardではplayerHand配列に追加した状態にする？責任が広すぎるか？
-        //         // playerHandの最後の値を取得する
-        //         $lastAdditionalCard = end($player->additionalDrawCard($playerHand));
-        //         echo "あなたの引いたカードは{$lastAdditionalCard}です。";
-        //         $playerScore = $dealer->calculateScore($playerHand);
-        //         if ($playerScore > 21) {
-        //             echo 'あなたの負けです。';
-        //             break;
-        //         }
-        //         continue;
-        //     }
-        //     break;
-        // }
+        // ディーラーのカード追加処理
+        // ディーラーの2枚目のカードを開示
+        echo "ディーラーの引いた2枚目のカードは{$dealerHand[1]}でした。";
+        $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
+        echo "ディーラーの現在の得点は{$dealerScore}です。";
 
-        // // 点数化するのはどこでする？
-        // // 関数内で点数化関数呼出し(dealerクラスで定義)
+        $dealerScore = $this->gameProcess->dealerTurn($dealerHand, $dealerScore);
+
+        echo "ディーラーの現在の得点は{$dealerScore}です。";
+
+        return 'テスト用出力';
+        // echo "あなたの得点は{$playerScore}です。";
+        // echo "ディーラーの得点は{$dealerScore}です。";
+        //         // あなたの勝ちです！
         // $winnerMessage = $dealer->judgeWinner($playerHand);
         // return $winnerMessage;
+        // ブラックジャックを終了します。
 
-        // ディーラーの引いた2枚目のカードはダイヤの2でした。
-// ディーラーの現在の得点は12です。
-// ディーラーの引いたカードはハートのKです。
-// あなたの得点は20です。
-// ディーラーの得点は22です。
-// あなたの勝ちです！
-// ブラックジャックを終了します。
+
+
+
+    }
+}
