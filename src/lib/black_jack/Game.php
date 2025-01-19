@@ -14,7 +14,6 @@ require_once(__DIR__.'/GameProcess.php');
 
 class Game
 {
-    const PLAYER_NAME_INDENT = 0;
     public function __construct(
         // 必須引数（Deck $deck）はデフォルト値を持つ引数の前に置く必要があります。これに違反すると、エラーになります。
         public Deck $deck,
@@ -29,22 +28,16 @@ class Game
     public function start()
     {
         echo 'ブラックジャックを開始します。';
+        // 初回カード取得
+        $hands = $this->gameProcess->drawStartHands($this->playerNames);
 
-        $player = new Player($this->playerNames[Game::PLAYER_NAME_INDENT]);
-
-        // 山札からカード引いて、プレイヤー名をキーとする連想配列を、プレイヤーの人数分作成。
-        $playerHands = $this->dealer->dealStartHands($this->deck, $this->playerNames);
-        echo "あなたの引いたカードは{$playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]][0]}です。";
-        echo "あなたの引いたカードは{$playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]][1]}です。";
-
-        $dealerHand = $this->dealer->makeDealerHand($this->deck);
-        echo "ディーラーの引いたカードは{$dealerHand[0]}です。";
-        echo 'ディーラーの引いた2枚目のカードはわかりません。';
+        // プレイヤー登録
+        $player = new Player('takuya');
 
         // playerが追加カードを引く
         while(true) {
             //プレイヤーのスコアを計算
-            $playerScore = $this->pointCalculator->calculatePoint($playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+            $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands']['takuya']);
 
              // 追加カードによりバーストしていた場合はゲーム終了
             if ($playerScore > 21) {
@@ -57,9 +50,9 @@ class Game
             // 追加のカードを引く場合
             if ($input == 'Y') {
                 // 追加のカードを取得し、プレイヤー手札に代入
-                $playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]] = $player->addCard($this->dealer, $this->deck, $playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                $hands['playerHands'] = $player->addCard($this->dealer, $this->deck, $hands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
                 // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                $lastAdditionalPlayerCard = end($playerHands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                $lastAdditionalPlayerCard = end($hands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
                 echo "あなたの引いたカードは{$lastAdditionalPlayerCard}です。";
                 //再ループ
                 continue;
@@ -69,11 +62,11 @@ class Game
 
         // ディーラーのカード追加処理
         // ディーラーの2枚目のカードを開示
-        echo "ディーラーの引いた2枚目のカードは{$dealerHand[1]}でした。";
-        $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
+        echo "ディーラーの引いた2枚目のカードは{$hands['dealerHand']}でした。";
+        $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
         echo "ディーラーの現在の得点は{$dealerScore}です。";
 
-        $dealerScore = $this->gameProcess->dealerTurn($dealerHand, $dealerScore);
+        $dealerScore = $this->gameProcess->dealerTurn($hands['dealerHand'], $dealerScore);
 
         echo "ディーラーの現在の得点は{$dealerScore}です。";
 
