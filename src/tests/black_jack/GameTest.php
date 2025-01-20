@@ -26,7 +26,7 @@ class GameTest extends TestCase
         $dealer = new Dealer($deck);
         $pointCalculator = new PointCalculator;
         $gameProcess = new GameProcess($dealer, $deck, $pointCalculator);
-        $game = new Game($deck, $gameProcess, ['takuya']);
+        $game = new Game($deck, $gameProcess, $dealer, $pointCalculator, ['takuya']);
 
         // スコアが21を超えた場合に、バースト判定の確認
         $deck->cardDeck =['P5', 'P5', 'D10', 'D10', 'P15'];
