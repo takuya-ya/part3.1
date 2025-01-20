@@ -25,19 +25,22 @@ class Game
     {
     }
 
+    const PLAYER_NAME_INDENT = 0;
     public function start()
     {
+        // 操作プレイヤーの名前を取得
+        $you = $this->playerNames[self::PLAYER_NAME_INDENT];
+        // プレイヤー登録
+        $player = new Player($you);
+
         echo 'ブラックジャックを開始します。';
         // 初回カード取得
         $hands = $this->gameProcess->drawStartHands($this->playerNames);
 
-        // プレイヤー登録
-        $player = new Player('takuya');
-
         // playerが追加カードを引く
         while(true) {
-            //プレイヤーのスコアを計算
-            $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands']['takuya']);
+            //操作プレイヤーのスコアを計算
+            $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$you]);
 
              // 追加カードによりバーストしていた場合はゲーム終了
             if ($playerScore > 21) {
@@ -50,9 +53,9 @@ class Game
             // 追加のカードを引く場合
             if ($input == 'Y') {
                 // 追加のカードを取得し、プレイヤー手札に代入
-                $hands['playerHands'] = $player->addCard($this->dealer, $this->deck, $hands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                $hands['playerHands'][$you] = $player->addCard($this->dealer, $this->deck, $hands['playerHands'][$you]);
                 // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                $lastAdditionalPlayerCard = end($hands[$this->playerNames[Game::PLAYER_NAME_INDENT]]);
+                $lastAdditionalPlayerCard = end($hands['playerHands'][$you]);
                 echo "あなたの引いたカードは{$lastAdditionalPlayerCard}です。";
                 //再ループ
                 continue;
@@ -62,7 +65,7 @@ class Game
 
         // ディーラーのカード追加処理
         // ディーラーの2枚目のカードを開示
-        echo "ディーラーの引いた2枚目のカードは{$hands['dealerHand']}でした。";
+        echo "ディーラーの引いた2枚目のカードは{$hands['dealerHand'][1]}でした。";
         $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
         echo "ディーラーの現在の得点は{$dealerScore}です。";
 
@@ -77,9 +80,12 @@ class Game
         // $winnerMessage = $dealer->judgeWinner($playerHand);
         // return $winnerMessage;
         // ブラックジャックを終了します。
-
-
-
-
     }
 }
+
+// $card = new Card;
+// $deckInstance = new Deck($card);
+// $dealer = new Dealer;
+// $pointCalculator = new PointCalculator;
+// $gameProcess = new GameProcess($dealer, $deck, $pointCalculator);
+// $game = new Game(['takuya'], $deckInstance, $pointCalculator, $dealer, $pointCalculator);
