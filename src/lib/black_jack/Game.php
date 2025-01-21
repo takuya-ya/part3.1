@@ -21,6 +21,7 @@ class Game
         public Dealer $dealer,
         public PointCalculator $pointCalculator,
         public array $playerNames,
+        public string $yourName
     )
     {
     }
@@ -29,9 +30,9 @@ class Game
     public function start()
     {
         // 操作プレイヤーの名前を取得
-        $you = $this->playerNames[self::PLAYER_NAME_INDENT];
+        $this->yourName = $this->playerNames[self::PLAYER_NAME_INDENT];
         // プレイヤー登録
-        $player = new Player($you);
+        $player = new Player($this->yourName);
 
         echo 'ブラックジャックを開始します。';
         // 初回カード取得
@@ -40,7 +41,7 @@ class Game
         // playerが追加カードを引く
         while(true) {
             //操作プレイヤーのスコアを計算
-            $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$you]);
+            $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$this->yourName]);
 
              // 追加カードによりバーストしていた場合はゲーム終了
             if ($playerScore > 21) {
@@ -53,9 +54,9 @@ class Game
             // 追加のカードを引く場合
             if ($input == 'Y') {
                 // 追加のカードを取得し、プレイヤー手札に代入
-                $hands['playerHands'][$you] = $player->addCard($this->dealer, $this->deck, $hands['playerHands'][$you]);
+                $hands['playerHands'][$this->yourName] = $player->addCard($this->dealer, $this->deck, $hands['playerHands'][$this->yourName]);
                 // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                $lastAdditionalPlayerCard = end($hands['playerHands'][$you]);
+                $lastAdditionalPlayerCard = end($hands['playerHands'][$this->yourName]);
                 echo "あなたの引いたカードは{$lastAdditionalPlayerCard}です。";
                 //再ループ
                 continue;
