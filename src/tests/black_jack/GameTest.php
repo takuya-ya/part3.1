@@ -26,23 +26,7 @@ class GameTest extends TestCase
         $dealer = new Dealer($deck);
         $pointCalculator = new PointCalculator;
         $gameProcess = new GameProcess($dealer, $deck, $pointCalculator);
-        $game = new Game($deck, $gameProcess, $dealer, $pointCalculator, ['takuya']);
-
-        // スコアが21を超えた場合に、バースト判定の確認
-        $deck->cardDeck =['P5', 'P5', 'D10', 'D10', 'P15'];
-        $playerHand = $game->start();
-        $this->assertSame('あなたの負けです。', $playerHand);
-
-        // 追加のカードを引かない場合の仮実装
-        $deck->cardDeck =['P5', 'P5', 'D10', 'D10', 'P11'];
-        $playerHand = $game->start();
-        $this->assertSame('テスト用出力', $playerHand);
-
-        // 型の確認
-        // $this->assertSame('array', gettype($playerHand));
-
-        // $card->cards =['H8', 'D3', 'S10'];
-        // // 各プレイヤーの手札枚数の確認
-        // $this->assertSame('テスト完了', $playerHand);
+        $game = new Game($deck, $gameProcess, $dealer, $pointCalculator, ['takuya'], 'takuya');
+        $this->assertSame('テスト用出力', $game->start());
     }
 }

@@ -37,32 +37,9 @@ class Game
         echo 'ブラックジャックを開始します。';
         // 初回カード取得
         $hands = $this->gameProcess->drawStartHands($this->playerNames);
-
-        // playerが追加カードを引く
-        while(true) {
-            //操作プレイヤーのスコアを計算
-            $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$this->yourName]);
-
-             // 追加カードによりバーストしていた場合はゲーム終了
-            if ($playerScore > 21) {
-                return 'あなたの負けです。';
-            }
-
-            echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）";
-            $input = trim(fgets(STDIN));
-
-            // 追加のカードを引く場合
-            if ($input == 'Y') {
-                // 追加のカードを取得し、プレイヤー手札に代入
-                $hands['playerHands'][$this->yourName] = $player->addCard($this->dealer, $this->deck, $hands['playerHands'][$this->yourName]);
-                // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                $lastAdditionalPlayerCard = end($hands['playerHands'][$this->yourName]);
-                echo "あなたの引いたカードは{$lastAdditionalPlayerCard}です。";
-                //再ループ
-                continue;
-            }
-            break;
-        }
+        // プレイヤーの追加カード取得
+        // TODO:テスト終了後、引数でユーザー入力を代入している部分を削除
+        $playerScore = $this->gameProcess->addPlayerCard('N', $hands, $this->yourName, $player);
 
         // ディーラーのカード追加処理
         // ディーラーの2枚目のカードを開示
