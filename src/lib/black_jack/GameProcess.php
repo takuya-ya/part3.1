@@ -42,18 +42,18 @@ class GameProcess {
     }
 
     private const DRAW_STOP_SCORE = 17;
-    // TODO:処理の順序を、カード処理と出力に分離したほうがいいのでは？
     public function dealerTurn(array $dealerHand, int $dealerScore): int
     {
         // dealerのカードが規定値以下の場合、カードを取得
         while (self::DRAW_STOP_SCORE >= $dealerScore) {
             // カードを取得、山札から。
             $dealerHand = array_merge($dealerHand, $this->dealer->dealAddCard($this->deck));
-            // 引いたカードを出力してユーザーに表示。
+            // 引いたカードを出力する為、変数に代入
             $lastAdditionalDealerCard = end($dealerHand);
-            echo "ディーラーの引いたカードは{$lastAdditionalDealerCard}です。";
             // 手札のスコアを計算して出力
             $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
+
+            echo "ディーラーの引いたカードは{$lastAdditionalDealerCard}です。";
         }
         return $dealerScore;
     }
