@@ -42,6 +42,23 @@ class GameProcessTest extends TestCase
         $this->assertSame(23, $dealerScore);
     }
 
+    public function testAddDealerCard()
+    {
+        $deck = new Deck(new Card);
+        $pointCalculator = new PointCalculator;
+
+        $dealerMock = $this->getMockBuilder(Dealer::class)
+        ->onlyMethods(['dealAddCard'])
+        ->getMock();
+        $dealerMock->method('dealAddCard')->willReturn(['H10']);
+
+        $gameProcess = new GameProcess($dealerMock, $deck, $pointCalculator);
+        $dealerScore = $gameProcess->addDealerCard(['dealerHand' => ['D6', 'D5']]);
+
+        // 返り値を確認
+        $this->assertSame(21, $dealerScore);
+    }
+
     public function testAddPlayerCard()
     {
         $deck = new Deck(new Card);

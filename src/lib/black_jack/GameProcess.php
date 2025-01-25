@@ -1,7 +1,6 @@
 <?php
 
 namespace BlackJack;
-
 use BlackJack\Dealer;
 use BlackJack\Deck;
 use BlackJack\Player;
@@ -43,8 +42,9 @@ class GameProcess {
     }
 
     private const DRAW_STOP_SCORE = 17;
-
-    public function dealerTurn(array $dealerHand, int $dealerScore): int {
+    // TODO:処理の順序を、カード処理と出力に分離したほうがいいのでは？
+    public function dealerTurn(array $dealerHand, int $dealerScore): int
+    {
         // dealerのカードが規定値以下の場合、カードを取得
         while (self::DRAW_STOP_SCORE >= $dealerScore) {
             // カードを取得、山札から。
@@ -55,6 +55,19 @@ class GameProcess {
             // 手札のスコアを計算して出力
             $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
         }
+        return $dealerScore;
+    }
+
+    public function addDealerCard(array $hands): int
+    {
+        // ディーラーの2枚目のカードを開示
+        $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
+        echo "ディーラーの引いた2枚目のカードは{$hands['dealerHand'][1]}でした。";
+        echo "ディーラーの現在の得点は{$dealerScore}です。";
+
+        $dealerScore = $this->dealerTurn($hands['dealerHand'], $dealerScore);
+        echo "ディーラーの現在の得点は{$dealerScore}です。";
+
         return $dealerScore;
     }
 
