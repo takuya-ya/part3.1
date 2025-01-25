@@ -42,14 +42,7 @@ class Game
         $playerScore = $this->gameProcess->addPlayerCard('N', $hands, $this->yourName, $player);
 
         // ディーラーのカード追加処理
-        // ディーラーの2枚目のカードを開示
-        echo "ディーラーの引いた2枚目のカードは{$hands['dealerHand'][1]}でした。";
-        $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
-        echo "ディーラーの現在の得点は{$dealerScore}です。";
-
-        $dealerScore = $this->gameProcess->dealerTurn($hands['dealerHand'], $dealerScore);
-
-        echo "ディーラーの現在の得点は{$dealerScore}です。";
+        $dealerScore = $this->gameProcess->addDealerCard($hands);
 
         return 'テスト用出力';
         // echo "あなたの得点は{$playerScore}です。";
