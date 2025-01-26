@@ -27,7 +27,7 @@ class Game
     }
 
     const PLAYER_NAME_INDENT = 0;
-    public function start()
+    public function start(): string
     {
         // 操作プレイヤーの名前を取得
         $this->yourName = $this->playerNames[self::PLAYER_NAME_INDENT];
@@ -44,13 +44,9 @@ class Game
         // ディーラーのカード追加処理
         $dealerScore = $this->gameProcess->addDealerCard($hands);
 
-        return 'テスト用出力';
-        // echo "あなたの得点は{$playerScore}です。";
-        // echo "ディーラーの得点は{$dealerScore}です。";
-        //         // あなたの勝ちです！
-        // $winnerMessage = $dealer->judgeWinner($playerHand);
-        // return $winnerMessage;
-        // ブラックジャックを終了します。
+        // 勝敗の判定
+        $this->gameProcess->judgeWinner($playerScore, $dealerScore, $player->playerName);
+        return 'ブラックジャックを終了します。';
     }
 }
 
