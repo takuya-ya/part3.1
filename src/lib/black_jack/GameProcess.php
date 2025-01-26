@@ -1,6 +1,7 @@
 <?php
 
 namespace BlackJack;
+
 use BlackJack\Dealer;
 use BlackJack\Deck;
 use BlackJack\Player;
@@ -101,5 +102,19 @@ class GameProcess {
             }
             return $playerScore;
         }
+    }
+
+    public function judgeWinner(int $playerScore, int $dealerScore, string $playerName): string
+    {
+        $winner = 'ディーラー';
+        if ($playerScore > $dealerScore) {
+            $winner = $playerName;
+        }
+
+        // 勝者名を出力
+        echo "あなたの得点は{$playerScore}です。";
+        echo "ディーラーの得点は{$dealerScore}です。";
+        echo "{$winner}の勝ちです！";
+        return $winner;
     }
 }

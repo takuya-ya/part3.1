@@ -89,4 +89,20 @@ class GameProcessTest extends TestCase
         // $this->assertSame('テスト用出力', $playerHand);
     }
 
+    public function testJudgeWinner()
+    {
+        $deck = new Deck(new Card);
+        $pointCalculator = new PointCalculator;
+
+        $mock = $this->createMock(Dealer::class);
+
+        // 返り値の確認
+        $gameProcess = new GameProcess($mock, $deck, $pointCalculator);
+        $winner = $gameProcess->judgeWinner(21, 20, 'takuya');
+        $this->assertSame('takuya', $winner);
+
+        $winner = $gameProcess->judgeWinner(20, 21, 'takuya');
+        $this->assertSame('ディーラー', $winner);
+    }
+
 }
