@@ -26,7 +26,7 @@ class GameTest extends TestCase
         $dealer = new Dealer($deck);
         $pointCalculator = new PointCalculator;
         $gameProcess = new GameProcess($dealer, $deck, $pointCalculator);
-        $game = new Game($deck, $gameProcess, $dealer, $pointCalculator, ['takuya'], 'takuya');
+        $game = new Game($deck, $gameProcess, $dealer, $pointCalculator, ['takuya']);
         $this->assertSame('ブラックジャックを終了します。', $game->start());
     }
 }
