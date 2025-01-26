@@ -71,14 +71,14 @@ class GameProcessTest extends TestCase
         // 返り値の確認
         $gameProcess = new GameProcess($mock, $deck, $pointCalculator);
         $playerScore = $gameProcess->addPlayerCard(
-            ['Y', 'N'],
+            // ['Y', 'N'],
             ['playerHands' => ['takuya' => ['D6', 'D7']]],
             'takuya', $player);
         $this->assertSame(16, $playerScore);
 
         // スコアが21を超えた場合に、バースト判定の確認
         $message = $gameProcess->addPlayerCard(
-            ['Y'],
+            // ['Y'],
             ['playerHands' => ['takuya' => ['D6', 'D7']]],
             'takuya', $player);
         $this->assertSame('あなたの負けです。', $message);
