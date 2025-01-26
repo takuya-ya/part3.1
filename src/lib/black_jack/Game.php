@@ -21,12 +21,12 @@ class Game
         public Dealer $dealer,
         public PointCalculator $pointCalculator,
         public array $playerNames,
-        public string $yourName
     )
     {
     }
 
     const PLAYER_NAME_INDENT = 0;
+    private string $yourName;
     public function start(): string
     {
         // 操作プレイヤーの名前を取得
@@ -39,7 +39,8 @@ class Game
         $hands = $this->gameProcess->drawStartHands($this->playerNames);
         // プレイヤーの追加カード取得
         // TODO:テスト終了後、引数でユーザー入力を代入している部分を削除
-        $playerScore = $this->gameProcess->addPlayerCard('N', $hands, $this->yourName, $player);
+        // $playerScore = $this->gameProcess->addPlayerCard('N', $hands, $this->yourName, $player);
+        $playerScore = $this->gameProcess->addPlayerCard($hands, $this->yourName, $player);
 
         // ディーラーのカード追加処理
         $dealerScore = $this->gameProcess->addDealerCard($hands);
@@ -50,9 +51,10 @@ class Game
     }
 }
 
-// $card = new Card;
-// $deckInstance = new Deck($card);
-// $dealer = new Dealer;
-// $pointCalculator = new PointCalculator;
-// $gameProcess = new GameProcess($dealer, $deck, $pointCalculator);
-// $game = new Game(['takuya'], $deckInstance, $pointCalculator, $dealer, $pointCalculator);
+$card = new Card;
+$deckInstance = new Deck($card);
+$dealer = new Dealer;
+$pointCalculator = new PointCalculator;
+$gameProcess = new GameProcess($dealer, $deckInstance, $pointCalculator);
+$game = new Game($deckInstance, $gameProcess, $dealer, $pointCalculator, ['takuya']);
+$game->start();
