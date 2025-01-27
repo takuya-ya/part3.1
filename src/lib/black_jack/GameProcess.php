@@ -37,7 +37,6 @@ class GameProcess {
         echo "ディーラーの引いたカードは{$dealerHand[0]}です。";
         echo 'ディーラーの引いた2枚目のカードはわかりません。';
 
-        // テスト用返り値を設定
         $hands = ['playerHands' => $playerHands, 'dealerHand' => $dealerHand];
         return $hands;
     }
@@ -72,11 +71,8 @@ class GameProcess {
         return $dealerScore;
     }
 
-    // public function addPlayerCard($input, array $hands, string $yourName, Player $player)
     public function addPlayerCard(array $hands, string $yourName, Player $player)
     {
-        // TODO:テスト用変数。後ほど削除
-        // $i = 0;
         while(true) {
             //操作プレイヤーのスコアを計算
             $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$yourName]);
@@ -87,19 +83,15 @@ class GameProcess {
             }
 
             echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）";
-            // TODO:テスト用にメソッドの引数から渡す処理に変更。後ほど修正。
             $input = trim(fgets(STDIN));
 
             // 追加のカードを引く場合
-            // if ($input[$i] == 'Y') {
             if ($input == 'Y') {
                 // 追加のカードを取得し、プレイヤー手札に代入
                 $hands['playerHands'][$yourName] = $player->addCard($this->dealer, $this->deck, $hands['playerHands'][$yourName]);
                 // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
                 $lastAdditionalPlayerCard = end($hands['playerHands'][$yourName]);
                 echo "あなたの引いたカードは{$lastAdditionalPlayerCard}です。";
-                //再ループ
-                // $i++;
                 continue;
             }
             return $playerScore;
