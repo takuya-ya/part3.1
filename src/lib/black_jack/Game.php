@@ -38,8 +38,6 @@ class Game
         // 初回カード取得
         $hands = $this->gameProcess->drawStartHands($this->playerNames);
         // プレイヤーの追加カード取得
-        // TODO:テスト終了後、引数でユーザー入力を代入している部分を削除
-        // $playerScore = $this->gameProcess->addPlayerCard('N', $hands, $this->yourName, $player);
         $playerScore = $this->gameProcess->addPlayerCard($hands, $this->yourName, $player);
 
         // ディーラーのカード追加処理
