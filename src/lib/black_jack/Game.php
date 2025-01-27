@@ -38,13 +38,17 @@ class Game
         // 初回カード取得
         $hands = $this->gameProcess->drawStartHands($this->playerNames);
         // プレイヤーの追加カード取得
-        $playerScore = $this->gameProcess->addPlayerCard($hands, $this->yourName, $player);
+        $playerResult = $this->gameProcess->addPlayerCard($hands, $this->yourName, $player);
+        if ($playerResult === 'あなたの負けです。') {
+            echo "$playerResult";
+            return 'ブラックジャックを終了します。';
+        }
 
         // ディーラーのカード追加処理
         $dealerScore = $this->gameProcess->addDealerCard($hands);
 
         // 勝敗の判定
-        $this->gameProcess->judgeWinner($playerScore, $dealerScore, $player->playerName);
+        $this->gameProcess->judgeWinner($playerResult, $dealerScore, $player->playerName);
         return 'ブラックジャックを終了します。';
     }
 }
