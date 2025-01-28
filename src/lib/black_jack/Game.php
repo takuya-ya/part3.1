@@ -15,7 +15,7 @@ require_once(__DIR__.'/GameProcess.php');
 class Game
 {
     public function __construct(
-        // 必須引数（Deck $deck）はデフォルト値を持つ引数の前に置く必要があります。これに違反すると、エラーになります。
+        // 必須引数（Deck $deckなど）はデフォルト値を持つ引数の前に置く必要があります。これに違反すると、エラーになります。
         public Deck $deck,
         public GameProcess $gameProcess,
         public Dealer $dealer,
@@ -53,10 +53,11 @@ class Game
     }
 }
 
-$card = new Card;
-$deckInstance = new Deck($card);
-$dealer = new Dealer;
-$pointCalculator = new PointCalculator;
-$gameProcess = new GameProcess($dealer, $deckInstance, $pointCalculator);
-$game = new Game($deckInstance, $gameProcess, $dealer, $pointCalculator, ['takuya']);
-$game->start();
+// Gameクラスの動作確認
+// $card = new Card;
+// $deckInstance = new Deck($card);
+// $dealer = new Dealer;
+// $pointCalculator = new PointCalculator;
+// $gameProcess = new GameProcess($dealer, $deckInstance, $pointCalculator);
+// $game = new Game($deckInstance, $gameProcess, $dealer, $pointCalculator, ['takuya']);
+// $game->start();
