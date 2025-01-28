@@ -13,7 +13,7 @@ class DeckTest extends TestCase
 {
     public function testConstructInitializeProperty()
     {
-        $deck = new Deck(new Card);
+        $deck = new Deck(new Card());
         // カードの枚数を確認
         $this->assertSame(52, count($deck->cardDeck));
         // カードの重複を確認
@@ -24,7 +24,7 @@ class DeckTest extends TestCase
 
     public function testDrawCard()
     {
-        $deck = new Deck(new Card);
+        $deck = new Deck(new Card());
         $drawnCard = $deck->drawCard(2);
 
         // カードの枚数を確認
@@ -36,7 +36,7 @@ class DeckTest extends TestCase
 
     public function testStartHands()
     {
-        $deck = new Deck(new Card);
+        $deck = new Deck(new Card());
         $playerHands = $deck->startHands(['takuya', 'takashi']);
 
         // 手札枚数の確認

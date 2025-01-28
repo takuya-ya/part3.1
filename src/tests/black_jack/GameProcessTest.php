@@ -37,8 +37,8 @@ class GameProcessTest extends TestCase
 
     public function testDrawStartHands()
     {
-        $deck = new Deck(new Card);
-        $pointCalculator = new PointCalculator;
+        $deck = new Deck(new Card());
+        $pointCalculator = new PointCalculator();
 
         $mock = $this->createMock(Dealer::class);
         $mock->method('dealStartHands')->willReturn(['takuya' => ['K1', 'K2']]);
@@ -51,8 +51,8 @@ class GameProcessTest extends TestCase
 
     public function testDealerTurn()
     {
-        $deck = new Deck(new Card);
-        $pointCalculator = new PointCalculator;
+        $deck = new Deck(new Card());
+        $pointCalculator = new PointCalculator();
 
         $mock = $this->createMock(Dealer::class);
         $mock->method('dealAddCard')->willReturn(['H6']);
@@ -64,8 +64,8 @@ class GameProcessTest extends TestCase
 
     public function testAddDealerCard()
     {
-        $deck = new Deck(new Card);
-        $pointCalculator = new PointCalculator;
+        $deck = new Deck(new Card());
+        $pointCalculator = new PointCalculator();
 
         $dealerMock = $this->getMockBuilder(Dealer::class)
             ->onlyMethods(['dealAddCard'])
@@ -82,37 +82,41 @@ class GameProcessTest extends TestCase
     public function testAddPlayerCard()
     {
         // 初期設定
-        $deck = new Deck(new Card);
+        $deck = new Deck(new Card());
         $player = new Player('takuya');
-        $pointCalculator = new PointCalculator;
+        $pointCalculator = new PointCalculator();
 
         $mock = $this->createMock(Dealer::class);
         $mock->method('dealAddCard')->willReturnOnConsecutiveCalls(['D3'], ['K10']);
 
         // 返り値の確認
-        fwrite($this->handle,  "Y\nN\n"); // ユーザー入力の代替値を設定
+        fwrite($this->handle, "Y\nN\n"); // ユーザー入力の代替値を設定
         rewind($this->handle); //ストリームポインタをリセット
 
         $gameProcess = new GameProcess($mock, $deck, $pointCalculator, $this->handle);
         $playerScore = $gameProcess->addPlayerCard(
             ['playerHands' => ['takuya' => ['D6', 'D7']]],
-            'takuya', $player);
+            'takuya',
+            $player
+        );
         $this->assertSame(16, $playerScore);
 
         // スコアが21を超えた場合に、バースト判定の確認
-        fwrite($this->handle,  "Y\nY\n");
+        fwrite($this->handle, "Y\nY\n");
         rewind($this->handle);
 
         $message = $gameProcess->addPlayerCard(
             ['playerHands' => ['takuya' => ['D6', 'D7']]],
-            'takuya', $player);
+            'takuya',
+            $player
+        );
         $this->assertSame('あなたの負けです。', $message);
     }
 
     public function testJudgeWinner()
     {
-        $deck = new Deck(new Card);
-        $pointCalculator = new PointCalculator;
+        $deck = new Deck(new Card());
+        $pointCalculator = new PointCalculator();
 
         $mock = $this->createMock(Dealer::class);
 
@@ -123,5 +127,4 @@ class GameProcessTest extends TestCase
         $winner = $gameProcess->judgeWinner(20, 21, 'takuya');
         $this->assertSame('ディーラー', $winner);
     }
-
 }

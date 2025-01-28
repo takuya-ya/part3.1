@@ -5,3 +5,4 @@ parameters:
     - lib
   excludePaths:
     - vendor
+    - lib/vending_machine_v2

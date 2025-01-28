@@ -11,8 +11,8 @@ class InstanceFactoryTest extends TestCase
 {
     public function testInstanceFactory()
     {
-        $instanceFactory = new InstanceFactory;
-        $this->assertEquals(new Cola, $instanceFactory->selectItem('cola'));
-        $this->assertEquals(new Cider, $instanceFactory->selectItem('cider'));
+        $instanceFactory = new InstanceFactory();
+        $this->assertEquals(new Cola(), $instanceFactory->selectItem('cola'));
+        $this->assertEquals(new Cider(), $instanceFactory->selectItem('cider'));
     }
 }

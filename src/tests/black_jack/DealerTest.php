@@ -13,9 +13,10 @@ require_once(__DIR__ . '/../../lib/black_jack/Card.php');
 
 class DealerTest extends TestCase
 {
-    public function testDealStartCard() {
-        $deck = new Deck(new Card);
-        $dealer = new Dealer;
+    public function testDealStartCard()
+    {
+        $deck = new Deck(new Card());
+        $dealer = new Dealer();
         $playerNames = ['takuya'];
         $playerHands = $dealer->dealStartHands($deck, $playerNames);
 
@@ -31,58 +32,21 @@ class DealerTest extends TestCase
         $this->assertSame(count($playerNames), count($playerHands));
     }
 
-    public function testMakeDealerHand() {
-        $deck = new Deck(new Card);
-        $dealer = new Dealer;
+    public function testMakeDealerHand()
+    {
+        $deck = new Deck(new Card());
+        $dealer = new Dealer();
 
         // カードの枚数を確認
         $this->assertSame(2, count($dealer->makeDealerHand($deck)));
     }
 
-    public function testDealAddCard() {
-        $deck = new Deck(new Card);
-        $dealer = new Dealer;
+    public function testDealAddCard()
+    {
+        $deck = new Deck(new Card());
+        $dealer = new Dealer();
 
         // カードの枚数を確認
         $this->assertSame(1, count($dealer->dealAddCard($deck)));
     }
-    // public function testDrawCardForPlayer()
-    // {
-    //     $mockDeck = $this->createMock(Deck::class);
-    //     $mockDeck->method('drawCard')->willReturn([
-    //         ["H1", "D1"],
-    //         ["H2", "D2"]
-    //     ]);
-    //     // print_r($mockDeck->drawCard());
-
-    //     $dealer = new Dealer;
-    //     $playerCard = $dealer->drawCardsForPlayer(['takuya', 'dealer'], $mockDeck);
-    //     $this->assertSame(['H1', 'D1'], $playerCard['takuya']);
-    // }
-
-    // public function testDealingCard()
-    // {
-    //     $mockDeck = $this->createMock(Deck::class);
-    //     $mockDeck->method('drawCard')->willReturn([
-    //         ["H1", "D1"],
-    //         ["H2", "D2"]
-    //     ]);
-
-    //     // print_r($mockDeck->drawCard());
-    //     $dealer = new Dealer;
-    //     // プレイヤー達のカードの手札が格納された配列を返す
-    //     // $playersCard[名前]=各プレイヤーのカード
-    //     $playersCard = $dealer->dealingCard(['takuya','dealer'], $mockDeck);
-    //     // 型の確認
-    //     $this->assertSame('array', gettype($playersCard));
-    //     // 人数分の手札の確認
-    //     $this->assertSame(2, count($playersCard));
-    //     // 各プレイヤーの手札枚数の確認
-    //     foreach($playersCard as $playerCard) {
-    //     $this->assertSame(2, count($playerCard));
-    //     // プレイヤーとカードが正常に紐づけられているかの確認
-    //     $this->assertSame(["H1", "D1"], $playersCard['takuya']);
-    //     $this->assertSame(["H2", "D2"], $playersCard['dealer']);
-    //     }
-    // }
 }
