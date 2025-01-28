@@ -7,23 +7,21 @@ use BlackJack\Deck;
 use BlackJack\Player;
 use BlackJack\PointCalculator;
 
-require_once(__DIR__.'/PointCalculator.php');
-require_once(__DIR__.'/Dealer.php');
-require_once(__DIR__.'/Deck.php');
-require_once(__DIR__.'/Player.php');
+require_once(__DIR__ . '/PointCalculator.php');
+require_once(__DIR__ . '/Dealer.php');
+require_once(__DIR__ . '/Deck.php');
+require_once(__DIR__ . '/Player.php');
 
-
-class GameProcess {
-
-    const PLAYER_NAME_INDENT = 0;
+class GameProcess
+{
+    private const PLAYER_NAME_INDENT = 0;
 
     public function __construct(
         public Dealer $dealer,
         public Deck $deck,
         public PointCalculator $pointCalculator,
         private $inputHandle = null // テスト時に、ストリームハンドルを代入
-    )
-    {
+    ) {
         $this->inputHandle = $inputHandle ?? STDIN; // nullの場合は標準入力から入力を受ける
     }
 
@@ -52,11 +50,11 @@ class GameProcess {
             // カードを取得、山札から。
             $dealerHand = array_merge($dealerHand, $this->dealer->dealAddCard($this->deck));
             // 引いたカードを出力する為、変数に代入
-            $lastAdditionalDealerCard = end($dealerHand);
+            $drawnLastCard = end($dealerHand);
             // 手札のスコアを計算して出力
             $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
 
-            echo "ディーラーの引いたカードは{$lastAdditionalDealerCard}です。";
+            echo "ディーラーの引いたカードは{$drawnLastCard}です。";
         }
         return $dealerScore;
     }
@@ -76,7 +74,7 @@ class GameProcess {
 
     public function addPlayerCard(array $hands, string $yourName, Player $player)
     {
-        while(true) {
+        while (true) {
             //操作プレイヤーのスコアを計算
             $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$yourName]);
 
@@ -91,10 +89,14 @@ class GameProcess {
             // 追加のカードを引く場合
             if ($input == 'Y') {
                 // 追加のカードを取得し、プレイヤー手札に代入
-                $hands['playerHands'][$yourName] = $player->addCard($this->dealer, $this->deck, $hands['playerHands'][$yourName]);
+                $hands['playerHands'][$yourName] = $player->addCard(
+                    $this->dealer,
+                    $this->deck,
+                    $hands['playerHands'][$yourName]
+                );
                 // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                $lastAdditionalPlayerCard = end($hands['playerHands'][$yourName]);
-                echo "あなたの引いたカードは{$lastAdditionalPlayerCard}です。";
+                $drawnLastCard = end($hands['playerHands'][$yourName]);
+                echo "あなたの引いたカードは{$drawnLastCard}です。";
                 continue;
             }
             return $playerScore;

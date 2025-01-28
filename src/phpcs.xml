@@ -5,6 +5,8 @@
    <directory>lib</directory>
 
   <exclude-pattern>./vendor/*</exclude-pattern>
+  <exclude-pattern>./lib/vending_machine_v2</exclude-pattern>
+  <exclude-pattern>./tests/vending_machine_v2</exclude-pattern>
   <arg name="colors"/>
   <arg value="s"/>
   <rule ref="PSR12">

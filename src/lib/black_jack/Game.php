@@ -7,10 +7,10 @@ use BlackJack\Dealer;
 use BlackJack\PointCalculator;
 use BlackJack\GameProcess;
 
-require_once(__DIR__.'/Deck.php');
-require_once(__DIR__.'/Dealer.php');
-require_once(__DIR__.'/PointCalculator.php');
-require_once(__DIR__.'/GameProcess.php');
+require_once(__DIR__ . '/Deck.php');
+require_once(__DIR__ . '/Dealer.php');
+require_once(__DIR__ . '/PointCalculator.php');
+require_once(__DIR__ . '/GameProcess.php');
 
 class Game
 {
@@ -21,11 +21,10 @@ class Game
         public Dealer $dealer,
         public PointCalculator $pointCalculator,
         public array $playerNames,
-    )
-    {
+    ) {
     }
 
-    const PLAYER_NAME_INDENT = 0;
+    private const PLAYER_NAME_INDENT = 0;
     private string $yourName;
     public function start(): string
     {

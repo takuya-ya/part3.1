@@ -4,7 +4,7 @@ namespace BlackJack;
 
 use BlackJack\Card;
 
-require_once(__DIR__.'/Card.php');
+require_once(__DIR__ . '/Card.php');
 
 class Deck
 {
@@ -18,17 +18,17 @@ class Deck
         $this->cardDeck = $this->card->cards;
     }
 
-    public function drawCard(int $drawCardNum) : array
+    public function drawCard(int $drawCardNum): array
     {
         // 山札からカードを取得し、取得したカードは山札から削除
         $this->drawnCard = array_splice($this->cardDeck, 0, $drawCardNum);
         return $this->drawnCard;
     }
 
-    public function startHands(array $playerNames) : array
+    public function startHands(array $playerNames): array
     {
         $playerHands = [];
-        foreach($playerNames as $playerName) {
+        foreach ($playerNames as $playerName) {
             $this->drawCard(2);
             $playerHands[$playerName] = $this->drawnCard;
         }
