@@ -19,17 +19,18 @@ require_once(__DIR__ . '/../../lib/black_jack/PointCalculator.php');
 
 class GameProcessTest extends TestCase
 {
+    private $handle = '';
     public function setUp(): void
     {
         // TestCaseのメソッド呼出し
         parent::setUp();
         // デフォルトモック値を設定
-        $GLOBALS['STDIN'] = fopen('php://temp', 'r+');
+        $this->handle = fopen('php://temp', 'r+');
     }
 
     public function tearDown(): void
     {
-        fclose($GLOBALS['STDIN']);
+        fclose($this->handle);
         // TestCaseのメソッド呼出して初期化
         parent::tearDown();
     }
@@ -89,18 +90,18 @@ class GameProcessTest extends TestCase
         $mock->method('dealAddCard')->willReturnOnConsecutiveCalls(['D3'], ['K10']);
 
         // 返り値の確認
-        fwrite($GLOBALS['STDIN'],  "Y\nN\n"); // ユーザー入力の代替値を設定
-        rewind($GLOBALS['STDIN']); //ストリームポインタをリセット
+        fwrite($this->handle,  "Y\nN\n"); // ユーザー入力の代替値を設定
+        rewind($this->handle); //ストリームポインタをリセット
 
-        $gameProcess = new GameProcess($mock, $deck, $pointCalculator, $GLOBALS['STDIN']);
+        $gameProcess = new GameProcess($mock, $deck, $pointCalculator, $this->handle);
         $playerScore = $gameProcess->addPlayerCard(
             ['playerHands' => ['takuya' => ['D6', 'D7']]],
             'takuya', $player);
         $this->assertSame(16, $playerScore);
 
         // スコアが21を超えた場合に、バースト判定の確認
-        fwrite($GLOBALS['STDIN'],  "Y\nY\n");
-        rewind($GLOBALS['STDIN']); 
+        fwrite($this->handle,  "Y\nY\n");
+        rewind($this->handle);
 
         $message = $gameProcess->addPlayerCard(
             ['playerHands' => ['takuya' => ['D6', 'D7']]],
