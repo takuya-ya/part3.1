@@ -21,10 +21,10 @@ class GameProcess {
         public Dealer $dealer,
         public Deck $deck,
         public PointCalculator $pointCalculator,
-        private $inputHandle = null // テスト時に、ストリームラッパーを代入
+        private $inputHandle = null // テスト時に、ストリームハンドルを代入
     )
     {
-        $this->inputHandle = $inputHandle ?? STDIN; // nullの場合は標準有力から入力を受ける
+        $this->inputHandle = $inputHandle ?? STDIN; // nullの場合は標準入力から入力を受ける
     }
 
     public function drawStartHands(array $playerNames) //: void
