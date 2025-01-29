@@ -33,14 +33,16 @@ class Game
         // プレイヤー登録
         $player = new Player($this->yourName);
 
-        echo 'ブラックジャックを開始します。';
+        echo 'ブラックジャックを開始します。' . PHP_EOL;
+        echo PHP_EOL;
+
         // 初回カード取得
         $hands = $this->gameProcess->drawStartHands($this->playerNames);
         // プレイヤーの追加カード取得
         $playerResult = $this->gameProcess->addPlayerCard($hands, $this->yourName, $player);
         if ($playerResult === 'あなたの負けです。') {
             echo "$playerResult";
-            return 'ブラックジャックを終了します。';
+            return 'ブラックジャックを終了します。' . PHP_EOL;
         }
 
         // ディーラーのカード追加処理
@@ -48,12 +50,12 @@ class Game
 
         // 勝敗の判定
         $this->gameProcess->judgeWinner($playerResult, $dealerScore, $player->playerName);
-        return 'ブラックジャックを終了します。';
+        return 'ブラックジャックを終了します。' . PHP_EOL;
     }
 }
 
-// Gameクラスの動作確認
-// $card = new Card;
+// // Gameクラスの動作確認
+// $card = new Card();
 // $deckInstance = new Deck($card);
 // $dealer = new Dealer;
 // $pointCalculator = new PointCalculator;

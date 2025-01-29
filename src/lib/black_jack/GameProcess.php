@@ -33,10 +33,11 @@ class GameProcess
         $playerHands = $this->dealer->dealStartHands($this->deck, $playerNames);
         $dealerHand = $this->dealer->makeDealerHand($this->deck);
 
-        echo "あなたの引いたカードは{$playerHands[$playerNames[self::PLAYER_NAME_INDENT]][0]}です。";
-        echo "あなたの引いたカードは{$playerHands[$playerNames[self::PLAYER_NAME_INDENT]][1]}です。";
-        echo "ディーラーの引いたカードは{$dealerHand[0]}です。";
-        echo 'ディーラーの引いた2枚目のカードはわかりません。';
+        echo "あなたの引いたカードは{$playerHands[$playerNames[self::PLAYER_NAME_INDENT]][0]}です。" . PHP_EOL;
+        echo "あなたの引いたカードは{$playerHands[$playerNames[self::PLAYER_NAME_INDENT]][1]}です。" . PHP_EOL;
+        echo "ディーラーの引いたカードは{$dealerHand[0]}です。" . PHP_EOL;
+        echo 'ディーラーの引いた2枚目のカードはわかりません。' . PHP_EOL;
+        echo PHP_EOL;
 
         $hands = ['playerHands' => $playerHands, 'dealerHand' => $dealerHand];
         return $hands;
@@ -54,7 +55,7 @@ class GameProcess
             // 手札のスコアを計算して出力
             $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
 
-            echo "ディーラーの引いたカードは{$drawnLastCard}です。";
+            echo "ディーラーの引いたカードは{$drawnLastCard}です。" . PHP_EOL;
         }
         return $dealerScore;
     }
@@ -63,11 +64,13 @@ class GameProcess
     {
         // ディーラーの2枚目のカードを開示
         $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
-        echo "ディーラーの引いた2枚目のカードは{$hands['dealerHand'][1]}でした。";
-        echo "ディーラーの現在の得点は{$dealerScore}です。";
+        echo "ディーラーの引いた2枚目のカードは{$hands['dealerHand'][1]}でした。" . PHP_EOL;
+        echo "ディーラーの現在の得点は{$dealerScore}です。" . PHP_EOL;
+        echo PHP_EOL;
 
         $dealerScore = $this->dealerTurn($hands['dealerHand'], $dealerScore);
-        echo "ディーラーの現在の得点は{$dealerScore}です。";
+        echo "ディーラーの現在の得点は{$dealerScore}です。" . PHP_EOL;
+        echo PHP_EOL;
 
         return $dealerScore;
     }
@@ -80,10 +83,10 @@ class GameProcess
 
              // 追加カードによりバーストしていた場合はゲーム終了
             if ($playerScore > 21) {
-                return 'あなたの負けです。';
+                return 'あなたの負けです。' . PHP_EOL;
             }
 
-            echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）";
+            echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）" . PHP_EOL;
             $input = trim(fgets($this->inputHandle));
 
             // 追加のカードを引く場合
@@ -96,7 +99,7 @@ class GameProcess
                 );
                 // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
                 $drawnLastCard = end($hands['playerHands'][$yourName]);
-                echo "あなたの引いたカードは{$drawnLastCard}です。";
+                echo "あなたの引いたカードは{$drawnLastCard}です。" . PHP_EOL;
                 continue;
             }
             return $playerScore;
@@ -111,9 +114,10 @@ class GameProcess
         }
 
         // 勝者名を出力
-        echo "あなたの得点は{$playerScore}です。";
-        echo "ディーラーの得点は{$dealerScore}です。";
-        echo "{$winner}の勝ちです！";
+        echo "あなたの得点は{$playerScore}です。" . PHP_EOL;
+        echo "ディーラーの得点は{$dealerScore}です。" . PHP_EOL;
+        echo PHP_EOL;
+        echo "{$winner}の勝ちです！" . PHP_EOL;
         return $winner;
     }
 }
