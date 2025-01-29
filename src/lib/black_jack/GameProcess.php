@@ -60,7 +60,7 @@ class GameProcess
         return $dealerScore;
     }
 
-    public function addDealerCard(array $hands): int
+    public function addDealerCard(array $hands): int|string
     {
         // ディーラーの2枚目のカードを開示
         $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
@@ -70,6 +70,10 @@ class GameProcess
 
         $dealerScore = $this->dealerTurn($hands['dealerHand'], $dealerScore);
         echo "ディーラーの現在の得点は{$dealerScore}です。" . PHP_EOL;
+        // バーストしていた場合はゲーム終了
+        if ($dealerScore > 21) {
+            return 'あなたの勝ちです。';
+        }
         echo PHP_EOL;
 
         return $dealerScore;
@@ -81,9 +85,9 @@ class GameProcess
             //操作プレイヤーのスコアを計算
             $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$yourName]);
 
-             // 追加カードによりバーストしていた場合はゲーム終了
+             // バーストしていた場合はゲーム終了
             if ($playerScore > 21) {
-                return 'あなたの負けです。' . PHP_EOL;
+                return 'あなたの負けです。';
             }
 
             echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）" . PHP_EOL;

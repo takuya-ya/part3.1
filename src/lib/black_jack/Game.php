@@ -41,12 +41,16 @@ class Game
         // プレイヤーの追加カード取得
         $playerResult = $this->gameProcess->addPlayerCard($hands, $this->yourName, $player);
         if ($playerResult === 'あなたの負けです。') {
-            echo "$playerResult";
+            echo "$playerResult" . PHP_EOL;
             return 'ブラックジャックを終了します。' . PHP_EOL;
         }
 
         // ディーラーのカード追加処理
         $dealerScore = $this->gameProcess->addDealerCard($hands);
+        if ($dealerScore === 'あなたの勝ちです。') {
+            echo "$dealerScore" . PHP_EOL;
+            return 'ブラックジャックを終了します。' . PHP_EOL;
+        }
 
         // 勝敗の判定
         $this->gameProcess->judgeWinner($playerResult, $dealerScore, $player->playerName);

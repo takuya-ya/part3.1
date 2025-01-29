@@ -48,6 +48,6 @@ class GameTest extends TestCase
         $pointCalculator = new PointCalculator();
         $gameProcess = new GameProcess($dealer, $deck, $pointCalculator, $this->inputHandle);
         $game = new Game($deck, $gameProcess, $dealer, $pointCalculator, ['takuya']);
-        $this->assertSame('ブラックジャックを終了します。', $game->start());
+        $this->assertSame('ブラックジャックを終了します。' .PHP_EOL, $game->start());
     }
 }
