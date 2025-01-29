@@ -73,10 +73,13 @@ class GameProcessTest extends TestCase
         $dealerMock->method('dealAddCard')->willReturn(['H10']);
 
         $gameProcess = new GameProcess($dealerMock, $deck, $pointCalculator);
-        $dealerScore = $gameProcess->addDealerCard(['dealerHand' => ['D6', 'D5']]);
-
         // 返り値を確認
+        $dealerScore = $gameProcess->addDealerCard(['dealerHand' => ['D6', 'D5']]);
         $this->assertSame(21, $dealerScore);
+        // バーストした場合
+        $dealerScore = $gameProcess->addDealerCard(['dealerHand' => ['D6', 'D7']]);
+        $this->assertSame('あなたの勝ちです。', $dealerScore);
+
     }
 
     public function testAddPlayerCard()
