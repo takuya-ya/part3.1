@@ -57,12 +57,3 @@ class Game
         return 'ブラックジャックを終了します。' . PHP_EOL;
     }
 }
-
-// // Gameクラスの動作確認
-// $card = new Card();
-// $deckInstance = new Deck($card);
-// $dealer = new Dealer;
-// $pointCalculator = new PointCalculator;
-// $gameProcess = new GameProcess($dealer, $deckInstance, $pointCalculator);
-// $game = new Game($deckInstance, $gameProcess, $dealer, $pointCalculator, ['takuya']);
-// $game->start();
