@@ -2,12 +2,12 @@
 
 namespace BlackJack;
 
-use BlackJack\Game;
 use BlackJack\Card;
 use BlackJack\Deck;
 use BlackJack\Dealer;
-use BlackJack\PointCalculator;
+use BlackJack\Game;
 use BlackJack\GameProcess;
+use BlackJack\PointCalculator;
 
 require_once(__DIR__ . '/Game.php');
 require_once(__DIR__ . '/Card.php');
