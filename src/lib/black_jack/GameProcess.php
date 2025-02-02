@@ -7,10 +7,6 @@ use BlackJack\Deck;
 use BlackJack\Player;
 use BlackJack\PointCalculator;
 
-require_once(__DIR__ . '/PointCalculator.php');
-require_once(__DIR__ . '/Dealer.php');
-require_once(__DIR__ . '/Deck.php');
-require_once(__DIR__ . '/Player.php');
 
 class GameProcess
 {

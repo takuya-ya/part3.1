@@ -4,8 +4,6 @@ namespace BlackJack;
 
 use BlackJack\Card;
 
-require_once(__DIR__ . '/Card.php');
-
 class Deck
 {
     // ゲームで使用する山札

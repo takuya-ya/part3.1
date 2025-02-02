@@ -4,8 +4,6 @@ namespace BlackJack;
 
 use BlackJack\Deck;
 
-require_once(__DIR__ . '/Deck.php');
-
 class Dealer
 {
     private const FIRST_CARD_NUMBER = 2;

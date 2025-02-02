@@ -7,10 +7,6 @@ use BlackJack\Dealer;
 use BlackJack\Deck;
 use BlackJack\Card;
 
-require_once(__DIR__ . '/../../lib/black_jack/Dealer.php');
-require_once(__DIR__ . '/../../lib/black_jack/Deck.php');
-require_once(__DIR__ . '/../../lib/black_jack/Card.php');
-
 class DealerTest extends TestCase
 {
     public function testDealStartCard()
