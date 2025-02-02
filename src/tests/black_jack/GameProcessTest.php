@@ -9,16 +9,24 @@ use BlackJack\Deck;
 use BlackJack\Dealer;
 use BlackJack\Player;
 use BlackJack\PointCalculator;
+use BlackJack\PokerOutput;
 
 class GameProcessTest extends TestCase
 {
     private $handle = '';
+    private $deck;
+    private $pointCalculator;
+    private $pokerOutput;
+
     public function setUp(): void
     {
         // TestCaseのメソッド呼出し
         parent::setUp();
         // デフォルトモック値を設定
         $this->handle = fopen('php://temp', 'r+');
+        $this->deck = new Deck(new Card());
+        $this->pointCalculator = new PointCalculator();
+        $this->pokerOutput = new PokerOutput();
     }
 
     public function tearDown(): void
@@ -30,42 +38,33 @@ class GameProcessTest extends TestCase
 
     public function testDrawStartHands()
     {
-        $deck = new Deck(new Card());
-        $pointCalculator = new PointCalculator();
-
         $mock = $this->createMock(Dealer::class);
         $mock->method('dealStartHands')->willReturn(['takuya' => ['K1', 'K2']]);
         $mock->method('makeDealerHand')->willReturn(['D1', 'D2']);
 
-        $gameProcess = new GameProcess($mock, $deck, $pointCalculator);
+        $gameProcess = new GameProcess($mock, $this->deck, $this->pointCalculator, $this->pokerOutput);
         $hands = $gameProcess->drawStartHands(['takuya']);
         $this->assertSame(['takuya' => ['K1', 'K2']], $hands['playerHands']);
     }
 
     public function testDealerTurn()
     {
-        $deck = new Deck(new Card());
-        $pointCalculator = new PointCalculator();
-
         $mock = $this->createMock(Dealer::class);
         $mock->method('dealAddCard')->willReturn(['H6']);
 
-        $gameProcess = new GameProcess($mock, $deck, $pointCalculator);
+        $gameProcess = new GameProcess($mock, $this->deck, $this->pointCalculator, $this->pokerOutput);
         $dealerScore = $gameProcess->dealerTurn(['D1', 'DA'], 11);
         $this->assertSame(23, $dealerScore);
     }
 
     public function testAddDealerCard()
     {
-        $deck = new Deck(new Card());
-        $pointCalculator = new PointCalculator();
-
         $dealerMock = $this->getMockBuilder(Dealer::class)
             ->onlyMethods(['dealAddCard'])
             ->getMock();
         $dealerMock->method('dealAddCard')->willReturn(['H10']);
 
-        $gameProcess = new GameProcess($dealerMock, $deck, $pointCalculator);
+        $gameProcess = new GameProcess($dealerMock, $this->deck, $this->pointCalculator, $this->pokerOutput);
         // 返り値を確認
         $dealerScore = $gameProcess->addDealerCard(['dealerHand' => ['D6', 'D5']]);
         $this->assertSame(21, $dealerScore);
@@ -89,7 +88,7 @@ class GameProcessTest extends TestCase
         fwrite($this->handle, "Y\nN\n"); // ユーザー入力の代替値を設定
         rewind($this->handle); //ストリームポインタをリセット
 
-        $gameProcess = new GameProcess($mock, $deck, $pointCalculator, $this->handle);
+        $gameProcess = new GameProcess($mock, $this->deck, $this->pointCalculator, $this->pokerOutput, $this->handle);
         $playerScore = $gameProcess->addPlayerCard(
             ['playerHands' => ['takuya' => ['D6', 'D7']]],
             'takuya',
@@ -117,7 +116,7 @@ class GameProcessTest extends TestCase
         $mock = $this->createMock(Dealer::class);
 
         // 返り値の確認
-        $gameProcess = new GameProcess($mock, $deck, $pointCalculator);
+        $gameProcess = new GameProcess($mock, $this->deck, $this->pointCalculator, $this->pokerOutput);
         $winner = $gameProcess->judgeWinner(21, 20, 'takuya');
         $this->assertSame('takuya', $winner);
         $winner = $gameProcess->judgeWinner(20, 21, 'takuya');
