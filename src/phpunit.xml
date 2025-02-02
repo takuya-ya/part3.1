@@ -7,7 +7,7 @@
     </testsuite>
   </testsuites>
 
-   <source>
+  <source>
         <deprecationTrigger>
         </deprecationTrigger>
     </source>
