@@ -5,8 +5,6 @@ namespace BlackJack\Tests;
 use PHPUnit\Framework\TestCase;
 use BlackJack\PointCalculator;
 
-require_once(__DIR__ . '/../../lib/black_jack/PointCalculator.php');
-
 class PointCalculatorTest extends TestCase
 {
     public function testPointCalculator()

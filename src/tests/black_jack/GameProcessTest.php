@@ -10,13 +10,6 @@ use BlackJack\Dealer;
 use BlackJack\Player;
 use BlackJack\PointCalculator;
 
-require_once(__DIR__ . '/../../lib/black_jack/GameProcess.php');
-require_once(__DIR__ . '/../../lib/black_jack/Card.php');
-require_once(__DIR__ . '/../../lib/black_jack/Deck.php');
-require_once(__DIR__ . '/../../lib/black_jack/Dealer.php');
-require_once(__DIR__ . '/../../lib/black_jack/Player.php');
-require_once(__DIR__ . '/../../lib/black_jack/PointCalculator.php');
-
 class GameProcessTest extends TestCase
 {
     private $handle = '';

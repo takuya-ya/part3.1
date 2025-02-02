@@ -6,9 +6,6 @@ use PHPUnit\Framework\TestCase;
 use BlackJack\Deck;
 use BlackJack\Card;
 
-require_once(__DIR__ . '/../../lib/black_jack/Deck.php');
-require_once(__DIR__ . '/../../lib/black_jack/Card.php');
-
 class DeckTest extends TestCase
 {
     public function testConstructInitializeProperty()
