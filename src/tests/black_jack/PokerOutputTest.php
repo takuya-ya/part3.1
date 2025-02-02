@@ -62,6 +62,38 @@ class PokerOutputTest extends TestCase
         $this->pokerOutput->displayDealerScore(10);
     }
 
+    public function testDisplayPlayerWinMessage()
+    {
+        $message = $this->pokerOutput->DisplayPlayerWinMessage();
+        $this->assertSame('あなたの勝ちです。', $message);
+    }
+
+    public function testDisplayPlayerLoseMessage()
+    {
+        $message = $this->pokerOutput->displayPlayerLoseMessage();
+        $this->assertSame('あなたの負けです。', $message);
+    }
+
+    public function testDisplayPlayerScore()
+    {
+        $this->expectOutputString(
+            "あなたの現在の得点は10です。カードを引きますか？（Y/N）" . PHP_EOL
+        );
+        $this->pokerOutput->displayPlayerScore(10);
+    }
+
+    public function testDisplayAddPlayerCard()
+    {
+        $this->expectOutputString(
+            "あなたの引いたカードはH1です。" . PHP_EOL
+        );
+        $this->pokerOutput->displayAddPlayerCard('H1');
+    }
 
 
+    public function testDisplayGameResult()
+    {
+        $winner = $this->pokerOutput->displayGameResult(21, 18, 'takuya');
+        $this->assertSame('takuya', $winner);
+    }
 }
