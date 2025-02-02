@@ -6,34 +6,29 @@ use BlackJack\Dealer;
 use BlackJack\Deck;
 use BlackJack\Player;
 use BlackJack\PointCalculator;
-
+use BlackJack\PokerOutput;
 
 class GameProcess
 {
-    private const PLAYER_NAME_INDENT = 0;
-
+    // TODO:各自がカードを引く処理を共通化
     public function __construct(
         public Dealer $dealer,
         public Deck $deck,
         public PointCalculator $pointCalculator,
+        public PokerOutput $pokerOutput,
         private $inputHandle = null // テスト時に、ストリームハンドルを代入
     ) {
         $this->inputHandle = $inputHandle ?? STDIN; // nullの場合は標準入力から入力を受ける
     }
-
-    public function drawStartHands(array $playerNames) //: void
+    public function drawStartHands(array $playerNames): array
     {
-        // $player = new Player($playerNames[self::PLAYER_NAME_INDENT]);
-
         // 山札からカード取得。プレイヤー名をキーとする連想配列を、プレイヤーの人数分作成。
         $playerHands = $this->dealer->dealStartHands($this->deck, $playerNames);
         $dealerHand = $this->dealer->makeDealerHand($this->deck);
 
-        echo "あなたの引いたカードは{$playerHands[$playerNames[self::PLAYER_NAME_INDENT]][0]}です。" . PHP_EOL;
-        echo "あなたの引いたカードは{$playerHands[$playerNames[self::PLAYER_NAME_INDENT]][1]}です。" . PHP_EOL;
-        echo "ディーラーの引いたカードは{$dealerHand[0]}です。" . PHP_EOL;
-        echo 'ディーラーの引いた2枚目のカードはわかりません。' . PHP_EOL;
-        echo PHP_EOL;
+        // 各自の手札を出力
+        $this->pokerOutput->displayPlayerCard($playerHands, $playerNames);
+        $this->pokerOutput->displayDealerCard($dealerHand);
 
         $hands = ['playerHands' => $playerHands, 'dealerHand' => $dealerHand];
         return $hands;
@@ -50,8 +45,8 @@ class GameProcess
             $drawnLastCard = end($dealerHand);
             // 手札のスコアを計算して出力
             $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
-
-            echo "ディーラーの引いたカードは{$drawnLastCard}です。" . PHP_EOL;
+            // ディーラーが引いたカードを出力
+            $this->pokerOutput->displayDealerTurn($drawnLastCard);
         }
         return $dealerScore;
     }
@@ -60,12 +55,12 @@ class GameProcess
     {
         // ディーラーの2枚目のカードを開示
         $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
-        echo "ディーラーの引いた2枚目のカードは{$hands['dealerHand'][1]}でした。" . PHP_EOL;
-        echo "ディーラーの現在の得点は{$dealerScore}です。" . PHP_EOL;
-        echo PHP_EOL;
+        $this->pokerOutput->displayAddDealerCard($hands);
 
+        // 追加カードを取得
         $dealerScore = $this->dealerTurn($hands['dealerHand'], $dealerScore);
-        echo "ディーラーの現在の得点は{$dealerScore}です。" . PHP_EOL;
+        // 現在のスコアを出力
+        $this->pokerOutput->displayDealerScore($dealerScore);
         // バーストしていた場合はゲーム終了
         if ($dealerScore > 21) {
             return 'あなたの勝ちです。';

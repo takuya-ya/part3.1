@@ -4,11 +4,12 @@ namespace BlackJack\Tests;
 
 use PHPUnit\Framework\TestCase;
 use BlackJack\Card;
+use BlackJack\Dealer;
 use BlackJack\Deck;
 use BlackJack\Game;
-use BlackJack\Dealer;
 use BlackJack\GameProcess;
 use BlackJack\PointCalculator;
+use BlackJack\PokerOutput;
 
 
 class GameTest extends TestCase
@@ -37,10 +38,11 @@ class GameTest extends TestCase
         rewind($this->inputHandle); //ストリームポインタをリセット
 
         $card = new Card();
-        $deck = new Deck($card);
         $dealer = new Dealer();
+        $deck = new Deck($card);
         $pointCalculator = new PointCalculator();
-        $gameProcess = new GameProcess($dealer, $deck, $pointCalculator, $this->inputHandle);
+        $pokerOutput = new PokerOutput();
+        $gameProcess = new GameProcess($dealer, $deck, $pointCalculator, $pokerOutput, $this->inputHandle);
         $game = new Game($deck, $gameProcess, $dealer, $pointCalculator, ['takuya']);
         $this->assertSame('ブラックジャックを終了します。' .PHP_EOL, $game->start());
     }
