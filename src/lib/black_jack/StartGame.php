@@ -2,17 +2,20 @@
 
 namespace BlackJack;
 
+require 'vendor/autoload.php';
 use BlackJack\Card;
 use BlackJack\Deck;
 use BlackJack\Dealer;
 use BlackJack\Game;
 use BlackJack\GameProcess;
+use BlackJack\PokerOutput;
 use BlackJack\PointCalculator;
 
 $card = new Card();
 $deckInstance = new Deck($card);
 $dealer = new Dealer();
+$pokerOutput = new PokerOutput;
 $pointCalculator = new PointCalculator();
-$gameProcess = new GameProcess($dealer, $deckInstance, $pointCalculator);
+$gameProcess = new GameProcess($dealer, $deckInstance, $pointCalculator, $pokerOutput);
 $game = new Game($deckInstance, $gameProcess, $dealer, $pointCalculator, ['takuya']);
 echo $game->start();

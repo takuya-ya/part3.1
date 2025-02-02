@@ -63,10 +63,9 @@ class GameProcess
         $this->pokerOutput->displayDealerScore($dealerScore);
         // バーストしていた場合はゲーム終了
         if ($dealerScore > 21) {
-            return 'あなたの勝ちです。';
+            return $this->pokerOutput->displayPlayerWinMessage();
         }
         echo PHP_EOL;
-
         return $dealerScore;
     }
 
@@ -78,10 +77,12 @@ class GameProcess
 
              // バーストしていた場合はゲーム終了
             if ($playerScore > 21) {
-                return 'あなたの負けです。';
+                return $this->pokerOutput->displayPlayerLoseMessage();
             }
 
-            echo "あなたの現在の得点は{$playerScore}です。カードを引きますか？（Y/N）" . PHP_EOL;
+            // 現在のスコアを出力
+            $this->pokerOutput->displayPlayerScore($playerScore);
+            // ユーザー入力を変数へ代入
             $input = trim(fgets($this->inputHandle));
 
             // 追加のカードを引く場合
@@ -94,7 +95,9 @@ class GameProcess
                 );
                 // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
                 $drawnLastCard = end($hands['playerHands'][$yourName]);
-                echo "あなたの引いたカードは{$drawnLastCard}です。" . PHP_EOL;
+
+                // 現在のスコアを出力
+                $this->pokerOutput->displayAddPlayerCard($drawnLastCard);
                 continue;
             }
             return $playerScore;
@@ -109,10 +112,6 @@ class GameProcess
         }
 
         // 勝者名を出力
-        echo "あなたの得点は{$playerScore}です。" . PHP_EOL;
-        echo "ディーラーの得点は{$dealerScore}です。" . PHP_EOL;
-        echo PHP_EOL;
-        echo "{$winner}の勝ちです！" . PHP_EOL;
-        return $winner;
+        return $this->pokerOutput->displayGameResult($playerScore, $dealerScore, $winner);
     }
 }
