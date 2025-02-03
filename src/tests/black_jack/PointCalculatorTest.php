@@ -15,9 +15,9 @@ class PointCalculatorTest extends TestCase
         $point = $pointCalculator->calculatePoint(['HQ', 'DK', 'K1']);
         $this->assertSame(21, $point);
         $point = $pointCalculator->calculatePoint(['HQ', 'DK', 'KA']);
-        $this->assertSame(30, $point);
+        $this->assertSame(21, $point);
         $point = $pointCalculator->calculatePoint(['SJ', 'KK', 'SA']);
-        $this->assertSame(30, $point);
+        $this->assertSame(21, $point);
         $point = $pointCalculator->calculatePoint(['S4', 'KA', 'S1']);
         $this->assertSame(15, $point);
     }
