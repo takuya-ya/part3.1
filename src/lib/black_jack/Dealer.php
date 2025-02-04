@@ -11,17 +11,16 @@ class Dealer
 
     public array $dealerCard = [];
 
-    public function dealStartHands(Deck $deck, array $playerNames): array
+    public function dealStartHands(Deck $deck): array
     {
-        $playerHands = $deck->startHands($playerNames);
-        return $playerHands;
+        return $deck->drawCard(self::FIRST_CARD_NUMBER);
     }
-
-    public function makeDealerHand(Deck $deck): array
-    {
-        $dealerHand = $deck->drawCard(self::FIRST_CARD_NUMBER);
-        return $dealerHand;
-    }
+    // TODO dealStartHands（）に統一かのうでは？
+    // public function makeDealerHand(Deck $deck): array
+    // {
+    //     $dealerHand = $deck->drawCard(self::FIRST_CARD_NUMBER);
+    //     return $dealerHand;
+    // }
 
     public function dealAddCard(Deck $deck): array
     {
