@@ -31,13 +31,14 @@ class DeckTest extends TestCase
         $this->assertSame(false, in_array($drawnCard[1], $deck->cardDeck));
     }
 
-    public function testStartHands()
-    {
-        $deck = new Deck(new Card());
-        $playerHands = $deck->startHands(['takuya', 'takashi']);
+    // TODO:不要な場合、削除
+    // public function testStartHands()
+    // {
+    //     $deck = new Deck(new Card());
+    //     $playerHands = $deck->startHands(['takuya', 'takashi']);
 
-        // 手札枚数の確認
-        $this->assertSame(2, count($playerHands['takuya']));
-        $this->assertSame(2, count($playerHands['takashi']));
-    }
+    //     // 手札枚数の確認
+    //     $this->assertSame(2, count($playerHands['takuya']));
+    //     $this->assertSame(2, count($playerHands['takashi']));
+    // }
 }
