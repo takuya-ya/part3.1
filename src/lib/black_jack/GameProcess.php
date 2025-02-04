@@ -20,16 +20,20 @@ class GameProcess
     ) {
         $this->inputHandle = $inputHandle ?? STDIN; // nullの場合は標準入力から入力を受ける
     }
-    public function drawStartHands(array $playerNames): array
+    public function drawStartHands(array $players): array
     {
-        // 山札からカード取得。プレイヤー名をキーとする連想配列を、プレイヤーの人数分作成。
-        $playerHands = $this->dealer->dealStartHands($this->deck, $playerNames);
-        $dealerHand = $this->dealer->makeDealerHand($this->deck);
+        // 全プレイヤーの初回手札作成。配列はプレイヤー名をキーとする連想配列。
+        foreach ($players as $player) {
+            $playerHands[$player->playerName] = $player->getHand();
+        }
+        // ディーラーの初回カード取得。
+        $dealerHand = $this->dealer->dealStartHands($this->deck);
 
         // 各自の手札を出力
-        $this->pokerOutput->displayPlayerCard($playerHands, $playerNames);
+        $this->pokerOutput->displayPlayerCard($playerHands);
         $this->pokerOutput->displayDealerCard($dealerHand);
 
+        // $playerHandsはプレイヤー名 => 手札 の連想配列
         $hands = ['playerHands' => $playerHands, 'dealerHand' => $dealerHand];
         return $hands;
     }
@@ -71,6 +75,8 @@ class GameProcess
 
     public function addPlayerCard(array $hands, string $yourName, Player $player)
     {
+        // TODO$handsをforeachで回すか？cpuの計算方法が異なるがどうする
+        // cpuの処理(ロジックはdealerの追加カード取得と同じ)とプレイヤーの処理をメソッド化　途中で分岐させる
         while (true) {
             //操作プレイヤーのスコアを計算
             $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$yourName]);
@@ -100,11 +106,12 @@ class GameProcess
                 $this->pokerOutput->displayAddPlayerCard($drawnLastCard);
                 continue;
             }
+            // TODO プレイヤー名=>スコアの連想配列　
             return $playerScore;
         }
     }
 
-    public function judgeWinner(int $playerScore, int $dealerScore, string $playerName): string
+    public function judgeWinner(int $playerScore, int $dealerScore, array $playerName): string
     {
         $winner = 'ディーラー';
         if ($playerScore > $dealerScore) {
