@@ -11,31 +11,29 @@ class DealerTest extends TestCase
 {
     public function testDealStartCard()
     {
-        $deck = new Deck(new Card());
-        $dealer = new Dealer();
-        $playerNames = ['takuya'];
-        $playerHands = $dealer->dealStartHands($deck, $playerNames);
+        $expectedCards = ['K1', 'D1'];
+        $deckMock = $this->createMock(Deck::class);
+        $deckMock->expects($this->once())
+                ->method('drawCard')
+                ->with(2)
+                ->willReturn($expectedCards);
 
-        // プレイヤーの人数分の手札の有無
-        $this->assertSame(count($playerNames), count($playerHands));
-        // プレイヤーが2人の場合
-        $playerNames = ['takuya', 'akemi'];
-        $playerHands = $dealer->dealStartHands($deck, $playerNames);
-        $this->assertSame(count($playerNames), count($playerHands));
-        // プレイヤーが3人の場合
-        $playerNames = ['takuya', 'akemi', 'kawasaki'];
-        $playerHands = $dealer->dealStartHands($deck, $playerNames);
-        $this->assertSame(count($playerNames), count($playerHands));
-    }
-
-    public function testMakeDealerHand()
-    {
-        $deck = new Deck(new Card());
         $dealer = new Dealer();
+        $result = $dealer->dealStartHands($deckMock);
 
         // カードの枚数を確認
-        $this->assertSame(2, count($dealer->makeDealerHand($deck)));
+        $this->assertSame($expectedCards, $result);
     }
+
+    // TODO 不要な場合は削除
+    // public function testMakeDealerHand()
+    // {
+    //     $deck = new Deck(new Card());
+    //     $dealer = new Dealer();
+
+    //     // カードの枚数を確認
+    //     $this->assertSame(2, count($dealer->makeDealerHand($deck)));
+    // }
 
     public function testDealAddCard()
     {
