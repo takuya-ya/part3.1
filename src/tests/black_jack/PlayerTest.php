@@ -12,16 +12,22 @@ use BlackJack\Card;
 class PlayerTest extends TestCase
 {
 
+    // 現状、drawStartHand()のテストも兼ねている状態。
     public function testGetHand()
     {
         $expectedCards = ['K1', 'D1'];
+         // Dealer のモックを作成
         $dealerMock = $this->createMock(Dealer::class);
-        $dealerMock->expects($this->once())
-                ->method('dealStartHands')
-                ->willReturn($expectedCards);
+        $dealerMock->method('dealStartHands')
+                   ->willReturn($expectedCards); // Dealer がカードを渡すと仮定
 
-        $player = new Player($dealerMock, new Deck(new Card), 'takuya');
+        $deckMock = $this->createMock(Deck::class);
+
+        // Player インスタンスを実際に作成
+        $player = new Player($dealerMock, $deckMock, 'takuya');
+        $player->drawStartHand();
         $this->assertSame($expectedCards, $player->getHand());
+
     }
 
         // TODO：要修正

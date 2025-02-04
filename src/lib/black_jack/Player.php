@@ -7,7 +7,7 @@ use BlackJack\Deck;
 
 class Player
 {
-    public array $hand = [];
+    private array $hand = [];
     public function __construct(
         public Dealer $dealer,
         public Deck $deck,
@@ -16,9 +16,16 @@ class Player
     {
     }
 
+    //手札取得処理の変更に対応させる、また、手札プロパティ変更を防止の為、メソッドを通して手札情報を取得。
     public function getHand(): array
     {
-        return $this->dealer->dealStartHands($this->deck);
+        return $this->hand;
+    }
+
+    // 初回手札を取得
+    public function drawStartHand(): void
+    {
+        $this->hand = $this->dealer->dealStartHands($this->deck);
     }
 
     public function addCard(Dealer $dealer, Deck $deck, array $playerHand): array
