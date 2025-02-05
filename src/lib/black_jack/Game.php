@@ -19,22 +19,21 @@ class Game
     ) {
     }
 
-    private const PLAYER_NAME_INDENT = 0;
     private string $yourName;
     public function start(): string
     {
-        // 操作プレイヤーの名前を取得
-        $this->yourName = $this->playerNames[self::PLAYER_NAME_INDENT];
-        // プレイヤー登録
-        $player = new Player($this->yourName);
+        // 各プレイヤーのインスタンス作成
+        foreach ($this->playerNames as $playerName) {
+        $players[$playerName] = new Player($this->dealer, $this->deck, $playerName);
+        }
 
         echo 'ブラックジャックを開始します。' . PHP_EOL;
         echo PHP_EOL;
 
         // 初回カード取得
-        $hands = $this->gameProcess->drawStartHands($this->playerNames);
-        // プレイヤーの追加カード取得
-        $playerResult = $this->gameProcess->addPlayerCard($hands, $this->yourName, $player);
+        $hands = $this->gameProcess->drawStartHands($players);
+        // プレイヤーの追加カード取得。バーストしている場合は文字列の為、変数名をScoreでなくResultに設定
+        $playerResult = $this->gameProcess->addPlayerCard($hands, $this->yourName, $players);
         if ($playerResult === 'あなたの負けです。') {
             echo "$playerResult" . PHP_EOL;
             return 'ブラックジャックを終了します。' . PHP_EOL;
@@ -48,7 +47,7 @@ class Game
         }
 
         // 勝敗の判定
-        $this->gameProcess->judgeWinner($playerResult, $dealerScore, $player->playerName);
+        $this->gameProcess->judgeWinner($playerResult, $dealerScore, $this->playerNames);
         return 'ブラックジャックを終了します。' . PHP_EOL;
     }
 }
