@@ -4,11 +4,12 @@ namespace BlackJack;
 
 class PokerOutput
 {
-    private const PLAYER_NAME_INDENT = 0;
-    public function displayPlayerCard(array $playerHands, array $playerNames): void
+    public function displayPlayerCard(array $playerHands): void
     {
-        echo "あなたの引いたカードは{$playerHands[$playerNames[self::PLAYER_NAME_INDENT]][0]}です。" . PHP_EOL;
-        echo "あなたの引いたカードは{$playerHands[$playerNames[self::PLAYER_NAME_INDENT]][1]}です。" . PHP_EOL;
+        foreach ($playerHands as $playerName => $playerHand) {
+            echo "{$playerName}の引いた1枚目のカードは{$playerHand[0]}です。" . PHP_EOL;
+            echo "{$playerName}の引いた2枚目のカードは{$playerHand[1]}です。" . PHP_EOL;
+        }
     }
 
     public function displayDealerCard(array $dealerHand): void
