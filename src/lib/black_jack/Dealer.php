@@ -10,10 +10,13 @@ class Dealer
     private const ADD_CARD_NUMBER = 1;
 
     public array $dealerCard = [];
-
-    public function dealStartHands(Deck $deck): array
+    public function __construct (private Deck $deck)
     {
-        return $deck->drawCard(self::FIRST_CARD_NUMBER);
+    }
+
+    public function dealStartHands(): array
+    {
+        return $this->deck->drawCard(self::FIRST_CARD_NUMBER);
     }
     // TODO dealStartHands（）に統一かのうでは？
     // public function makeDealerHand(Deck $deck): array
@@ -22,9 +25,9 @@ class Dealer
     //     return $dealerHand;
     // }
 
-    public function dealAddCard(Deck $deck): array
+    public function dealAddCard(): array
     {
-        $addedCard = $deck->drawCard(self::ADD_CARD_NUMBER);
+        $addedCard = $this->deck->drawCard(self::ADD_CARD_NUMBER);
         return $addedCard;
     }
 }

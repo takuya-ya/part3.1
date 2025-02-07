@@ -18,7 +18,7 @@ class DealerTest extends TestCase
                 ->with(2)
                 ->willReturn($expectedCards);
 
-        $dealer = new Dealer();
+        $dealer = new Dealer($deckMock);
         $result = $dealer->dealStartHands($deckMock);
 
         // カードの枚数を確認
@@ -38,7 +38,7 @@ class DealerTest extends TestCase
     public function testDealAddCard()
     {
         $deck = new Deck(new Card());
-        $dealer = new Dealer();
+        $dealer = new Dealer($deck);
 
         // カードの枚数を確認
         $this->assertSame(1, count($dealer->dealAddCard($deck)));
