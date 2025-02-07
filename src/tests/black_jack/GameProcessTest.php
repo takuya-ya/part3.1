@@ -82,7 +82,7 @@ class GameProcessTest extends TestCase
 
     public function testAddYourTurn()
     {
-        // setUpでのaddCardメソッドの帰り値が上書き出来なかった為、モックを初期化
+        // setUp::addCardに設定した帰り値が上書き出来なかった為、モックを初期化
         $this->dealerMock = $this->createMock(Dealer::class);
         $this->dealerMock->method('dealAddCard')
                 ->willReturnOnConsecutiveCalls(['D3'], ['K10']);
@@ -105,7 +105,7 @@ class GameProcessTest extends TestCase
         $message = $gameProcess->addYourTurn(['D6', 'D7'], $player);
         $this->assertSame('あなたの負けです。', $message);
     }
-
+    
     // public function testJudgeWinner()
     // {
     //     $deck = new Deck(new Card());

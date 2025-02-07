@@ -25,13 +25,11 @@ class GameTest extends TestCase
 
     public function tearDown(): void
     {
-        // stream_wrapper_restore('php');
         fclose($this->inputHandle);
         // TestCaseのメソッド呼出して初期化
         parent::tearDown();
     }
 
-    // TODO:要修正
     public function testStart()
     {
         // 返り値の確認

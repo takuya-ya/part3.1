@@ -10,7 +10,6 @@ use BlackJack\PokerOutput;
 
 class GameProcess
 {
-    // TODO:各自がカードを引く処理を共通化
     public function __construct(
         public Dealer $dealer,
         public Deck $deck,
@@ -79,33 +78,33 @@ class GameProcess
     // プレイヤーの追加カード取得
     public function addYourTurn(array $hand, Player $player)
     {
-            while (true) {
-                //プレイヤーのスコアを計算
-                $playerScore = $this->pointCalculator->calculatePoint($hand);
+        while (true) {
+            //プレイヤーのスコアを計算
+            $playerScore = $this->pointCalculator->calculatePoint($hand);
 
-                // バーストしていた場合はゲーム終了
-                if ($playerScore > 21) {
-                    return $this->pokerOutput->displayYourLoseMessage();
-                }
+            // バーストしていた場合はゲーム終了
+            if ($playerScore > 21) {
+                return $this->pokerOutput->displayYourLoseMessage();
+            }
 
-                // 現在のスコアを出力
-                $this->pokerOutput->displayPlayerScore($playerScore);
-                // ユーザー入力を変数へ代入
-                $input = trim(fgets($this->inputHandle));
+            // 現在のスコアを出力
+            $this->pokerOutput->displayPlayerScore($playerScore);
+            // ユーザー入力を変数へ代入
+            $input = trim(fgets($this->inputHandle));
 
-                // 追加のカードを引く場合
-                if ($input == 'Y') {
-                    // 追加のカードを取得し、プレイヤー手札に代入
-                    $hand = array_merge($player->addCard(), $hand);
-                    // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                    $drawnLastCard = end($hand);
+            // 追加のカードを引く場合
+            if ($input == 'Y') {
+                // 追加のカードを取得し、プレイヤー手札に代入
+                $hand = array_merge($player->addCard(), $hand);
+                // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
+                $drawnLastCard = end($hand);
 
-                    // 追加カードを出力
-                    $this->pokerOutput->displayAddPlayerCard($drawnLastCard);
-                    continue;
-                }
-                // TODO プレイヤー名=>スコアの連想配列　
-                return $playerScore;
+                // 追加カードを出力
+                $this->pokerOutput->displayAddPlayerCard($drawnLastCard);
+                continue;
+            }
+            // TODO プレイヤー名=>スコアの連想配列　
+            return $playerScore;
         }
     }
 
