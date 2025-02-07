@@ -40,7 +40,7 @@ class PokerOutput
         return "あなたの勝ちです。";
     }
 
-    public function displayPlayerLoseMessage(): string
+    public function displayYourLoseMessage(): string
     {
         return "あなたの負けです。";
     }

@@ -68,9 +68,9 @@ class PokerOutputTest extends TestCase
         $this->assertSame('あなたの勝ちです。', $message);
     }
 
-    public function testDisplayPlayerLoseMessage()
+    public function testDisplayYourLoseMessage()
     {
-        $message = $this->pokerOutput->displayPlayerLoseMessage();
+        $message = $this->pokerOutput->displayYourLoseMessage();
         $this->assertSame('あなたの負けです。', $message);
     }
 
