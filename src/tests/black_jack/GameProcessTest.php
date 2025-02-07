@@ -52,7 +52,7 @@ class GameProcessTest extends TestCase
 
         // 返り値として、プライヤーとディーラーの手札を含む配列を確認
         $gameProcess = new GameProcess($dealerMock, $this->deck, $this->pointCalculator, $this->pokerOutput);
-        $hands = $gameProcess->drawStartHands([$playerMock]);
+        $hands = $gameProcess->setUpHands([$playerMock]);
         $this->assertSame(['playerHands' => ['takuya' => $expectedPlayer], 'dealerHand' => $expectedDealer], $hands);
 
         // TODO:複数プレイヤーの場合
@@ -85,40 +85,34 @@ class GameProcessTest extends TestCase
 
     }
 
-    // TODO:要修正
-    // public function testAddPlayerCard()
-    // {
-    //     // 初期設定
-    //     $deck = new Deck(new Card());
-    //     $player = new Player('takuya');
-    //     $pointCalculator = new PointCalculator();
+    public function testAddYourCard()
+    {
+        $dealerMock = $this->createMock(Dealer::class);
+        $dealerMock->method('dealAddCard')->willReturnOnConsecutiveCalls(['D3'], ['K10']);
 
-    //     $mock = $this->createMock(Dealer::class);
-    //     $mock->method('dealAddCard')->willReturnOnConsecutiveCalls(['D3'], ['K10']);
+        // 返り値の確認
+        fwrite($this->handle, "Y\nN\n"); // ユーザー入力の代替値を設定
+        rewind($this->handle); //ストリームポインタをリセット
 
-    //     // 返り値の確認
-    //     fwrite($this->handle, "Y\nN\n"); // ユーザー入力の代替値を設定
-    //     rewind($this->handle); //ストリームポインタをリセット
+        $gameProcess = new GameProcess($dealerMock, $this->deck, $this->pointCalculator, $this->pokerOutput, $this->handle);
+        $playerScore = $gameProcess->addYourCard(
+            ['playerHands' => ['takuya' => ['D6', 'D7']]],
+            'takuya',
+            new Player($dealerMock, $this->deck, 'takuya')
+        );
+        $this->assertSame(16, $playerScore);
 
-    //     $gameProcess = new GameProcess($mock, $this->deck, $this->pointCalculator, $this->pokerOutput, $this->handle);
-    //     $playerScore = $gameProcess->addPlayerCard(
-    //         ['playerHands' => ['takuya' => ['D6', 'D7']]],
-    //         'takuya',
-    //         $player
-    //     );
-    //     $this->assertSame(16, $playerScore);
+        // スコアが21を超えた場合に、バースト判定の確認
+        fwrite($this->handle, "Y\nY\n");
+        rewind($this->handle);
 
-    //     // スコアが21を超えた場合に、バースト判定の確認
-    //     fwrite($this->handle, "Y\nY\n");
-    //     rewind($this->handle);
-
-    //     $message = $gameProcess->addPlayerCard(
-    //         ['playerHands' => ['takuya' => ['D6', 'D7']]],
-    //         'takuya',
-    //         $player
-    //     );
-    //     $this->assertSame('あなたの負けです。', $message);
-    // }
+        $message = $gameProcess->addYourCard(
+            ['playerHands' => ['takuya' => ['D6', 'D7']]],
+            'takuya',
+            new Player($dealerMock, $this->deck, 'takuya')
+        );
+        $this->assertSame('あなたの負けです。', $message);
+    }
 
     // public function testJudgeWinner()
     // {
