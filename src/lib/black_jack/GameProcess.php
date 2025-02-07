@@ -77,11 +77,11 @@ class GameProcess
     }
 
     // プレイヤーの追加カード取得
-    public function addYourCard(array $hands, string $yourName, Player $player)
+    public function addYourTurn(array $hand, Player $player)
     {
             while (true) {
                 //プレイヤーのスコアを計算
-                $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$yourName]);
+                $playerScore = $this->pointCalculator->calculatePoint($hand);
 
                 // バーストしていた場合はゲーム終了
                 if ($playerScore > 21) {
@@ -96,15 +96,11 @@ class GameProcess
                 // 追加のカードを引く場合
                 if ($input == 'Y') {
                     // 追加のカードを取得し、プレイヤー手札に代入
-                    $hands['playerHands'][$yourName] = $player->addCard(
-                        $this->dealer,
-                        $this->deck,
-                        $hands['playerHands'][$yourName]
-                    );
+                    $hand = array_merge($player->addCard(), $hand);
                     // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                    $drawnLastCard = end($hands['playerHands'][$yourName]);
+                    $drawnLastCard = end($hand);
 
-                    // 現在のスコアを出力
+                    // 追加カードを出力
                     $this->pokerOutput->displayAddPlayerCard($drawnLastCard);
                     continue;
                 }
