@@ -20,12 +20,15 @@ class GameProcess
     ) {
         $this->inputHandle = $inputHandle ?? STDIN; // nullの場合は標準入力から入力を受ける
     }
-    public function drawStartHands(array $players): array
+
+    public function setUpHands(array $players): array
     {
         // 全プレイヤーの初回手札作成。配列はプレイヤー名をキーとする連想配列。
         foreach ($players as $player) {
+            $player->drawStartHand();
             $playerHands[$player->playerName] = $player->getHand();
         }
+
         // ディーラーの初回カード取得。
         $dealerHand = $this->dealer->dealStartHands($this->deck);
 
@@ -73,43 +76,44 @@ class GameProcess
         return $dealerScore;
     }
 
-    public function addPlayerCard(array $hands, string $yourName, Player $player)
+    // プレイヤーの追加カード取得
+    public function addYourCard(array $hands, string $yourName, Player $player)
     {
-        // TODO$handsをforeachで回すか？cpuの計算方法が異なるがどうする
-        // cpuの処理(ロジックはdealerの追加カード取得と同じ)とプレイヤーの処理をメソッド化　途中で分岐させる
-        while (true) {
-            //操作プレイヤーのスコアを計算
-            $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$yourName]);
+            while (true) {
+                //プレイヤーのスコアを計算
+                $playerScore = $this->pointCalculator->calculatePoint($hands['playerHands'][$yourName]);
 
-             // バーストしていた場合はゲーム終了
-            if ($playerScore > 21) {
-                return $this->pokerOutput->displayPlayerLoseMessage();
-            }
-
-            // 現在のスコアを出力
-            $this->pokerOutput->displayPlayerScore($playerScore);
-            // ユーザー入力を変数へ代入
-            $input = trim(fgets($this->inputHandle));
-
-            // 追加のカードを引く場合
-            if ($input == 'Y') {
-                // 追加のカードを取得し、プレイヤー手札に代入
-                $hands['playerHands'][$yourName] = $player->addCard(
-                    $this->dealer,
-                    $this->deck,
-                    $hands['playerHands'][$yourName]
-                );
-                // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
-                $drawnLastCard = end($hands['playerHands'][$yourName]);
+                // バーストしていた場合はゲーム終了
+                if ($playerScore > 21) {
+                    return $this->pokerOutput->displayYourLoseMessage();
+                }
 
                 // 現在のスコアを出力
-                $this->pokerOutput->displayAddPlayerCard($drawnLastCard);
-                continue;
-            }
-            // TODO プレイヤー名=>スコアの連想配列　
-            return $playerScore;
+                $this->pokerOutput->displayPlayerScore($playerScore);
+                // ユーザー入力を変数へ代入
+                $input = trim(fgets($this->inputHandle));
+
+                // 追加のカードを引く場合
+                if ($input == 'Y') {
+                    // 追加のカードを取得し、プレイヤー手札に代入
+                    $hands['playerHands'][$yourName] = $player->addCard(
+                        $this->dealer,
+                        $this->deck,
+                        $hands['playerHands'][$yourName]
+                    );
+                    // 手札の最後の値を取得し、値＝追加カードをユーザーへ表示
+                    $drawnLastCard = end($hands['playerHands'][$yourName]);
+
+                    // 現在のスコアを出力
+                    $this->pokerOutput->displayAddPlayerCard($drawnLastCard);
+                    continue;
+                }
+                // TODO プレイヤー名=>スコアの連想配列　
+                return $playerScore;
         }
     }
+
+    // TODO CPUの追加カード取得し処理
 
     public function judgeWinner(int $playerScore, int $dealerScore, array $playerName): string
     {
