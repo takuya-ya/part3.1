@@ -11,8 +11,6 @@ use BlackJack\Card;
 
 class PlayerTest extends TestCase
 {
-
-    // 現状、drawStartHand()のテストも兼ねている状態。
     public function testGetHand()
     {
         $expectedCards = ['K1', 'D1'];

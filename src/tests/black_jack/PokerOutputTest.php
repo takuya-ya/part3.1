@@ -47,8 +47,6 @@ class PokerOutputTest extends TestCase
     {
         $this->expectOutputString(
             "ディーラーの引いた2枚目のカードはH2でした。" . PHP_EOL
-            // "ディーラーの現在の得点は10です。" . PHP_EOL .
-            // PHP_EOL
         );
         $this->pokerOutput->displayAddDealerCard(['dealerHand' => ['H1', 'H2']]);
     }
@@ -89,7 +87,6 @@ class PokerOutputTest extends TestCase
         );
         $this->pokerOutput->displayAddPlayerCard('H1');
     }
-
 
     public function testDisplayGameResult()
     {

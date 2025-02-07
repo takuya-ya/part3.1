@@ -48,22 +48,21 @@ class Game
         // 勝敗の判定
         $this->gameProcess->judgeWinner($playerResult, $dealerScore, $this->playerNames);
         return 'ブラックジャックを終了します。' . PHP_EOL;
-    }
-
-    private function isGameOrver(string | int $playerResult): bool
-    {
-        if($playerResult == 'あなたの負けです。') {
-            return true;
         }
-        return false;
-    }
 
-    private function yourLose(string | int $playerResult): string
-    {
-        if ($playerResult === 'あなたの負けです。') {
-            echo "$playerResult" . PHP_EOL;
-            return 'ブラックジャックを終了します。' . PHP_EOL;
+        private function isGameOrver(string | int $playerResult): bool
+        {
+            if($playerResult == 'あなたの負けです。') {
+                return true;
+            }
+            return false;
         }
-    }
 
+        private function yourLose(string | int $playerResult): string
+        {
+            if ($playerResult === 'あなたの負けです。') {
+                echo "$playerResult" . PHP_EOL;
+                return 'ブラックジャックを終了します。' . PHP_EOL;
+            }
+        }
 }

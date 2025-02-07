@@ -18,13 +18,7 @@ class Dealer
     {
         return $this->deck->drawCard(self::FIRST_CARD_NUMBER);
     }
-    // TODO dealStartHands（）に統一かのうでは？
-    // public function makeDealerHand(Deck $deck): array
-    // {
-    //     $dealerHand = $deck->drawCard(self::FIRST_CARD_NUMBER);
-    //     return $dealerHand;
-    // }
-
+    
     public function dealAddCard(): array
     {
         return $this->deck->drawCard(self::ADD_CARD_NUMBER);
