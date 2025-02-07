@@ -11,29 +11,27 @@ class Game
 {
     public function __construct(
         // 必須引数（Deck $deckなど）はデフォルト値を持つ引数の前に置く必要があります。これに違反すると、エラーになります。
+        public Dealer $dealer,
         public Deck $deck,
         public GameProcess $gameProcess,
-        public Dealer $dealer,
         public PointCalculator $pointCalculator,
-        public array $playerNames,
+        public PlayerFactory $playerFactory,
+        public array $playerNames
     ) {
     }
 
     private string $yourName;
     public function start(): string
     {
-        // 各プレイヤーのインスタンス作成
-        foreach ($this->playerNames as $playerName) {
-        $players[$playerName] = new Player($this->dealer, $this->deck, $playerName);
-        }
+        $playerInstances = $this->playerFactory->players;
 
         echo 'ブラックジャックを開始します。' . PHP_EOL;
         echo PHP_EOL;
 
         // 初回カード取得
-        $hands = $this->gameProcess->drawStartHands($players);
+        $hands = $this->gameProcess->setUpHands($playerInstances);
         // プレイヤーの追加カード取得。バーストしている場合は文字列の為、変数名をScoreでなくResultに設定
-        $playerResult = $this->gameProcess->addPlayerCard($hands, $this->yourName, $players);
+        $playerResult = $this->gameProcess->addYourCard($hands, $this->yourName, $playerInstances[0]);
         if ($playerResult === 'あなたの負けです。') {
             echo "$playerResult" . PHP_EOL;
             return 'ブラックジャックを終了します。' . PHP_EOL;
