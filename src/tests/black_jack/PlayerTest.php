@@ -31,6 +31,6 @@ class PlayerTest extends TestCase
     {
         $player = new Player(new Dealer(new Deck(new Card)), 'takuya');
         $playerCard = $player->addCard();
-        $this->assertSame(3, count($playerCard));
+        $this->assertSame(1, count($playerCard));
     }
 }

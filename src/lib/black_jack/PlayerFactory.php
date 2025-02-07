@@ -12,7 +12,7 @@ class PlayerFactory
     public function __construct(private Dealer $dealer, private Deck $deck, private array $playerNames)
     {
       foreach ($this->playerNames as $playerName) {
-          $this->players[$playerName] = new Player($this->dealer, $this->deck, $playerName);
+          $this->players[$playerName] = new Player($this->dealer, $playerName);
       }
     }
 }
