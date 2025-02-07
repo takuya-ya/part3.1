@@ -27,7 +27,6 @@ class Dealer
 
     public function dealAddCard(): array
     {
-        $addedCard = $this->deck->drawCard(self::ADD_CARD_NUMBER);
-        return $addedCard;
+        return $this->deck->drawCard(self::ADD_CARD_NUMBER);
     }
 }
