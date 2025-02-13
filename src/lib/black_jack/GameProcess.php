@@ -40,23 +40,7 @@ class GameProcess
         return $hands;
     }
 
-    private const DRAW_STOP_SCORE = 17;
-    public function dealerTurn(array $dealerHand, int $dealerScore): int
-    {
-        // dealerのカードが規定値以下の場合、カードを取得
-        while (self::DRAW_STOP_SCORE >= $dealerScore) {
-            // カードを取得、山札から。
-            $dealerHand = array_merge($dealerHand, $this->dealer->dealAddCard($this->deck));
-            // 引いたカードを出力する為、変数に代入
-            $drawnLastCard = end($dealerHand);
-            // 手札のスコアを計算して出力
-            $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
-            // ディーラーが引いたカードを出力
-            $this->pokerOutput->displayDealerTurn($drawnLastCard);
-        }
-        return $dealerScore;
-    }
-
+    // ディーラーのカード取得
     public function addDealerCard(array $hands): int|string
     {
         // ディーラーの2枚目のカードを開示
@@ -72,6 +56,24 @@ class GameProcess
             return $this->pokerOutput->displayPlayerWinMessage();
         }
         echo PHP_EOL;
+        return $dealerScore;
+    }
+
+    // ディーラーの追加カード取得判断のロジック
+    private const DRAW_STOP_SCORE = 17;
+    public function dealerTurn(array $dealerHand, int $dealerScore): int
+    {
+        // dealerのカードが規定値以下の場合、カードを取得
+        while (self::DRAW_STOP_SCORE >= $dealerScore) {
+            // カードを取得、山札から。
+            $dealerHand = array_merge($dealerHand, $this->dealer->dealAddCard($this->deck));
+            // 引いたカードを出力する為、変数に代入
+            $drawnLastCard = end($dealerHand);
+            // 手札のスコアを計算して出力
+            $dealerScore = $this->pointCalculator->calculatePoint($dealerHand);
+            // ディーラーが引いたカードを出力
+            $this->pokerOutput->displayDealerTurn($drawnLastCard);
+        }
         return $dealerScore;
     }
 

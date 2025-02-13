@@ -32,7 +32,8 @@ class Game
         // 初回カード取得
         // プレイヤー達とディーラーの手札の配列
         $hands = $this->gameProcess->setUpHands($playerInstances);
-        // プレイヤーの追加カード取得。バーストしている場合は文字列の為、変数名をScoreでなくResultに設定
+
+        // プレイヤーの追加カード取得。バーストの場合は文字列の為、変数名をScoreでなくResultに設定
         $playerResult = $this->gameProcess->addYourTurn($hands['playerHands'][$yourName],   $playerInstances[$yourName]);
         if ($this->isGameOrver($playerResult)) {
             return $this->yourLose($playerResult);
