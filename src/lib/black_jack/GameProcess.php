@@ -43,8 +43,9 @@ class GameProcess
     // ディーラーのカード取得
     public function addDealerCard(array $hands): int|string
     {
-        // ディーラーの2枚目のカードを開示
+        // ディーラーのスコア計算　
         $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
+        // ディーラーの2枚目のカードを開示
         $this->pokerOutput->displayAddDealerCard($hands);
 
         // 追加カードを取得
