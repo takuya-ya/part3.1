@@ -26,15 +26,11 @@ class GameProcess
         foreach ($players as $player) {
             $player->drawStartHand();
             $score = $this->pointCalculator->calculatePoint($player->getHand());
-            // バースト判定
+            // バースト判定　バーストであれば、trueを受け取る
             if($this->checkBurnOut($score)) {
                 continue;
             };
-
-
-
-            // $playerHands[$player->playerName]
-
+            $playerHands[$player->playerName] = $player->getHand();
         }
 
         // ディーラーの初回カード取得。
@@ -55,8 +51,7 @@ class GameProcess
             $this->pokerOutput->displayYourLoseMessage();
             return true;
         }
-
-
+        return false;
     }
 
     // ディーラーのカード取得
