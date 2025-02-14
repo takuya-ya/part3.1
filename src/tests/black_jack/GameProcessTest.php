@@ -105,7 +105,11 @@ class GameProcessTest extends TestCase
         $message = $gameProcess->addYourTurn(['D6', 'D7'], $player);
         $this->assertSame('あなたの負けです。', $message);
     }
-    
+
+    public function testCheckBurnOut() {
+        $gameProcess = new GameProcess($this->dealerMock, $this->deck, $this->pointCalculator, $this->pokerOutput);
+        $this->assertSame(true, $gameProcess->checkBurnOut(22));
+    }
     // public function testJudgeWinner()
     // {
     //     $deck = new Deck(new Card());
