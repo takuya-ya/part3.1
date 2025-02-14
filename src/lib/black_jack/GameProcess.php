@@ -25,7 +25,16 @@ class GameProcess
         // 全プレイヤーの初回手札作成。配列はプレイヤー名をキーとする連想配列。
         foreach ($players as $player) {
             $player->drawStartHand();
-            $playerHands[$player->playerName] = $player->getHand();
+            $score = $this->pointCalculator->calculatePoint($player->getHand());
+            // バースト判定
+            if($this->checkBurnOut($score)) {
+                continue;
+            };
+
+
+
+            // $playerHands[$player->playerName]
+
         }
 
         // ディーラーの初回カード取得。
@@ -38,6 +47,16 @@ class GameProcess
         // $playerHandsはプレイヤー名 => 手札 の連想配列
         $hands = ['playerHands' => $playerHands, 'dealerHand' => $dealerHand];
         return $hands;
+    }
+
+    // バースト判定
+    public function checkBurnOut(int $score): bool {
+        if ($score > 21) {
+            $this->pokerOutput->displayYourLoseMessage();
+            return true;
+        }
+
+
     }
 
     // ディーラーのカード取得
