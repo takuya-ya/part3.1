@@ -25,11 +25,6 @@ class GameProcess
         // 全プレイヤーの初回手札作成。配列はプレイヤー名をキーとする連想配列。
         foreach ($players as $player) {
             $player->drawStartHand();
-            $score = $this->pointCalculator->calculatePoint($player->getHand());
-            // バースト判定　バーストであれば、trueを受け取る
-            if($this->checkBurnOut($score)) {
-                continue;
-            };
             $playerHands[$player->playerName] = $player->getHand();
         }
 
@@ -67,9 +62,10 @@ class GameProcess
         // 現在のスコアを出力
         $this->pokerOutput->displayDealerScore($dealerScore);
         // バーストしていた場合はゲーム終了
-        if ($dealerScore > 21) {
-            return $this->pokerOutput->displayPlayerWinMessage();
-        }
+                // バースト判定　バーストであれば、trueを受け取る
+        //  if($this->checkBurnOut($score)) {
+        //     continue;
+        // };
         echo PHP_EOL;
         return $dealerScore;
     }
