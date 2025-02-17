@@ -43,14 +43,14 @@ class GameProcess
     // バースト判定
     public function checkBurnOut(int $score): bool {
         if ($score > 21) {
-            $this->pokerOutput->displayYourLoseMessage();
+            $this->pokerOutput->displayDealerBurstMessage();
             return true;
         }
         return false;
     }
 
     // ディーラーのカード取得
-    public function addDealerCard(array $hands): int|string
+    public function addDealerCard(array $hands): int
     {
         // ディーラーのスコア計算　
         $dealerScore = $this->pointCalculator->calculatePoint($hands['dealerHand']);
@@ -59,14 +59,6 @@ class GameProcess
 
         // 追加カードを取得
         $dealerScore = $this->dealerTurn($hands['dealerHand'], $dealerScore);
-        // 現在のスコアを出力
-        $this->pokerOutput->displayDealerScore($dealerScore);
-        // バーストしていた場合はゲーム終了
-                // バースト判定　バーストであれば、trueを受け取る
-        //  if($this->checkBurnOut($score)) {
-        //     continue;
-        // };
-        echo PHP_EOL;
         return $dealerScore;
     }
 

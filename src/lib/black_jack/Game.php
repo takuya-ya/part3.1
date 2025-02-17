@@ -41,6 +41,15 @@ class Game
 
         // ディーラーのカード追加処理
         $dealerScore = $this->gameProcess->addDealerCard($hands);
+
+        // バースト判定　バーストであれば、trueを受け取る
+        $isBurnOut = $this->gameProcess->checkBurnOut($dealerScore);
+        if($isBurnOut) {
+             // 現在のスコアを出力
+        $this->pokerOutput->displayDealerScore($dealerScore);
+        echo PHP_EOL;
+        ;
+        }
         if ($dealerScore === 'あなたの勝ちです。') {
             echo "$dealerScore" . PHP_EOL;
             return 'ブラックジャックを終了します。' . PHP_EOL;
