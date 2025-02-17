@@ -42,7 +42,7 @@ class GameProcessTest extends TestCase
         parent::tearDown();
     }
 
-    public function testDrawStartHands()
+    public function testSetUpHands()
     {
         $expectedPlayer = ['H1', 'D3'];
         $expectedDealer = ['K1', 'K2'];

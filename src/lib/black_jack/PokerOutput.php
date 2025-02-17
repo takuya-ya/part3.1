@@ -40,6 +40,11 @@ class PokerOutput
         echo "あなたの勝ちです。";
     }
 
+    public function displayDealerBurstMessage(): void
+    {
+        echo "ディーラーがバーストしました。あなたの勝ちです。";
+    }
+
     public function displayYourLoseMessage(): void
     {
         echo "あなたの負けです。";
