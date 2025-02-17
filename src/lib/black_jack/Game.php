@@ -5,6 +5,7 @@ namespace BlackJack;
 use BlackJack\Deck;
 use BlackJack\Dealer;
 use BlackJack\PointCalculator;
+use BlackJack\PokerOutput;
 use BlackJack\GameProcess;
 
 class Game
@@ -15,6 +16,7 @@ class Game
         public Deck $deck,
         public GameProcess $gameProcess,
         public PointCalculator $pointCalculator,
+        public PokerOutput $pokerOutPut,
         public PlayerFactory $playerFactory,
         public array $playerNames
     ) {
@@ -41,15 +43,12 @@ class Game
 
         // ディーラーのカード追加処理
         $dealerScore = $this->gameProcess->addDealerCard($hands);
-
-        // バースト判定　バーストであれば、trueを受け取る
-        $isBurnOut = $this->gameProcess->checkBurnOut($dealerScore);
-        if($isBurnOut) {
-             // 現在のスコアを出力
-        $this->pokerOutput->displayDealerScore($dealerScore);
+        $this->gameProcess->processDealerBurnOut($dealerScore);
+        // 現在のスコアを出力
+        $this->pokerOutPut->displayDealerScore($dealerScore);
         echo PHP_EOL;
         ;
-        }
+
         if ($dealerScore === 'あなたの勝ちです。') {
             echo "$dealerScore" . PHP_EOL;
             return 'ブラックジャックを終了します。' . PHP_EOL;
