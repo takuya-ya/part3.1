@@ -42,12 +42,18 @@ class PokerOutput
 
     public function displayDealerBurstMessage(): void
     {
-        echo "ディーラーがバーストしました。あなたの勝ちです。";
+        echo "ディーラーがバーストしました。あなたの勝ちです。" . PHP_EOL;
     }
+
 
     public function displayYourLoseMessage(): void
     {
         echo "あなたの負けです。";
+    }
+
+    public function displayGameEndMessage(): void
+    {
+        echo "ゲームを終了します。" . PHP_EOL;
     }
 
     public function displayPlayerScore(int $playerScore): void
