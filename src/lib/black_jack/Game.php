@@ -37,29 +37,30 @@ class Game
 
         // プレイヤーの追加カード取得。バーストの場合は文字列の為、変数名をScoreでなくResultに設定
         $playerResult = $this->gameProcess->addYourTurn($hands['playerHands'][$yourName],   $playerInstances[$yourName]);
-        if ($this->isGameOrver($playerResult)) {
+        if ($this->isGameOver($playerResult)) {
             return $this->yourLose($playerResult);
         }
 
         // ディーラーのカード追加処理
         $dealerScore = $this->gameProcess->addDealerCard($hands);
-        $this->gameProcess->processDealerBurnOut($dealerScore);
+        // ディーラーがバーンアウトしてないかチェック
+        $isBurnOut = $this->gameProcess->processDealerBurnOut($dealerScore);
+
+        if ($isBurnOut) {
+            $this->pokerOutPut->displayGameEndMessage();
+            exit;
+        }
         // 現在のスコアを出力
         $this->pokerOutPut->displayDealerScore($dealerScore);
         echo PHP_EOL;
         ;
-
-        if ($dealerScore === 'あなたの勝ちです。') {
-            echo "$dealerScore" . PHP_EOL;
-            return 'ブラックジャックを終了します。' . PHP_EOL;
-        }
 
         // 勝敗の判定
         $this->gameProcess->judgeWinner($playerResult, $dealerScore, $this->playerNames);
         return 'ブラックジャックを終了します。' . PHP_EOL;
         }
 
-        private function isGameOrver(string | int $playerResult): bool
+        private function isGameOver(string | int $playerResult): bool
         {
             if($playerResult == 'あなたの負けです。') {
                 return true;

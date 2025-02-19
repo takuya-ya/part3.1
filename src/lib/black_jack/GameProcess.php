@@ -49,15 +49,15 @@ class GameProcess
     }
 
     // バースト時の処理
-    public function processDealerBurnOut(int $dealerScore): void
+    public function processDealerBurnOut(int $dealerScore): bool
     {
         // バースト判定　バーストであれば、trueを受け取る
         $isBurnOut = $this->checkBurnOut($dealerScore);
         if($isBurnOut) {
             $this->pokerOutput->displayDealerBurstMessage();
-            $this->pokerOutput->displayGameEndMessage();
-            return;
+            return true;
         }
+        return false;
     }
 
     // ディーラーのカード取得
