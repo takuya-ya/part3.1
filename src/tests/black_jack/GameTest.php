@@ -43,7 +43,7 @@ class GameTest extends TestCase
         $pokerOutput = new PokerOutput();
         $playerFactory = new PlayerFactory($dealer, $deck, ['takuya', 'toki', 'asuka']);
         $gameProcess = new GameProcess($dealer, $deck, $pointCalculator, $pokerOutput, $this->inputHandle);
-        $game = new Game($dealer, $deck, $gameProcess, $pointCalculator, $playerFactory, ['takuya', 'toki', 'asuka']);
+        $game = new Game($dealer, $deck, $gameProcess, $pointCalculator, $pokerOutput, $playerFactory, ['takuya', 'toki', 'asuka']);
         $this->assertSame('ブラックジャックを終了します。' .PHP_EOL, $game->start());
     }
 }
